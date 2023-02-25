@@ -7,7 +7,6 @@ import {RxHamburgerMenu} from 'react-icons/rx'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useMediaQuery } from 'react-responsive'
 import "swiper/css/scrollbar";
-
 // Import Swiper styles
 import 'swiper/css';
 import { Scrollbar } from 'swiper';
@@ -18,7 +17,7 @@ const Navigation = () => {
         setMounted(true)
     },[])
     const isMobileOrTablet = useMediaQuery({ query: '(max-width: 1024px)' })
-    const dummy = ["Biżuteria", "Diamenty", "Zaręczyny", "Ślub", "Motywy", "Premium", "Zegarki", "Akcesoria"]
+    const dummy = ["Pierścionki", "Kolczyki", "Naszyjniki", "Beads", "Charms", "Zawieszki", "Bransoletki", "Zegarki"]
   return (
     <nav className="p-2 md:p-8 flex flex-col w-full justify-center items-center">
         <div className='flex flex-wrap-reverse md:flex-nowrap items-center justify-around w-full h-30'>

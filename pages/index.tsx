@@ -1,8 +1,10 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Navigation from '../components/Navigation'
+import { fetchCategories } from '../utils/fetchCategories'
 
-const Home: NextPage = () => {
+const Home = ({categories}:Props) => {
+  console.log(categories)
   return (
     <div>
       <Head>
@@ -15,3 +17,12 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+export const getServerSideProps:GetServerSideProps<Props> = async () => {
+  const categories = await fetchCategories()
+  return {
+      props:{
+        categories
+      }
+    }
+}
