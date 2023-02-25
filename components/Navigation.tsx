@@ -11,7 +11,13 @@ import "swiper/css/scrollbar";
 import 'swiper/css';
 import { Scrollbar } from 'swiper';
 
-const Navigation = () => {
+import { urlFor } from '../sanity';
+
+interface NavigationProps {
+    categories: Category[]
+}
+
+const Navigation = ({categories}:NavigationProps) => {
     const [mounted, setMounted ] = useState(false)
     useEffect(() => {
         setMounted(true)
@@ -35,25 +41,35 @@ const Navigation = () => {
                 <BsHandbag className='w-6 h-6'/>
             </div>            
         </div>
-        <div className='w-2/3 flex justify-around items-center border-b-2 border-gray-300 text-xl font-light'>
+        <div className='w-full flex justify-around items-center border-b-2 border-gray-300 text-xl font-light'>
             {
                 mounted ? (
                     isMobileOrTablet ? 
-                    <Swiper
-                    spaceBetween={0}
-                    slidesPerView={4}
-                    centeredSlides={true}
+                    <Swiper spaceBetween={0} slidesPerView={4} centeredSlides={true}
                     scrollbar={{
                         hide: true,
                       }}
                       modules={[Scrollbar]}
                       className="text-center flex justify-center items-center w-full"
-                    
                     >
+
                          {dummy.map((el, i) => <SwiperSlide className='my-2 hover:text-[#ebc470]' key={i}>{el.toUpperCase()}</SwiperSlide>)}
                     </Swiper>
                     :
-                    dummy.map((el, i) => <span className='hover:text-[#ebc470]' key={i}>{el.toUpperCase()}</span>)
+                    categories.map((category, i) => {
+                        return (
+                            <div key={category.id} className="relative flex flex-col items-center justify-center">
+                                <div  className='relative w-20 h-20'>
+                                    <Image className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
+                                </div>
+                                <div className='relative'>
+                                    <span className='h=10 hover:text-[#ebc470] cursor-pointer' key={i}>{category.title.toUpperCase()}</span>                                    
+                                </div>
+                                
+                            </div>
+                            
+                        )
+                    })
                 )
                 :
                 null
