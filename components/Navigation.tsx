@@ -23,7 +23,6 @@ const Navigation = ({categories}:NavigationProps) => {
         setMounted(true)
     },[])
     const isMobileOrTablet = useMediaQuery({ query: '(max-width: 1024px)' })
-    const dummy = ["Pierścionki", "Kolczyki", "Naszyjniki", "Beads", "Charms", "Zawieszki", "Bransoletki", "Zegarki"]
   return (
     <nav className="p-2 md:p-8 flex flex-col w-full justify-center items-center">
         <div className='flex flex-wrap-reverse md:flex-nowrap items-center justify-around w-full h-30'>
@@ -41,11 +40,11 @@ const Navigation = ({categories}:NavigationProps) => {
                 <BsHandbag className='w-6 h-6'/>
             </div>            
         </div>
-        <div className='w-full flex justify-around items-center border-b-2 border-gray-300 text-xl font-light'>
+        <div className='w-full flex justify-around items-center border-b-2 border-gray-300 font-light'>
             {
                 mounted ? (
                     isMobileOrTablet ? 
-                    <Swiper spaceBetween={0} slidesPerView={4} centeredSlides={true}
+                    <Swiper spaceBetween={0} slidesPerView={3} centerInsufficientSlides={true}
                     scrollbar={{
                         hide: true,
                       }}
@@ -53,7 +52,24 @@ const Navigation = ({categories}:NavigationProps) => {
                       className="text-center flex justify-center items-center w-full"
                     >
 
-                         {dummy.map((el, i) => <SwiperSlide className='my-2 hover:text-[#ebc470]' key={i}>{el.toUpperCase()}</SwiperSlide>)}
+                         {
+                            categories.map((category, i) => {
+                                return (
+                                <SwiperSlide className='my-2' key={i}>
+                                    <div key={category.id} className="relative flex flex-col items-center justify-center">
+                                        <div  className='relative w-11 h-11 md:w-14 md:h-14'>
+                                            <Image className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
+                                        </div>
+                                        <div className='relative'>
+                                            <span className='h=10 text-xs md:text-md hover:text-[#ebc470] cursor-pointer' key={i}>{category.title.toUpperCase()}</span>                                    
+                                        </div>
+                                        
+                                    </div>
+                                </SwiperSlide>
+                                    
+                                )
+                            })
+                         }
                     </Swiper>
                     :
                     categories.map((category, i) => {
@@ -63,7 +79,7 @@ const Navigation = ({categories}:NavigationProps) => {
                                     <Image className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
                                 </div>
                                 <div className='relative'>
-                                    <span className='h=10 hover:text-[#ebc470] cursor-pointer' key={i}>{category.title.toUpperCase()}</span>                                    
+                                    <span className='h=10 text-xl hover:text-[#ebc470] cursor-pointer' key={i}>{category.title.toUpperCase()}</span>                                    
                                 </div>
                                 
                             </div>
