@@ -10,7 +10,7 @@ import "swiper/css/scrollbar";
 // Import Swiper styles
 import 'swiper/css';
 import { Scrollbar } from 'swiper';
-
+import DesktopNavDropdown from './DesktopNavDropdown';
 import { urlFor } from '../sanity';
 
 interface NavigationProps {
@@ -19,16 +19,31 @@ interface NavigationProps {
 
 const Navigation = ({categories}:NavigationProps) => {
     const [mounted, setMounted ] = useState(false)
+    const [ dropdown, setDropdown ]= useState("")
+    const [ dropdownActive, setDropdownActive ] = useState(true)
+
     useEffect(() => {
         setMounted(true)
     },[])
     const isMobileOrTablet = useMediaQuery({ query: '(max-width: 1024px)' })
+    
+
+    const showDropdown = (drodpownType:string) => {
+        setDropdown(drodpownType)
+        setDropdownActive(true)
+    }
+
+    const dropdownActivityHandler = (dropdownStatus:boolean) => {
+        setDropdownActive(dropdownStatus)
+        setDropdown("")
+    }
+
   return (
-    <nav className="p-2 md:p-8 flex flex-col w-full justify-center items-center">
+    <nav className="fixed py-2 md:py-8 flex flex-col w-full justify-center items-center">
         <div className='flex flex-wrap-reverse md:flex-nowrap items-center justify-around w-full h-30'>
-            <div className='flex w-full md:w-auto h-7 font-roboto border-2 border-gray-200'>
+            <div className='flex w-full md:w-auto h-7 font-roboto border-2 border-gray-200 mx-5 '>
                 <AiOutlineSearch className='w-4 h-6 cursor-pointer'/>
-                <input placeholder='Szukaj' className='border-0 outline-none'></input>
+                <input placeholder="Szukaj" className='w-full border-0 outline-none bg-[#F1F1F1] md:bg-white'></input>
             </div>
             <div className='block md:hidden'>
                 <RxHamburgerMenu className='w-6 h-5'/>
@@ -40,11 +55,11 @@ const Navigation = ({categories}:NavigationProps) => {
                 <BsHandbag className='w-6 h-6'/>
             </div>            
         </div>
-        <div className='w-full flex justify-around items-center border-b-2 border-gray-300 font-light'>
+        <div className='w-full flex justify-center items-center gap-x-10 border-b-2 border-gray-300 font-light'>
             {
                 mounted ? (
                     isMobileOrTablet ? 
-                    <Swiper spaceBetween={0} slidesPerView={3} centerInsufficientSlides={true}
+                    <Swiper spaceBetween={0} slidesPerView={4} centerInsufficientSlides={true}
                     scrollbar={{
                         hide: true,
                       }}
@@ -61,7 +76,7 @@ const Navigation = ({categories}:NavigationProps) => {
                                             <Image className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
                                         </div>
                                         <div className='relative'>
-                                            <span className='h=10 text-xs md:text-md hover:text-[#ebc470] cursor-pointer' key={i}>{category.title.toUpperCase()}</span>                                    
+                                            <span className='h=10 text-xs md:text-md hover:text-[#ebc470] cursor-pointer' id={category.title} key={i}>{category.title.toUpperCase()}</span>                                    
                                         </div>
                                         
                                     </div>
@@ -75,11 +90,11 @@ const Navigation = ({categories}:NavigationProps) => {
                     categories.map((category, i) => {
                         return (
                             <div key={category.id} className="relative flex flex-col items-center justify-center">
-                                <div  className='relative w-20 h-20'>
+                                <div  className='relative w-14 h-14'>
                                     <Image className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
                                 </div>
                                 <div className='relative'>
-                                    <span className='h=10 text-xl hover:text-[#ebc470] cursor-pointer' key={i}>{category.title.toUpperCase()}</span>                                    
+                                    <span className='h-10 text-md hover:text-[#ebc470] cursor-pointer' id={category.title} key={i} onMouseEnter={() => showDropdown(category.title)}>{category.title.toUpperCase()}</span>                                    
                                 </div>
                                 
                             </div>
@@ -91,6 +106,25 @@ const Navigation = ({categories}:NavigationProps) => {
                 null
             }
         </div>
+        {
+            dropdown.length > 0 && dropdownActive && !isMobileOrTablet ?
+            // jeżeli dropdown został wybrany(stan zmieniony na typ dropdownu && dropdown jest aktywny(zapobiega zamykaniu się go po wyjściu kursora z pola kategori<span>Kategoria</span>) 
+            // && jeżeli urządzenie nie jest urzadzeniem mobilnym(zapobiega otwarciu się elementu na telefonach)
+                (
+                    <>
+                    <DesktopNavDropdown title={dropdown} categories={categories} activityHandler={dropdownActivityHandler}/>
+                    <div className='w-full h-14 flex items-center justify-center bg-[#CCCCCC]'> 
+                        <div className='w-2/3 flex gap-x-10 text-sm'>
+                            <span className='font-bold'>ZOBACZ WSZYSTKO</span>
+                            <span>NOWOŚCI</span>
+                            <span className='text-red-500 font-bold'>PROMOCJE</span>
+                        </div>
+                    </div>
+                    </>
+                ) 
+                
+                : null
+        }
     </nav>
   )
 }
