@@ -111,16 +111,7 @@ const Navigation = ({categories}:NavigationProps) => {
             // jeżeli dropdown został wybrany(stan zmieniony na typ dropdownu && dropdown jest aktywny(zapobiega zamykaniu się go po wyjściu kursora z pola kategori<span>Kategoria</span>) 
             // && jeżeli urządzenie nie jest urzadzeniem mobilnym(zapobiega otwarciu się elementu na telefonach)
                 (
-                    <>
                     <DesktopNavDropdown title={dropdown} categories={categories} activityHandler={dropdownActivityHandler}/>
-                    <div className='w-full h-14 flex items-center justify-center bg-[#CCCCCC]'> 
-                        <div className='w-2/3 flex gap-x-10 text-sm'>
-                            <span className='font-bold'>ZOBACZ WSZYSTKO</span>
-                            <span>NOWOŚCI</span>
-                            <span className='text-red-500 font-bold'>PROMOCJE</span>
-                        </div>
-                    </div>
-                    </>
                 ) 
                 
                 : null

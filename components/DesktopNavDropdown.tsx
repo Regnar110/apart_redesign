@@ -6,10 +6,9 @@ interface Props {
 }
 const DesktopNavDropdown = ({title, activityHandler, categories}:Props) => {
     return (
-
-        <div onMouseLeave={() => activityHandler(false)} className='w-2/3 bg-white flex justify-center items-center flex-col gap-y-7 py-10'>
+        <div onMouseLeave={() => activityHandler(false)} className='w-full bg-white flex justify-center items-center flex-col gap-y-7 py-10'>
             <h1 className='text-2xl'>{title.toUpperCase()}</h1>
-            <div className='w-full flex justify-start items-center flex-row gap-x-20 gap-y-7'>
+            <div className='w-2/3 flex justify-start items-center flex-row gap-x-20 gap-y-7'>
                 {
                     categories.map((category, i) => {
                     return (
@@ -30,6 +29,13 @@ const DesktopNavDropdown = ({title, activityHandler, categories}:Props) => {
                     )
                     })
                 }
+            </div>
+            <div className='w-full h-14 flex items-center justify-center bg-[#CCCCCC]'> 
+                <div className='w-2/3 flex gap-x-10 text-sm'>
+                    <span className='font-bold cursor-pointer'>ZOBACZ WSZYSTKO</span>
+                    <span className='cursor-pointer'>NOWOŚCI</span>
+                    <span className='text-red-500 font-bold cursor-pointer'>PROMOCJE</span>
+                </div>
             </div>
         </div>
     )

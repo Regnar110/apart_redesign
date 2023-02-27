@@ -6,7 +6,7 @@ import { autoFetch } from '../utils/autoFetch'
 const Home = ({categories}:Props) => {
   
   return (
-    <div>
+    <div className='h-[2000px]'>
       <Head>
         <title>Apart redesign</title>
         <link rel="icon" href="/favicon.ico" />
