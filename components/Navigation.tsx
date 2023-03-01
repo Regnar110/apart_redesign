@@ -3,7 +3,6 @@ import Image from 'next/image';
 import apart_logo from '../public/logo.gif'
 import {AiOutlineSearch} from 'react-icons/ai'
 import {BsPerson, BsHeart, BsHandbag} from 'react-icons/bs'
-import {RxHamburgerMenu} from 'react-icons/rx'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useMediaQuery } from 'react-responsive'
 import "swiper/css/scrollbar";
@@ -11,6 +10,7 @@ import "swiper/css/scrollbar";
 import 'swiper/css';
 import { Scrollbar } from 'swiper';
 import DesktopNavDropdown from './DesktopNavDropdown';
+import MobileMenuPanel from './MobileMenuPanel';
 import { urlFor } from '../sanity';
 
 interface NavigationProps {
@@ -19,6 +19,7 @@ interface NavigationProps {
 
 const Navigation = ({categories}:NavigationProps) => {
     const [mounted, setMounted ] = useState(false)
+    const [ mobileMenuPanelStatus, setMobileMenuPanelStatus ] = useState(false)
     const [ dropdown, setDropdown ]= useState("")
     const [ dropdownActive, setDropdownActive ] = useState(true)
 
@@ -38,6 +39,10 @@ const Navigation = ({categories}:NavigationProps) => {
         setDropdown("")
     }
 
+    const showOrHideMobileMenu = (status:boolean) => {
+        setMobileMenuPanelStatus(status)
+    } 
+
   return (
     <nav className="fixed py-2 md:py-8 flex flex-col w-full justify-center items-center">
         <div className='flex flex-wrap-reverse md:flex-nowrap items-center justify-around w-full h-30'>
@@ -46,7 +51,7 @@ const Navigation = ({categories}:NavigationProps) => {
                 <input placeholder="Szukaj" className='w-full border-0 outline-none bg-[#F1F1F1] md:bg-white'></input>
             </div>
             <div className='block md:hidden'>
-                <RxHamburgerMenu className='w-6 h-5'/>
+                <MobileMenuPanel activityHandler={showOrHideMobileMenu} menuStatus={mobileMenuPanelStatus}/>
             </div>
             <Image  src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className="w-24 md:w-40"/>
             <div className='flex gap-x-5'>  
