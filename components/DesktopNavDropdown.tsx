@@ -4,6 +4,7 @@ interface Props {
     activityHandler: (dropdownStatus:boolean) => void
     categories: Category[]
 }
+
 const DesktopNavDropdown = ({title, activityHandler, categories}:Props) => {
     return (
         <div onMouseLeave={() => activityHandler(false)} className='w-full bg-white flex justify-center items-center flex-col gap-y-7 py-10'>
