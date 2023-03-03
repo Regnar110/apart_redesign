@@ -9,7 +9,7 @@ const DesktopNavDropdown = ({title, activityHandler, categories}:Props) => {
     return (
         <div onMouseLeave={() => activityHandler(false)} className='w-full bg-white flex justify-center items-center flex-col gap-y-7 py-10'>
             <h1 className='text-2xl'>{title.toUpperCase()}</h1>
-            <div className='w-2/3 flex justify-start items-center flex-row gap-x-20 gap-y-7'>
+            <div className='xl:w-3/4 w-full flex xl:justify-start justify-center items-center flex-row xl:gap-x-20 gap-x-14 gap-y-7'>
                 {
                     categories.map((category, i) => {
                     return (

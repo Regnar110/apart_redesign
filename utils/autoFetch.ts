@@ -4,8 +4,8 @@ export const autoFetch =  async <ReturnType>(targetAPI:string) => {
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/${targetAPI}`
     );
     const data = await res.json()
-    const categories:ReturnType[] = data.categories
+    const fetchedData:ReturnType = data
 
 
-    return categories;
+    return fetchedData;
 }

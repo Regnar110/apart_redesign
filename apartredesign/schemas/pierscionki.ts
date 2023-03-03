@@ -5,11 +5,17 @@ export default defineType({
     name: "pierscionki",
     title: "Pierscionki",
     type: "document",
+    groups: [
+        {
+            name:'details',
+            title: 'Product Details'            
+        }
+    ],
     fields: [
         defineField({
             name:"title",
             title: "Title",
-            type: "string"
+            type: "string",
         }),
         defineField({
             name: "slug",
@@ -48,42 +54,50 @@ export default defineType({
         defineField({
             name: "nr_wzoru",
             title: "Nr wzoru",
-            type: "string"
+            type: "string",
+            group: "details",
         }),
         defineField({
             name: "marka",
             title: "Marka",
-            type: "string"
+            type: "string",
+            group: "details",
         }),
         defineField({
             name: "kolekcja",
             title: "Kolekcja",
-            type: "string"
+            type: "string",
+            group: "details",
         }),
         defineField({
             name: "kamien",
             title: "Kamień",
-            type: "string"
+            type: "string",
+            group: "details",
         }),
         defineField({
             name: "liczba_diamentow",
             title: "Liczba diamentów",
-            type: "number"
+            type: "number",
+            group: "details",
         }),
         defineField({
             name: "masa_diamentow",
             title: "Masa diamentów",
-            type: "number"
+            type: "number",
+            group: "details",
         }),
         defineField({
             name: "surowiec",
             title: "Surowiec",
-            type: "string"
+            type: "string",
+            group: "details",
         }),
         defineField({
             name: "proba",
             title: "Próba",
-            type: "number"
+            type: "number",
+            group: "details",
         }),
         defineField({
             name: "Opis",

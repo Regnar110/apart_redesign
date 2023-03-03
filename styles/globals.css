@@ -15,4 +15,5 @@
     .inputNoInitialBorder {
         @apply disabled:border-0 enabled:border-0
     }
+
 }

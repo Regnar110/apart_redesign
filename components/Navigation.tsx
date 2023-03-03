@@ -11,6 +11,7 @@ import 'swiper/css';
 import { Scrollbar } from 'swiper';
 import DesktopNavDropdown from './DesktopNavDropdown';
 import MobileMenuPanel from './MobileMenuPanel';
+
 import { urlFor } from '../sanity';
 
 interface NavigationProps {
@@ -28,12 +29,11 @@ const Navigation = ({categories}:NavigationProps) => {
     },[])
     const isMobileOrTablet = useMediaQuery({ query: '(max-width: 1024px)' })
     
-
     const showDropdown = (drodpownType:string) => {
         setDropdown(drodpownType)
         setDropdownActive(true)
+        //REACT REDUCER !
     }
-
     const dropdownActivityHandler = (dropdownStatus:boolean) => {
         setDropdownActive(dropdownStatus)
         setDropdown("")
@@ -45,15 +45,16 @@ const Navigation = ({categories}:NavigationProps) => {
 
   return (
     <nav className="fixed py-2 md:py-8 flex flex-col w-full justify-center items-center">
-        <div className='flex flex-wrap-reverse md:flex-nowrap items-center justify-around w-full h-30'>
-            <div className='flex w-full md:w-auto h-7 font-roboto border-2 border-gray-200 mx-5 '>
+        <div className={`flex ${isMobileOrTablet? "flex-wrap-reverse justify-between px-3": "flex-nowrap justify-around"} items-center w-full h-30`}>
+            <div className={`flex ${isMobileOrTablet? "w-full" : "md:w-auto"} h-7 font-roboto border-2 border-gray-200 mx-5`}>
                 <AiOutlineSearch className='w-4 h-6 cursor-pointer'/>
                 <input placeholder="Szukaj" className='w-full border-0 outline-none bg-[#F1F1F1] md:bg-white'></input>
             </div>
-            <div className='block md:hidden'>
+            <div className={`flex items-center justify-center gap-x-6 ${isMobileOrTablet? "py-4 gap-x-2": "hidden"}`}>
                 <MobileMenuPanel activityHandler={showOrHideMobileMenu} menuStatus={mobileMenuPanelStatus}/>
+                <Image  src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className="w-28 md:w-36"/>
             </div>
-            <Image  src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className="w-24 md:w-40"/>
+            <Image  src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className={`w-24 ${isMobileOrTablet? "hidden":"visible"} md:w-40`}/>
             <div className='flex gap-x-5'>  
                 <BsPerson className='w-6 h-6'/>
                 <BsHeart className='w-6 h-6'/>
@@ -86,7 +87,6 @@ const Navigation = ({categories}:NavigationProps) => {
                                         
                                     </div>
                                 </SwiperSlide>
-                                    
                                 )
                             })
                          }

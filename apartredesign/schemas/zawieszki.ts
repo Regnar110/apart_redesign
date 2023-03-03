@@ -5,6 +5,12 @@ export default defineType({
     name: "zawieszki",
     title: "Zawieszki",
     type: "document",
+    groups: [
+        {
+            name:'details',
+            title: 'Product Details'            
+        }
+    ],
     fields: [
         defineField({
             name:"title",
@@ -48,37 +54,44 @@ export default defineType({
         defineField({
             name: "nr_wzoru",
             title: "Nr wzoru",
-            type: "string"
+            type: "string",
+            group: "details",
         }),
         defineField({
             name: "marka",
             title: "Marka",
-            type: "string"
+            type: "string",
+            group: "details",
         }),
         defineField({
             name: "kolekcja",
             title: "Kolekcja",
-            type: "string"
+            type: "string",
+            group: "details",
         }),
         defineField({
             name: "surowiec",
             title: "Surowiec",
-            type: "string"
+            type: "string",
+            group: "details",
         }),
         defineField({
             name: "proba",
             title: "Próba",
-            type: "number"
+            type: "number",
+            group: "details",
         }),
         defineField({
             name: "dlugosc",
             title: "Długość",
-            type: "number"
+            type: "number",
+            group: "details",
         }),
         defineField({
             name: "srednica",
             title: "Średnica",
-            type: "number"
+            type: "number",
+            group: "details",
         }),
         defineField({
             name: "Opis",
