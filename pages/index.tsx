@@ -1,11 +1,14 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import React from 'react'
+import { useDispatch,  } from 'react-redux'
 import Navigation from '../components/Navigation'
 import { autoFetch } from '../utils/autoFetch'
-import { ProductProvider } from '../contexts/products/ProductsContext'
+import { containInStore } from '../utils/containInStore'
 
-const Home = ({categories, products}:Props) => {
+const Home = ({categories, products }:Props) => {
+  containInStore(useDispatch(), products, "products");
+  containInStore(useDispatch(), products, "products");
+
   return (
     <div className='h-[2000px]'>
       <Head>

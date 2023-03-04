@@ -18,16 +18,16 @@ interface NavigationProps {
     categories: Category[]
 }
 
-const Navigation = ({categories}:NavigationProps) => {
+const Navigation = ({categories }:NavigationProps) => {
     const [mounted, setMounted ] = useState(false)
     const [ mobileMenuPanelStatus, setMobileMenuPanelStatus ] = useState(false)
     const [ dropdown, setDropdown ]= useState("")
     const [ dropdownActive, setDropdownActive ] = useState(true)
-
+    const isMobileOrTablet = useMediaQuery({ query: '(max-width: 1024px)' })
     useEffect(() => {
         setMounted(true)
     },[])
-    const isMobileOrTablet = useMediaQuery({ query: '(max-width: 1024px)' })
+    
     
     const showDropdown = (drodpownType:string) => {
         setDropdown(drodpownType)
@@ -41,9 +41,10 @@ const Navigation = ({categories}:NavigationProps) => {
 
     const showOrHideMobileMenu = (status:boolean) => {
         setMobileMenuPanelStatus(status)
+        console.log(mobileMenuPanelStatus)
     } 
 
-  return (
+  return mounted? ( // mounted jest po to żeby react-responsive działał bez wywalania błędu Warning: Prop `className` did not match. co oznacza że classname na serverze i po stronie klienta się różnią co psuje layout
     <nav className="fixed py-2 md:py-8 flex flex-col w-full justify-center items-center">
         <div className={`flex ${isMobileOrTablet? "flex-wrap-reverse justify-between px-3": "flex-nowrap justify-around"} items-center w-full h-30`}>
             <div className={`flex ${isMobileOrTablet? "w-full" : "md:w-auto"} h-7 font-roboto border-2 border-gray-200 mx-5`}>
@@ -52,9 +53,9 @@ const Navigation = ({categories}:NavigationProps) => {
             </div>
             <div className={`flex items-center justify-center gap-x-6 ${isMobileOrTablet? "py-4 gap-x-2": "hidden"}`}>
                 <MobileMenuPanel activityHandler={showOrHideMobileMenu} menuStatus={mobileMenuPanelStatus}/>
-                <Image  src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className="w-28 md:w-36"/>
+                <Image priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className="w-28 md:w-36"/>
             </div>
-            <Image  src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className={`w-24 ${isMobileOrTablet? "hidden":"visible"} md:w-40`}/>
+            <Image priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className={`w-24 ${isMobileOrTablet? "hidden":"visible"} md:w-40`}/>
             <div className='flex gap-x-5'>  
                 <BsPerson className='w-6 h-6'/>
                 <BsHeart className='w-6 h-6'/>
@@ -63,52 +64,48 @@ const Navigation = ({categories}:NavigationProps) => {
         </div>
         <div className='w-full flex justify-center items-center gap-x-10 border-b-2 border-gray-300 font-light'>
             {
-                mounted ? (
-                    isMobileOrTablet ? 
-                    <Swiper spaceBetween={0} slidesPerView={4} centerInsufficientSlides={true}
-                    scrollbar={{
-                        hide: true,
-                      }}
-                      modules={[Scrollbar]}
-                      className="text-center flex justify-center items-center w-full"
-                    >
+                isMobileOrTablet ? 
+                <Swiper spaceBetween={0} slidesPerView={4} centerInsufficientSlides={true}
+                scrollbar={{
+                    hide: true,
+                    }}
+                    modules={[Scrollbar]}
+                    className="text-center flex justify-center items-center w-full"
+                >
 
-                         {
-                            categories.map((category, i) => {
-                                return (
-                                <SwiperSlide className='my-2' key={i}>
-                                    <div key={category.id} className="relative flex flex-col items-center justify-center">
-                                        <div  className='relative w-11 h-11 md:w-14 md:h-14'>
-                                            <Image className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
-                                        </div>
-                                        <div className='relative'>
-                                            <span className='h=10 text-xs md:text-md hover:text-[#ebc470] cursor-pointer' id={category.title} key={i}>{category.title.toUpperCase()}</span>                                    
-                                        </div>
-                                        
+                        {
+                        categories.map((category, i) => {
+                            return (
+                            <SwiperSlide className='my-2' key={i}>
+                                <div key={category.id} className="relative flex flex-col items-center justify-center">
+                                    <div  className='relative w-11 h-11 md:w-14 md:h-14'>
+                                        <Image className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
                                     </div>
-                                </SwiperSlide>
-                                )
-                            })
-                         }
-                    </Swiper>
-                    :
-                    categories.map((category, i) => {
-                        return (
-                            <div key={category.id} className="relative flex flex-col items-center justify-center">
-                                <div  className='relative w-14 h-14'>
-                                    <Image className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
+                                    <div className='relative'>
+                                        <span className='h=10 text-xs md:text-md hover:text-[#ebc470] cursor-pointer' id={category.title} key={i}>{category.title.toUpperCase()}</span>                                    
+                                    </div>
+                                    
                                 </div>
-                                <div className='relative'>
-                                    <span className='h-10 text-md hover:text-[#ebc470] cursor-pointer' id={category.title} key={i} onMouseEnter={() => showDropdown(category.title)}>{category.title.toUpperCase()}</span>                                    
-                                </div>
-                                
+                            </SwiperSlide>
+                            )
+                        })
+                        }
+                </Swiper>
+                :
+                categories.map((category, i) => {
+                    return (
+                        <div key={i} className="relative flex flex-col items-center justify-center">
+                            <div  className='relative w-14 h-14'>
+                                <Image sizes='big' className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
+                            </div>
+                            <div className='relative'>
+                                <span className='h-10 text-md hover:text-[#ebc470] cursor-pointer' id={category.title} key={i} onMouseEnter={() => showDropdown(category.title)}>{category.title.toUpperCase()}</span>                                    
                             </div>
                             
-                        )
-                    })
-                )
-                :
-                null
+                        </div>
+                        
+                    )
+                })
             }
         </div>
         {
@@ -122,7 +119,7 @@ const Navigation = ({categories}:NavigationProps) => {
                 : null
         }
     </nav>
-  )
+  ): null;
 }
 
 export default Navigation;
