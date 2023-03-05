@@ -42,7 +42,7 @@ const MobileMenuPanel = ({activityHandler, menuStatus}: Props) => {
                           {
                             el[1].map(el =>{
                               return (
-                                <Link key={el._id} href="/" className='text-[12px] py-3 pr-5'>{el.title}</Link>
+                                <Link key={el._id} href={`product/${el.category._ref}/${el._id}`} className='text-[12px] py-3 pr-5'>{el.title}</Link>
                               )
                             })
                           }

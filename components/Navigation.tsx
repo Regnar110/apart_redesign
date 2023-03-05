@@ -15,19 +15,24 @@ import MobileMenuPanel from './MobileMenuPanel';
 import { urlFor } from '../sanity';
 import ReactDOM from 'react-dom';
 import Router from 'next/router';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
-interface NavigationProps {
-    categories: Category[]
-}
 
-const Navigation = ({categories }:NavigationProps) => {
+const Navigation = () => {
+    const categories = useSelector((state:RootState):Category[] =>{
+        return state.categories as Category[]
+    })
+
     const [mounted, setMounted ] = useState(false)
+    const [ isNavFixed, setIsNavFixed ] = useState(false)
     const [ mobileMenuPanelStatus, setMobileMenuPanelStatus ] = useState(false)
     const [ dropdown, setDropdown ]= useState("")
     const [ dropdownActive, setDropdownActive ] = useState(true)
     const isMobileOrTablet = useMediaQuery({ query: '(max-width: 1024px)' })
     useEffect(() => {
-        setMounted(true)
+        setMounted(true) // pomocniczno - umożliwia działanie react-responsive
+        window.addEventListener('scroll', () => window.scrollY >= 185 ? setIsNavFixed(true): setIsNavFixed(false))
     },[])
     
     
@@ -58,9 +63,8 @@ const Navigation = ({categories }:NavigationProps) => {
     } 
 
     useEffect(() => console.log("mount nav"),[])
-
   return mounted? ( // mounted jest po to żeby react-responsive działał bez wywalania błędu Warning: Prop `className` did not match. co oznacza że classname na serverze i po stronie klienta się różnią co psuje layout
-    <nav className="fixed py-2 md:py-8 flex flex-col w-full justify-center items-center">
+    <nav className={`${isNavFixed ? 'fixed': 'sticky' } py-2 md:py-8 flex flex-col w-full justify-center items-center`}>
         <div className={`flex ${isMobileOrTablet? "flex-wrap-reverse justify-between px-3": "flex-nowrap justify-around"} items-center w-full h-30`}>
             <div className={`flex ${isMobileOrTablet? "w-full" : "md:w-auto"} h-7 font-roboto border-2 border-gray-200 mx-5`}>
                 <AiOutlineSearch className='w-4 h-6 cursor-pointer'/>
@@ -92,7 +96,7 @@ const Navigation = ({categories }:NavigationProps) => {
                         categories.map((category, i) => {
                             return (
                             <SwiperSlide className='my-2' key={i}>
-                                <div key={category._id} onClick={() => Router.push({pathname:`/category/${category._id}`})} className="relative flex flex-col items-center justify-center">
+                                <div key={category!._id} onClick={() => Router.push({pathname:`/category/${category._id}`})} className="relative flex flex-col items-center justify-center">
                                     <div  className='relative w-11 h-11 md:w-14 md:h-14'>
                                         <Image sizes='(min-width: 1024px) 44px' className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
                                     </div>
@@ -118,7 +122,6 @@ const Navigation = ({categories }:NavigationProps) => {
                             </div>
                             
                         </div>
-                        
                     )
                 })
             }

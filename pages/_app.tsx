@@ -6,11 +6,15 @@ import { autoFetch } from '../utils/autoFetch'
 import App from 'next/app'
 import { fetchProducts } from '../redux/slices/productsSlice'
 import { useEffect } from 'react'
+import { fetchCategories } from '../redux/slices/categoriesSlice'
 
 
 function MyApp({ Component, pageProps }: AppProps) {
   const {dispatch} = store
-  useEffect(() => {dispatch(fetchProducts(pageProps.initialReduxState))},[])
+  useEffect(() => {
+    dispatch(fetchProducts({...pageProps.initialReduxState.products}))
+    dispatch(fetchCategories(pageProps.initialReduxState.categories.categories))
+  },[])
    //inicjalizacja pooczątkowego stanu store aplikacji przy montowaniu się komponentu.
    // Bez użycia useEffect pojawi się dużo błędów!!
 
@@ -31,10 +35,11 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   //appContext to obiekt zawierający m.in nasze pageProps, które są potem przekazywane dalej do komponentów dzieci MyApp
   //initialise redux store on server side
   let products = await autoFetch<ProductList>("getProducts")
+  const categories = await autoFetch<Category[]>("getCategories")
   appProps.pageProps = {
     ...appProps.pageProps,
     store,
-    initialReduxState: {...products}
+    initialReduxState: { products, categories }
   };
 
   return appProps;

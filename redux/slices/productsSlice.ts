@@ -23,12 +23,14 @@ export default productsSlice.reducer
 
 export const categorizedProducts = (state:RootState, _ref:string) => {
     const data = Object.entries(state.products).filter(el => {
-        console.log(el[1][0]._id, _ref)
         return el[1][0].category._ref === _ref
     })
     return data
 }
 
-export const selectedProduct = ((state:RootState, _id:string) => {
-    return _id
+export const selectedProduct = ((state:RootState, _id:string, category_ref:string) => {
+    const targetedCategory = categorizedProducts(state, category_ref)
+    return targetedCategory.map(el => {
+        return el[1].filter(el => el._id === _id)
+    })
 })

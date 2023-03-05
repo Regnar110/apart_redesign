@@ -20,9 +20,8 @@ const DesktopNavDropdown = ({title, activityHandler }:Props) => {
                                  <h2 className='text-md text-black font-bold'>{el[0].toUpperCase()}</h2>
                                  {
                                     el[1].map((el,i) => {
-                                        // console.log(el) products href
                                         return i<6? (
-                                            <Link className='py-1 hover text-[12px] cursor-pointer hover:text-[#d6ac52]' href={'/'}>{el.title}</Link>
+                                            <Link className='py-1 hover text-[12px] cursor-pointer hover:text-[#d6ac52]' key={el._id} href={`product/${el.category._ref}/${el._id}`}>{el.title}</Link>
                                         ):
                                         null
                                     })

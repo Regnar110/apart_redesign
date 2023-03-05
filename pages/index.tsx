@@ -1,14 +1,9 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useSelector,  } from 'react-redux'
 import Navigation from '../components/Navigation'
-import { RootState } from '../redux/store'
 import { autoFetch } from '../utils/autoFetch'
-import { containInStore } from '../utils/containInStore'
 
-const Home = ({categories }:Props) => {
-  const prods = useSelector((state:RootState) => state)
-  console.log(prods)
+const Home = () => {
   return (
     <div className='h-[2000px]'>
       <Head>
@@ -16,7 +11,7 @@ const Home = ({categories }:Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* <ProductProvider> */}
-        <Navigation categories={categories.categories}/>
+        <Navigation/>
       {/* </ProductProvider> */}
       
     </div>
