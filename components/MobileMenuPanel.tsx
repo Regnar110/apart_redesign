@@ -12,7 +12,6 @@ interface Props {
 
 const MobileMenuPanel = ({activityHandler, menuStatus}: Props) => {
   const {products} = useSelector((state:RootState) => state)
-
   const [revealedContentId, setRevealedContentId] = useState('')
   const revealContent = (id:string) => {
     id === revealedContentId ? setRevealedContentId("") : setRevealedContentId(id)
@@ -53,26 +52,6 @@ const MobileMenuPanel = ({activityHandler, menuStatus}: Props) => {
                     )
                   })
                 }
-                <div 
-                  className='flex justify-between py-3 pr-3 text-[14px] text-[#777]'
-                  onClick={() => revealContent('someId')}
-                  >
-                  <span>BRANSOLETKI</span>
-                  <AiOutlineDown  className='-rotate-90'/>
-                </div>
-                <div id='someId' className={`mm-category-content overflow-hidden w-full transition-all ${revealedContentId === 'someId' ? 'transform h-auto':'h-0'} flex flex-col ml-3 text-[#777] text-[14px] divide-y-2`}>
-                  <span className='py-3'>Pierścionek Deluxe V2</span>
-                  <span className='py-3'>Pierścionek Deluxe V2</span>
-                  <span className='py-3'>Pierścionek Deluxe V2</span>
-                  <span className='py-3'>Pierścionek Deluxe V2</span>
-                  <span className='py-3'>Pierścionek Deluxe V2</span>
-                  <span className='py-3'>Pierścionek Deluxe V2</span>
-                  <span className='py-3'>Pierścionek Deluxe V2</span>
-                  <span className='py-3'>Pierścionek Deluxe V2</span>
-                  <span className='py-3'>Pierścionek Deluxe V2</span>
-                  <span className='py-3'>Pierścionek Deluxe V2</span>
-
-                </div>
               </div>
               <div className='py-3 pr-3 text-[14px] text-[#DC143C] font-semibold'>
                 <span>PROMOCJE</span>
@@ -87,16 +66,6 @@ const MobileMenuPanel = ({activityHandler, menuStatus}: Props) => {
             </div>
           </Menu>
       </div>
-
-      {/* <RxHamburgerMenu onClick={() => activityHandler(!menuStatus)} className='w-6 h-5'/>
-      <div className='mm-panel-wrapper top-0 left-0 absolute w-full flex flex-row'>
-        <div className='mm-content w-11/12 bg-gray-300'>
-            NAVBART
-        </div>
-        <div className='mm-closing-tag w-1/12 text-center cursor-pointer'>
-            <span className='bg-red-400 bg-opacity-25 text-black p-2'>X</span>
-        </div>
-      </div> */}
     </div>
   )
 }

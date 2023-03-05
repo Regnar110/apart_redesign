@@ -13,6 +13,8 @@ import DesktopNavDropdown from './DesktopNavDropdown';
 import MobileMenuPanel from './MobileMenuPanel';
 
 import { urlFor } from '../sanity';
+import ReactDOM from 'react-dom';
+import Router from 'next/router';
 
 interface NavigationProps {
     categories: Category[]
@@ -30,19 +32,32 @@ const Navigation = ({categories }:NavigationProps) => {
     
     
     const showDropdown = (drodpownType:string) => {
-        setDropdown(drodpownType)
-        setDropdownActive(true)
-        //REACT REDUCER !
+        Promise.resolve().then(() => { 
+            ReactDOM.unstable_batchedUpdates(() => {
+                setDropdown(drodpownType)
+                setDropdownActive(true)
+            })
+        })
+
+        //powyżej tworzymy obietnice, która rozwiązuje się po wykonaniu asynchronicznego kodu zmiany stanu w jej ciele.
+        //W środku używamy metody ReactDOM.unstable_batchedUpdates, która grupuje asynchroniczne wywołania funkcji zmiany stanów i rozwiązuje je wszystkie na raz.
+        // Chodzi o to że dzięki temu react jest zmuszany do tego żeby nie re-renderować komponentu przy każdej pojedyńczej zmianie stanu tylko dopiero przy
+        // rozwiązaniu się obietnicy w której zmieniamy grupę stanów.
     }
     const dropdownActivityHandler = (dropdownStatus:boolean) => {
-        setDropdownActive(dropdownStatus)
-        setDropdown("")
+        Promise.resolve().then(() => {
+            ReactDOM.unstable_batchedUpdates(() => {
+                setDropdownActive(dropdownStatus)
+                setDropdown("")                
+            })
+        })
     }
 
     const showOrHideMobileMenu = (status:boolean) => {
         setMobileMenuPanelStatus(status)
-        console.log(mobileMenuPanelStatus)
     } 
+
+    useEffect(() => console.log("mount nav"),[])
 
   return mounted? ( // mounted jest po to żeby react-responsive działał bez wywalania błędu Warning: Prop `className` did not match. co oznacza że classname na serverze i po stronie klienta się różnią co psuje layout
     <nav className="fixed py-2 md:py-8 flex flex-col w-full justify-center items-center">
@@ -77,9 +92,9 @@ const Navigation = ({categories }:NavigationProps) => {
                         categories.map((category, i) => {
                             return (
                             <SwiperSlide className='my-2' key={i}>
-                                <div key={category.id} className="relative flex flex-col items-center justify-center">
+                                <div key={category._id} onClick={() => Router.push({pathname:`/category/${category._id}`})} className="relative flex flex-col items-center justify-center">
                                     <div  className='relative w-11 h-11 md:w-14 md:h-14'>
-                                        <Image className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
+                                        <Image sizes='(min-width: 1024px) 44px' className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
                                     </div>
                                     <div className='relative'>
                                         <span className='h=10 text-xs md:text-md hover:text-[#ebc470] cursor-pointer' id={category.title} key={i}>{category.title.toUpperCase()}</span>                                    
@@ -94,9 +109,9 @@ const Navigation = ({categories }:NavigationProps) => {
                 :
                 categories.map((category, i) => {
                     return (
-                        <div key={i} className="relative flex flex-col items-center justify-center">
+                        <div key={i} onClick={() => Router.push({pathname:`/category/${category._id}`})} className="relative flex flex-col items-center justify-center">
                             <div  className='relative w-14 h-14'>
-                                <Image sizes='big' className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
+                                <Image sizes='(max-width: 1024px) 56px' className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
                             </div>
                             <div className='relative'>
                                 <span className='h-10 text-md hover:text-[#ebc470] cursor-pointer' id={category.title} key={i} onMouseEnter={() => showDropdown(category.title)}>{category.title.toUpperCase()}</span>                                    
@@ -113,7 +128,7 @@ const Navigation = ({categories }:NavigationProps) => {
             // jeżeli dropdown został wybrany(stan zmieniony na typ dropdownu && dropdown jest aktywny(zapobiega zamykaniu się go po wyjściu kursora z pola kategori<span>Kategoria</span>) 
             // && jeżeli urządzenie nie jest urzadzeniem mobilnym(zapobiega otwarciu się elementu na telefonach)
                 (
-                    <DesktopNavDropdown title={dropdown} categories={categories} activityHandler={dropdownActivityHandler}/>
+                    <DesktopNavDropdown title={dropdown} activityHandler={dropdownActivityHandler}/>
                 ) 
                 
                 : null

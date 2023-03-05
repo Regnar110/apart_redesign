@@ -2,13 +2,18 @@ import '../styles/globals.css'
 import type { AppContext, AppProps } from 'next/app'
 import { store } from '../redux/store'
 import { Provider } from 'react-redux'
-import App from 'next/app'
 import { autoFetch } from '../utils/autoFetch'
-import { containInStore } from '../utils/containInStore'
+import App from 'next/app'
 import { fetchProducts } from '../redux/slices/productsSlice'
+import { useEffect } from 'react'
+
 
 function MyApp({ Component, pageProps }: AppProps) {
-  // containInStore<ProductList>(store.dispatch(), pageProps.initialReduxState.products, "products")
+  const {dispatch} = store
+  useEffect(() => {dispatch(fetchProducts(pageProps.initialReduxState))},[])
+   //inicjalizacja pooczątkowego stanu store aplikacji przy montowaniu się komponentu.
+   // Bez użycia useEffect pojawi się dużo błędów!!
+
   return (
   <Provider store={store}>
     <Component {...pageProps} />    
@@ -20,19 +25,20 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 export default MyApp
 
-// MyApp.getInitialProps = async (appContext: AppContext) => { 
-//   const appProps = await App.getInitialProps(appContext);
-//   //powyżej wywołujemy inicjującą funkkcję żeby komponent App był zinstancjonowany z domyslnymi propsami z domyślnego kontekstu jego użycia.
-//   //appContext to obiekt zawierający m.in nasze pageProps, które są potem przekazywane dalej do komponentów dzieci MyApp
-//   //initialise redux store on server side
-//   let products = await autoFetch<ProductList>("getProducts")
-//   appProps.pageProps = {
-//     ...appProps.pageProps,
-//     initialReduxState: {...store.getState(), products},
-//   };
+MyApp.getInitialProps = async (appContext: AppContext) => { 
+  const appProps = await App.getInitialProps(appContext);
+  //powyżej wywołujemy inicjującą funkkcję żeby komponent App był zinstancjonowany z domyslnymi propsami z domyślnego kontekstu jego użycia.
+  //appContext to obiekt zawierający m.in nasze pageProps, które są potem przekazywane dalej do komponentów dzieci MyApp
+  //initialise redux store on server side
+  let products = await autoFetch<ProductList>("getProducts")
+  appProps.pageProps = {
+    ...appProps.pageProps,
+    store,
+    initialReduxState: {...products}
+  };
 
-//   return appProps;
-// };
+  return appProps;
+};
 
 //Powyższa metoda getInitialProps jest metodą statyczną wykonywaną przed wyrenderowaniem komponentu App. Metoda ta służy do jego modyfikacji.
 // Metoda ta w zasadzie służy do nadpisania komponentu APP co pozwala na rozszerzenie zadań które mają być wykonane przed jego wyrenderowaniem.

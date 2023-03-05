@@ -7,7 +7,7 @@ interface Props {
 
 
 interface Category {
-    id:string;
+    _id:string;
     _type: "category"
     image: Image[];
     slug: {

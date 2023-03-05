@@ -5,10 +5,9 @@ import { RootState } from '../redux/store';
 interface Props {
     title:string;
     activityHandler: (dropdownStatus:boolean) => void
-    categories: Category[]
 }
 
-const DesktopNavDropdown = ({title, activityHandler, categories}:Props) => {
+const DesktopNavDropdown = ({title, activityHandler }:Props) => {
     const {products} = useSelector((state:RootState) => state)
     return (
         <div onMouseLeave={() => activityHandler(false)} className='w-full bg-white flex justify-center items-center flex-col gap-y-7 py-10 overflow-visible'>
@@ -21,33 +20,17 @@ const DesktopNavDropdown = ({title, activityHandler, categories}:Props) => {
                                  <h2 className='text-md text-black font-bold'>{el[0].toUpperCase()}</h2>
                                  {
                                     el[1].map((el,i) => {
+                                        // console.log(el) products href
                                         return i<6? (
                                             <Link className='py-1 hover text-[12px] cursor-pointer hover:text-[#d6ac52]' href={'/'}>{el.title}</Link>
                                         ):
                                         null
                                     })
                                  }
+                                 <Link className='w-full text-center text-[14px] text-red-500 border-2' href={`category/${el[1][0].category._ref}`}>More</Link>
                             </div>
                         )
                     })
-                    // categories.map((category, i) => {
-                    // return (
-                    // <div className='flex flex-col' key={i}>
-                    //     <h2 className='text-md text-black font-bold'>{category.title}</h2>
-                    //     <span className='py-1 hover text-sm cursor-pointer hover:text-[#d6ac52]'>Produkt</span>
-                    //     <span className='py-1 hover text-sm cursor-pointer hover:text-[#d6ac52]'>Produkt</span>
-                    //     <span className='py-1 hover text-sm cursor-pointer hover:text-[#d6ac52]'>Produkt</span>
-                    //     <span className='py-1 hover text-sm cursor-pointer hover:text-[#d6ac52]'>Produkt</span>
-                    //     <span className='py-1 hover text-sm cursor-pointer hover:text-[#d6ac52]'>Produkt</span>
-                    //     <span className='py-1 hover text-sm cursor-pointer hover:text-[#d6ac52]'>Produkt</span>
-                    //     <span className='py-1 hover text-sm cursor-pointer hover:text-[#d6ac52]'>Produkt</span>
-                    //     <span className='py-1 hover text-sm cursor-pointer hover:text-[#d6ac52]'>Produkt</span>
-                    //     <span className='py-1 hover text-sm cursor-pointer hover:text-[#d6ac52]'>Produkt</span>
-                    //     <span className='py-1 hover text-sm cursor-pointer hover:text-[#d6ac52]'>Produkt</span>
-                    //     <span className='py-1 hover text-sm cursor-pointer hover:text-[#d6ac52]'>Produkt</span>
-                    // </div>
-                    // )
-                    // })
                 }
             </div>
             <div className='w-full h-14 flex items-center justify-center bg-[#CCCCCC]'> 
