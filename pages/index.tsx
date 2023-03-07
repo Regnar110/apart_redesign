@@ -68,13 +68,13 @@ const Home = () => {
 export default Home
 
 
-export const getServerSideProps:GetServerSideProps<Props> = async () => {
-  const categories = await autoFetch<Category[]>("getCategories") //Category is a reutrn Type and string is API route which we targeting with function
-  let products = await autoFetch<ProductList>("getProducts")
-  return {
-      props:{
-        categories,
-        products
-      }
-    }
-}
+// export const getServerSideProps:GetServerSideProps<Props> = async () => {
+//   const categories = await autoFetch<Category[]>("getCategories") //Category is a reutrn Type and string is API route which we targeting with function
+//   let products = await autoFetch<ProductList>("getProducts")
+//   return {
+//       props:{
+
+//       }
+//     }
+// }
+// Z powyższego nie korzystamy ze względu na to że products i categories są pobierane przed zainicjowaniem komponentu MyApp i w tym komponencie dodawane są do stanu aplikacji
