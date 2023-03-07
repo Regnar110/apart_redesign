@@ -34,3 +34,18 @@ export const selectedProduct = ((state:RootState, _id:string, category_ref:strin
         return el[1].filter(el => el._id === _id)
     })
 })
+
+export const getFourRandomtAmountProducts = ((state:RootState, amount:number) => {
+    let randomizedProducts = [];
+    const productsArrays = Object.entries(state.products)
+    for(let i = 0 ; i < amount; i++) {
+        let randomProductsArray = productsArrays[Math.floor(Math.random() * productsArrays.length)] // operacja asynchroniczna dlatego poniżej sprawdzamy czy istnieje
+        if(randomProductsArray) {
+            let randomProduct = randomProductsArray[1][Math.floor(Math.random() * randomProductsArray.length)]
+            randomizedProducts.push(randomProduct)
+        }
+        // let randomProduct = randomProductsArray[Math.floor(Math.random() * randomProductsArray.length)]
+        // randomizedProducts.push(randomProduct)
+    }
+    return randomizedProducts
+})
