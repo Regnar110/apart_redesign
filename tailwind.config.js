@@ -8,7 +8,8 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      roboto: ["Roboto", "sans-serif"]
+      roboto: ["Roboto", "sans-serif"],
+      playfair:["Playfair Display", "sans-serif"]
     }
   },
   plugins: [],

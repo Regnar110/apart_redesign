@@ -1,34 +1,41 @@
 import _ from 'lodash'
-import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { shallowEqual, useSelector } from 'react-redux'
-import { useMediaQuery } from 'react-responsive'
+import {useSelector } from 'react-redux'
 import MediaQuery from 'react-responsive'
 import CustomTextButton from '../components/button/CustomTextButton'
 import Navigation from '../components/Navigation'
 import { getFourRandomtAmountProducts } from '../redux/slices/productsSlice'
 import { RootState } from '../redux/store'
-import { urlFor } from '../sanity'
-import { autoFetch } from '../utils/autoFetch'
-import Router from 'next/router'
+
+import RandomAmountProducts from '../components/RandomAmountProducts/RandomAmountProducts'
+import ProductPresentation from '../components/ProductsPresentations/ProductPresentation'
+
+//PRODUCT PRESENTATION
+
+import przewodnik_prezentowy_desktop from '../public/landing_images/prezent_idealny/przewodnik_prezentowy_big.jpg'
+import przewodnik_prezentowy_mobile from '../public/landing_images/prezent_idealny/przewodnik_prezentowy_mobile.webp'
+import szkatulki_desktop from '../public/landing_images/prezent_idealny/szkatułki_desktop.jpg';
+import szkatulki_mobile from '../public/landing_images/prezent_idealny/szkatułki_mobile.webp'
+
 
 const Home = () => {
   // const isTabletOrLess = useMediaQuery({ query: '(max-width: 768px)' }) // to uzycie react-responsive powodowało przy zwróceniu true z tego query Re-render kompoonentu!!!!!
-  const randomProducts = useSelector((state:RootState) => getFourRandomtAmountProducts(state, 4))
+  const [isMounted, setIsMounted] = useState(false) // pozwala na uniknięcie Hydration Error. 
   useEffect(() => {
     console.log("HOME MOUNTED")
+    setIsMounted(true)
   },[])
 
-  return randomProducts.length>1 ?(
-    <div className='h-[2000px]'>
+  return isMounted ?// Renderujemy layout kiedy komponent się zamontuje
+    <div className='box-border'>
       <Head>
         <title>Apart redesign</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navigation/>
-      <section className='home-landing w-full'>
+      <section className='home-landing w-full flex flex-col justify-center items-center'>
         <div className='landing-image relative w-full h-auto'>
           <MediaQuery maxWidth={1024}>
             <Image width={2000} height={1000} alt='landing_apart_image' priority style={{objectFit:"contain"}} src={"/../public/landing_images/top-02_mobile.webp"}/>            
@@ -37,33 +44,14 @@ const Home = () => {
             <Image width={2000} height={1000} alt='landing_apart_image' priority style={{objectFit:"contain"}} src={"/../public/landing_images/top_01.jpg"}/>            
           </MediaQuery>
           
-          <CustomTextButton textContent={'KUP PREZENT'} isAbsolute={true} position={"top-[90%] left-[5%] md:top-[75%] md:left-[15%] lg:left-[17%] xl:left-[18.5%]"} hover_color={"bg-[#F39DAA]"}/>
+          <CustomTextButton textContent={'KUP PREZENT'} isAbsolute={true} position={"top-[90%] left-[5%] md:top-[75%] md:left-[15%] lg:left-[17%] xl:left-[18.5%]"} hrefQuery={'/'}/>
         </div>
-        <div className='landing-random-products p-3 flex flex-col justify-center items-center'>
-          <h1 className='font-bold text-black text-[16px] md:text-[17px] lg:text-[22px] text-center'>ZAKOCHAJ SIĘ W PRODUKTACH APART</h1>
-          <div className='rp-wrapper w-12/12 md:w-10/12 grid grid-flow-col grid-rows-2 lg:grid-rows-1 auto-cols-fr gap-5'>
-            {
-              randomProducts.map(el => {
-                return (
-                  <div onClick={() => Router.push(`/product/${el.category._ref}/${el._id}`)} className='relative random-product cursor-pointer flex flex-col items-center justify-center border-1 rounded-md p-2 shadow-md transition-all hover:scale-[1.02]'>
-                    <MediaQuery maxWidth={1024}>
-                      <Image width={250} height={250} style={{objectFit:"contain"}} src={urlFor(el.image[0]).url()} alt={'product_image'} />            
-                    </MediaQuery>
-                    <MediaQuery minWidth={1024}>
-                      <Image width={350} height={350} style={{objectFit:"contain"}} src={urlFor(el.image[0]).url()} alt={'product_image'} />            
-                    </MediaQuery>
-      
-                    <span className='text-center text-[12px] md:text-[14px] lg:text-[16px] m-2'>{el.title.toUpperCase()}</span>
-                    <CustomTextButton textContent='Sprawdź' isArrow={true}/>
-                  </div>
-                )
-              })
-            }
-          </div>
-        </div>
+        <RandomAmountProducts header={"NIESKOŃCZONOŚĆ PRODUKTÓW"} /> 
+        {/* Komponent zwracający Div, który zawiera header i losowe produkty zawarte w randomProducts w systemie grid */}
+        <ProductPresentation products={[[przewodnik_prezentowy_desktop, przewodnik_prezentowy_mobile, "Przewodnik prezentowy", "Przygotowany z myślą o mężczyznach chcących poznać nasze rady i sugestie przed wyborem prezentu na 8 marca."],[szkatulki_desktop, szkatulki_mobile, "Szkatułki", "Idealny - estetyczny oraz praktyczny - upominek dla kobiety kochającej i kolekcjonującej biżuterię oraz zegarki."]]} />
       </section>
     </div>
-  ):null
+  :null
 }
 export default Home
 
