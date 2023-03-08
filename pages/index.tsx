@@ -12,12 +12,20 @@ import { RootState } from '../redux/store'
 import RandomAmountProducts from '../components/RandomAmountProducts/RandomAmountProducts'
 import ProductPresentation from '../components/ProductsPresentations/ProductPresentation'
 
+//BigLandingImageWithButton component image src's:
+
+import firstLandingImage from '../public/landing_images/top_01.jpg'
+import firstLandingImageMobile from '../public/landing_images/top-02_mobile.webp'
+import secondLandingImage from '../public/landing_images/nasze-kolekcje_landing_one_desktop.jpg'
+import secondLandingImageMobile from '../public/landing_images/nasze_kolekcje_landing_TWO.webp'
+
 //PRODUCT PRESENTATION
 
 import przewodnik_prezentowy_desktop from '../public/landing_images/prezent_idealny/przewodnik_prezentowy_big.jpg'
 import przewodnik_prezentowy_mobile from '../public/landing_images/prezent_idealny/przewodnik_prezentowy_mobile.webp'
 import szkatulki_desktop from '../public/landing_images/prezent_idealny/szkatułki_desktop.jpg';
 import szkatulki_mobile from '../public/landing_images/prezent_idealny/szkatułki_mobile.webp'
+import BigLandingImageWithButton from '../components/BigLandingImageWithButton/BigLandingImage'
 
 
 const Home = () => {
@@ -36,19 +44,51 @@ const Home = () => {
       </Head>
       <Navigation/>
       <section className='home-landing w-full flex flex-col justify-center items-center'>
-        <div className='landing-image relative w-full h-auto'>
-          <MediaQuery maxWidth={1024}>
-            <Image width={2000} height={1000} alt='landing_apart_image' priority style={{objectFit:"contain"}} src={"/../public/landing_images/top-02_mobile.webp"}/>            
-          </MediaQuery>
-          <MediaQuery minWidth={1024}>
-            <Image width={2000} height={1000} alt='landing_apart_image' priority style={{objectFit:"contain"}} src={"/../public/landing_images/top_01.jpg"}/>            
-          </MediaQuery>
-          
-          <CustomTextButton textContent={'KUP PREZENT'} isAbsolute={true} position={"top-[90%] left-[5%] md:top-[75%] md:left-[15%] lg:left-[17%] xl:left-[18.5%]"} hrefQuery={'/'}/>
-        </div>
+        <BigLandingImageWithButton 
+          hasTitles={false}
+          maxQueryWidth={1024} 
+          minQueryWidth={1024} 
+          imageWidth={2000} 
+          imageHeight={2000}
+          mobileImageSrc={firstLandingImageMobile}
+          desktopImageSrc={firstLandingImage}
+          buttonTextContent={'KUP PREZENT'}
+          buttonIsAbsolute={true}
+          buttonPosition={"top-[90%] left-[5%] md:top-[75%] md:left-[15%] lg:left-[17%] xl:left-[18.5%]"}
+          buttonHref={'/'} 
+        />
         <RandomAmountProducts header={"NIESKOŃCZONOŚĆ PRODUKTÓW"} /> 
         {/* Komponent zwracający Div, który zawiera header i losowe produkty zawarte w randomProducts w systemie grid */}
         <ProductPresentation products={[[przewodnik_prezentowy_desktop, przewodnik_prezentowy_mobile, "Przewodnik prezentowy", "Przygotowany z myślą o mężczyznach chcących poznać nasze rady i sugestie przed wyborem prezentu na 8 marca."],[szkatulki_desktop, szkatulki_mobile, "Szkatułki", "Idealny - estetyczny oraz praktyczny - upominek dla kobiety kochającej i kolekcjonującej biżuterię oraz zegarki."]]} />
+        <BigLandingImageWithButton 
+          hasTitles={
+            {
+              top_title:"kolekcja w Twoim",
+              bottom_title:"stylu",
+              
+              desktop: {
+                placing:"right",
+                titles_color:"text-black",
+                desktopButtonPosition: "top-[90%] left-[5%] md:top-[100%] lg:left-[72%] xl:left-[74%]"
+              },
+              mobile: {
+                placing:"center",
+                titles_color:"text-white",
+                mobileButtonPosition:"top-[80%] left-[23%] xs:top-[83%] xs:left-[33%] sm:left-[37%] sm:top-[91%] md:top-[93%] md:left-[39%]"
+              }
+            }
+          }
+          maxQueryWidth={1024} 
+          minQueryWidth={1024} 
+          imageWidth={2000} 
+          imageHeight={2000}
+          mobileImageSrc={secondLandingImageMobile}
+          desktopImageSrc={secondLandingImage}
+          buttonTextContent={'POZNAJ KOLEKCJE APART'}
+          buttonIsAbsolute={true}
+          buttonPosition={"top-[90%] left-[5%] md:top-[75%] md:left-[15%] lg:left-[17%] xl:left-[18.5%]"}
+          buttonHref={'/'} 
+        />
       </section>
     </div>
   :null

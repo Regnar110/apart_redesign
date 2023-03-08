@@ -16,4 +16,8 @@
         @apply disabled:border-0 enabled:border-0
     }
 
+    .BigLandingImageMobileTitlesShadow {
+        text-shadow: 0px 2px 4px rgb(0,0,0)
+    }
+
 }
