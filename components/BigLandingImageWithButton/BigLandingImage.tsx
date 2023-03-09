@@ -10,12 +10,14 @@ interface BigLandingImageWithButtonProps {
       desktop: {
         placing: "right" | "left" | "center"
         titles_color: string;
-        desktopButtonPosition: string;
+        desktopButtonPosition?: string;
+        buttonWidth?:string
       }
       mobile: {
         placing: "right" | "left" | "center"
         titles_color: string;
-        mobileButtonPosition: string;
+        mobileButtonPosition?: string;
+        buttonWidth?:string // jest to zastępstwo gdy nie wprowadzimy buttonposition. Pozwala to na wycentrowanie przycisku pod wycentrowanymi titles
       }
 
     }
@@ -28,6 +30,7 @@ interface BigLandingImageWithButtonProps {
     desktopImageSrc: StaticImageData,
     buttonTextContent:string,
     buttonIsAbsolute?:boolean,
+    arrowButton?:boolean
     buttonPosition?:string
     buttonHref?:string
 }
@@ -43,11 +46,12 @@ const BigLandingImageWithButton = (
         desktopImageSrc,
         buttonTextContent,
         buttonIsAbsolute,
+        arrowButton,
         buttonPosition,
         buttonHref,
     }:BigLandingImageWithButtonProps) => {
       const rightPositionStyleQuery = "right-[10%]"
-      const leftPositionStyleQuery = "right-[70%]"
+      const leftPositionStyleQuery = "left-[10%]"
 
   return (
         <div className='landing-image relative w-full h-auto'>
@@ -59,23 +63,23 @@ const BigLandingImageWithButton = (
           </MediaQuery>
           {
             !hasTitles ? 
-            <CustomTextButton textContent={buttonTextContent} isAbsolute={buttonIsAbsolute} position={buttonPosition} hrefQuery={buttonHref ? buttonHref:'/'}/>
+            <CustomTextButton isArrow={arrowButton} textContent={buttonTextContent} isAbsolute={buttonIsAbsolute} position={buttonPosition} hrefQuery={buttonHref ? buttonHref:'/'}/>
             :
             <div className='big_image_titles_conainter absolute top-0 left-0 w-full h-full flex lg:items-center  justify-center'>
               {/* mobileTitle query */}
               <MediaQuery maxWidth={maxQueryWidth}>
-                <div className={`big_image_titles_conainter relative w-full font-playfair ${hasTitles.mobile.titles_color} flex text-center flex-col justify-end`}>
+                <div className={`big_image_titles_conainter relative w-full font-playfair ${hasTitles.mobile.titles_color} flex text-center flex-col justify-end items-center py-6`}>
                   <span className='text-[6.6vw] BigLandingImageMobileTitlesShadow'>{hasTitles.top_title}</span>
                   <span className='text-[14.4vw] BigLandingImageMobileTitlesShadow mb-[80px]'>{hasTitles.bottom_title}</span>
-                  <CustomTextButton textContent={buttonTextContent} isAbsolute={buttonIsAbsolute} position={hasTitles.mobile.mobileButtonPosition} hrefQuery={buttonHref ? buttonHref:'/'} />
+                  <CustomTextButton isArrow={arrowButton} buttonWidth={hasTitles.mobile.buttonWidth} textContent={buttonTextContent} isAbsolute={buttonIsAbsolute} position={hasTitles.mobile.mobileButtonPosition} hrefQuery={buttonHref ? buttonHref:'/'} />
                 </div>           
               </MediaQuery>
               {/* desktop title query */}
               <MediaQuery minWidth={minQueryWidth}>
-                <div className={`big_image_titles_conainter relative w-full font-playfair ${hasTitles.desktop.titles_color} flex text-right flex-col`}>
+                <div className={`big_image_titles_conainter relative w-full font-playfair ${hasTitles.desktop.titles_color} flex ${hasTitles.desktop.placing === "right" ? "text-right" : "text-left"} flex-col`}>
                   <span className={`text-[2.6vw] relative ${hasTitles.desktop.placing === "right" ? rightPositionStyleQuery : leftPositionStyleQuery}`}>{hasTitles.top_title || "Twoj styl teraz"}</span>
                   <span className={`text-[9.4vw] relative ${hasTitles.desktop.placing === "right" ? rightPositionStyleQuery : leftPositionStyleQuery}`}>{hasTitles.bottom_title || "Styl"}</span>
-                  <CustomTextButton textContent={buttonTextContent} isAbsolute={buttonIsAbsolute} position={hasTitles.desktop.desktopButtonPosition} hrefQuery={buttonHref ? buttonHref:'/'} />
+                  <CustomTextButton isArrow={arrowButton} textContent={buttonTextContent} isAbsolute={buttonIsAbsolute} position={hasTitles.desktop.desktopButtonPosition} hrefQuery={buttonHref ? buttonHref:'/'} />
                 </div> 
               </MediaQuery>       
             </div>
