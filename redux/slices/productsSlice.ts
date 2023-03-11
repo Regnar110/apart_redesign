@@ -17,7 +17,7 @@ export const productsSlice = createSlice({
 
 export const { fetchProducts } = productsSlice.actions
 
-export default productsSlice.reducer
+
 
 // SELEKTORY
 
@@ -76,3 +76,5 @@ export const getCategorizedRandomProducts = ((state:RootState, amount:number, pr
     return randomizedProducts
 
 })
+
+export default productsSlice.reducer
