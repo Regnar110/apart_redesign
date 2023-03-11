@@ -58,7 +58,7 @@ const Home = () => {
           buttonPosition={"top-[90%] left-[5%] md:top-[75%] md:left-[15%] lg:left-[17%] xl:left-[18.5%]"}
           buttonHref={'/'} 
         />
-        <RandomAmountProducts header={"NIESKOŃCZONOŚĆ PRODUKTÓW"} /> 
+        <RandomAmountProducts header={"NIESKOŃCZONOŚĆ PRODUKTÓW"} productsCategorySlug={""} /> 
         {/* Komponent zwracający Div, który zawiera header i losowe produkty zawarte w randomProducts w systemie grid */}
         <ProductPresentation products={[[przewodnik_prezentowy_desktop, przewodnik_prezentowy_mobile, "Przewodnik prezentowy", "Przygotowany z myślą o mężczyznach chcących poznać nasze rady i sugestie przed wyborem prezentu na 8 marca."],[szkatulki_desktop, szkatulki_mobile, "Szkatułki", "Idealny - estetyczny oraz praktyczny - upominek dla kobiety kochającej i kolekcjonującej biżuterię oraz zegarki."]]} />
         <h1 className='text-center font-bold text-[4vw] sm:text-[3.1vw] md:text-[2.8vw]  lg:text-[1.8vw] my-7'>NASZE KOLEKCJE</h1>
@@ -121,7 +121,7 @@ const Home = () => {
           buttonPosition={"top-[90%] left-[5%] md:top-[75%] md:left-[15%] lg:left-[17%] xl:left-[18.5%]"}
           buttonHref={'/'} 
         />
-        <RandomAmountProducts header={""} /> 
+        <RandomAmountProducts header={""} productsCategorySlug={""} /> 
         <h1 className='text-center font-bold text-[4vw] sm:text-[3.1vw] md:text-[2.8vw]  lg:text-[1.8vw] my-7'>PIERŚCIONKI ZARĘCZYNOWE</h1>
         <BigLandingImageWithButton 
           hasTitles={
@@ -151,7 +151,7 @@ const Home = () => {
           buttonIsAbsolute={true}
           buttonHref={'/'} 
         />
-        <RandomAmountProducts header={""} /> 
+        <RandomAmountProducts header={""} productsCategorySlug={"pierscionki"} /> 
         <h1 className='text-center font-bold text-[4vw] sm:text-[3.1vw] md:text-[2.8vw]  lg:text-[1.8vw] my-7'>NASZA BIŻUTERIA</h1>
         <BigLandingImageWithButton 
           hasTitles={
