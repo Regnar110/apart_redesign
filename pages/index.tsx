@@ -151,7 +151,7 @@ const Home = () => {
           buttonIsAbsolute={true}
           buttonHref={'/'} 
         />
-        <RandomAmountProducts header={""} /> 
+        <RandomAmountProducts header={""} categorySlug={"pierscionki"} /> 
         <h1 className='text-center font-bold text-[4vw] sm:text-[3.1vw] md:text-[2.8vw]  lg:text-[1.8vw] my-7'>NASZA BIŻUTERIA</h1>
         <BigLandingImageWithButton 
           hasTitles={
