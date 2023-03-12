@@ -35,25 +35,24 @@ export const selectedProduct = ((state:RootState, _id:string, category_ref:strin
     })
 })
 
-export const getFourRandomtAmountProducts = ((state:RootState, amount =4) => {
-    const repeatedProductIds = [] as string[] 
-    let randomizedProducts = [];
-    const productsArrays = Object.entries(state.products)
-    for(let i = 0 ; randomizedProducts.length < amount; i++) {
-        let randomProductsArray = productsArrays[Math.floor(Math.random() * productsArrays.length)] // operacja asynchroniczna dlatego poniżej sprawdzamy czy istnieje
-        if(randomProductsArray) {
-            let randomProduct = randomProductsArray[1][Math.floor(Math.random() * randomProductsArray.length)]
-            if(repeatedProductIds.includes(randomProduct._id)) {// sprawdzamy czy produkt już został wybrany
-                return
+
+    export const getFourRandomtAmountProducts = ((state:RootState, amount = 4) => {
+        const productIds = Object.keys(state.products);
+        const selectedProductIds = new Set<string>(); // towrzy zestaw unikalnych wartości wskazanego typu - tutaj string. Jest to dobre rozwiązanie gdy chcemy tylko "Zerknąć" na unikalne wartości
+        // w tym zestawie. Nie jest to dobra opcja keidy chcemy iterować przez wartośći w zestawie np używając map, filter, reduce lub np include.
+        const selectedProducts: Product[] = [];
+        while (selectedProducts.length < amount && selectedProductIds.size < productIds.length) { // pętla wykonuje się do momentu spełnienia warunków.
+            const randomProductId = productIds[Math.floor(Math.random() * productIds.length)] // np zegarki, biżuteria itd
+            if (!selectedProductIds.has(randomProductId)) {
+                selectedProductIds.add(randomProductId);
+                const randomProduct = state.products[randomProductId][Math.floor(Math.random() * state.products[randomProductId].length)]; // np state.products["zegarki"] lub inne.
+                if (randomProduct) {// sprawdzamy czy random product istnieje
+                    selectedProducts.push(randomProduct);
+                }
             }
-            randomizedProducts.push(randomProduct)
-            repeatedProductIds.push(randomProduct._id)
         }
-        // let randomProduct = randomProductsArray[Math.floor(Math.random() * randomProductsArray.length)]
-        // randomizedProducts.push(randomProduct)
-    }
-    return randomizedProducts
-})
+        return selectedProducts;
+    });
 
 export const getCategorizedRandomProducts = ((state:RootState, amount:number, productsCategorySlug:string) => {
     const categorizedProductArray = Object.entries(state.products).find(el => el[0]===productsCategorySlug) as Product[][]
