@@ -15,7 +15,7 @@ interface RandomAmountProducts {
 const RandomAmountProducts = ({header}:RandomAmountProducts) => {
 // const randomProducts = productsCategorySlug ? useSelector((state:RootState) => getCategorizedRandomProducts(state,4, productsCategorySlug)) as Product[] : useSelector((state:RootState) =>  getFourRandomtAmountProducts(state,4)) as Product[]
 const randomProducts = useSelector((state:RootState) => getFourRandomtAmountProducts(state, 4)) as Product[]
-return (
+return randomProducts ?
     <div className='landing-random-products p-3 flex flex-col justify-center items-center'>
         <h1 className='font-bold text-black text-[16px] md:text-[17px] lg:text-[22px] text-center my-7'>{header}</h1>
         <div className='randomp-wrapper w-12/12 md:w-10/12 grid grid-flow-col grid-rows-2 lg:grid-rows-1 auto-cols-fr gap-5'>
@@ -34,7 +34,7 @@ return (
             }        
         </div>
     </div>
-    )
+    :null
 }
 
 export default RandomAmountProducts
