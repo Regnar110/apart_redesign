@@ -42,6 +42,23 @@ import srebrna_bizuteria_mobile from '../public/FourCardsImages/set_one/srebrna-
 import zlota_bizuteria_desktop from '../public/FourCardsImages/set_one/zlota-bizuteria_desktop.jpg'
 import zlota_bizuteria_mobile from '../public/FourCardsImages/set_one/zlota-bizuteria_mobile.webp'
 
+import kids_desktop from '../public/FourCardsImages/set_two/kids_desktop.jpg'
+import kids_mobile from '../public/FourCardsImages/set_two/kids_mobile.webp'
+import mama_corka_desktop from '../public/FourCardsImages/set_two/mama_corka_desktop.jpg'
+import mama_corka_mobile from '../public/FourCardsImages/set_two/mama_corka_mobile.webp'
+import smartwatche_desktop from '../public/FourCardsImages/set_two/smartwatche_desktop.jpg'
+import smartwatche_mobile from '../public/FourCardsImages/set_two/smartwatche_mobile.webp'
+import teens_desktop from '../public/FourCardsImages/set_two/teens_desktop.jpg'
+import teens_mobile from '../public/FourCardsImages/set_two/teens_mobile.webp'
+
+import chrzest_desktop from '../public/FourCardsImages/set_three/chrzest_desktop.jpg'
+import chrzest_mobile from '../public/FourCardsImages/set_three/chrzest_mobile.webp'
+import narodziny_desktop from '../public/FourCardsImages/set_three/narodziny_desktop.jpg'
+import narodziny_mobile from '../public/FourCardsImages/set_three/narodziny_mobile.webp'
+import slub_desktop from '../public/FourCardsImages/set_three/ślub_desktop.jpg'
+import slub_mobile from '../public/FourCardsImages/set_three/slub_mobile.webp'
+import zareczyny_desktop from '../public/FourCardsImages/set_three/zareczyny_desktop.jpg'
+import zareczyny_mobile from '../public/FourCardsImages/set_three/zaręczyny_mobile.webp'
 
 const Home = () => {
   // const isTabletOrLess = useMediaQuery({ query: '(max-width: 768px)' }) // to uzycie react-responsive powodowało przy zwróceniu true z tego query Re-render kompoonentu!!!!!
@@ -58,7 +75,7 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navigation/>
-      <section className='home-landing w-full flex flex-col justify-center items-center'>
+      <section className='home-landing relative w-full flex flex-col justify-center items-center'>
         <BigLandingImageWithButton 
           maxQueryWidth={1024} 
           minQueryWidth={1025} 
@@ -196,8 +213,6 @@ const Home = () => {
         />
         <FourCards title={
           {
-            topHeader_one:"Czuj to ciągle",
-            topHeader_two: "Z nami",
             bottomText: "Biżuteryjne nowości w klasycznym lub modowym stylu. Wśród premierowych wzorów z pewnością czeka ten, który zachwyci",
             button: true,
             buttonText: "ZOBACZ NOWOŚCI",
@@ -256,27 +271,27 @@ const Home = () => {
         } 
         cards={[
           {
-            desktopImage: bizuteria_srebrna_pozlacane_desktop,
-            mobileImage: bizuteria_srebrna_pozlacane_mobile,
-            subTitle: "Biżuteria srebrna pozłacana",
+            desktopImage: teens_desktop,
+            mobileImage: teens_mobile,
+            subTitle: "Teens dla nastolatek",
             hrefQuery: "/"
           },
           {
-            desktopImage: bizuteria_z_diamentami_desktop,
-            mobileImage: bizuteria_z_diamentami_mobile,
-            subTitle: "Biżuteria z diamentami",
+            desktopImage: kids_desktop,
+            mobileImage: kids_mobile,
+            subTitle: "Biżuteria dla dzieci",
             hrefQuery: "/"
           },
           {
-            desktopImage: srebrna_bizuteria_desktop,
-            mobileImage: srebrna_bizuteria_mobile,
-            subTitle: "Srebrna biżuteria",
+            desktopImage: smartwatche_desktop,
+            mobileImage: smartwatche_mobile,
+            subTitle: "Smartwatche dla dzieci i dorosłych",
             hrefQuery: "/"
           },
           {
-            desktopImage: zlota_bizuteria_desktop,
-            mobileImage: zlota_bizuteria_mobile,
-            subTitle: "Złota biżuteria",
+            desktopImage: mama_corka_desktop,
+            mobileImage: mama_corka_mobile,
+            subTitle: "Biżuteria dla mamy i córki",
             hrefQuery: "/"
           },
         ]}/>
@@ -288,32 +303,32 @@ const Home = () => {
             position: "left",
             button:true,
             buttonText:"ZOBACZ WSZYSTKIE OKAZJE",
-            buttonWidth:"w-[250px]"
+            buttonWidth:"w-[220px]"
           }
         } 
         cards={[
           {
-            desktopImage: bizuteria_srebrna_pozlacane_desktop,
-            mobileImage: bizuteria_srebrna_pozlacane_mobile,
-            subTitle: "Biżuteria srebrna pozłacana",
+            desktopImage: zareczyny_desktop,
+            mobileImage: zareczyny_mobile,
+            subTitle: "Zaręczyny",
             hrefQuery: "/"
           },
           {
-            desktopImage: bizuteria_z_diamentami_desktop,
-            mobileImage: bizuteria_z_diamentami_mobile,
-            subTitle: "Biżuteria z diamentami",
+            desktopImage: slub_desktop,
+            mobileImage: slub_mobile,
+            subTitle: "Biżuteria ślubna",
             hrefQuery: "/"
           },
           {
-            desktopImage: srebrna_bizuteria_desktop,
-            mobileImage: srebrna_bizuteria_mobile,
-            subTitle: "Srebrna biżuteria",
+            desktopImage: narodziny_desktop,
+            mobileImage: narodziny_mobile,
+            subTitle: "Narodziny dziecka",
             hrefQuery: "/"
           },
           {
-            desktopImage: zlota_bizuteria_desktop,
-            mobileImage: zlota_bizuteria_mobile,
-            subTitle: "Złota biżuteria",
+            desktopImage: chrzest_desktop,
+            mobileImage: chrzest_mobile,
+            subTitle: "Chrzest dziecka",
             hrefQuery: "/"
           },
         ]}/>       
