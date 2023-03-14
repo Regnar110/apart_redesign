@@ -15,7 +15,11 @@ interface TextButtonProps {
 const CustomTextButton = ({textContent, isAbsolute, position, isArrow, hrefQuery, buttonWidth}:TextButtonProps) => {
   return isArrow ?
       <div onClick={() => Router.push(hrefQuery)} className={`font-roboto ${isAbsolute ? "absolute":"inline-block"} ${position ? position : null} flex items-center justify-center gap-x-2 border-[1px] border-black text-[13px] font-light bg-white p-2 text-black cursor-pointer hover:bg-black hover:text-white transition-all`}>
-        <Link href={hrefQuery}>{textContent}</Link>
+        {
+          textContent?
+          <Link href={hrefQuery}>{textContent}</Link>
+          :null
+        }
         <AiOutlineArrowRight className='w-4 h-4'/>
       </div>   
       :

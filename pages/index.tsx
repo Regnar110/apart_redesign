@@ -5,6 +5,8 @@ import Navigation from '../components/Navigation'
 
 import RandomAmountProducts from '../components/RandomAmountProducts/RandomAmountProducts'
 import ProductPresentation from '../components/ProductsPresentations/ProductPresentation'
+import LandingHeader from '../components/LandingHeader/LandingHeader'
+import FourCards from '../components/FourCards/FourCards'
 
 //BigLandingImageWithButton component image src's:
 
@@ -28,6 +30,17 @@ import przewodnik_prezentowy_mobile from '../public/landing_images/prezent_ideal
 import szkatulki_desktop from '../public/landing_images/prezent_idealny/szkatułki_desktop.jpg';
 import szkatulki_mobile from '../public/landing_images/prezent_idealny/szkatułki_mobile.webp'
 import BigLandingImageWithButton from '../components/BigLandingImageWithButton/BigLandingImage'
+
+//FOUR CARDS COMPONENT ASSETS
+
+import bizuteria_srebrna_pozlacane_desktop from '../public/FourCardsImages/set_one/bizuteria-srebrna-pozlacane_desktop.jpg'
+import bizuteria_srebrna_pozlacane_mobile from '../public/FourCardsImages/set_one/bizuteria-srebrna-pozlacana_mobile.webp'
+import bizuteria_z_diamentami_desktop from '../public/FourCardsImages/set_one/bizuteria-z-diamentami_desktop.jpg'
+import bizuteria_z_diamentami_mobile from '../public/FourCardsImages/set_one/bizuteria-z-diamentami_mobile.webp'
+import srebrna_bizuteria_desktop from '../public/FourCardsImages/set_one/srebrna-bizuteria_desktop.jpg'
+import srebrna_bizuteria_mobile from '../public/FourCardsImages/set_one/srebrna-bizuteria_mobile.webp'
+import zlota_bizuteria_desktop from '../public/FourCardsImages/set_one/zlota-bizuteria_desktop.jpg'
+import zlota_bizuteria_mobile from '../public/FourCardsImages/set_one/zlota-bizuteria_mobile.webp'
 
 
 const Home = () => {
@@ -61,7 +74,7 @@ const Home = () => {
         <RandomAmountProducts header={"NIESKOŃCZONOŚĆ PRODUKTÓW"} /> 
         {/* Komponent zwracający Div, który zawiera header i losowe produkty zawarte w randomProducts w systemie grid */}
         <ProductPresentation products={[[przewodnik_prezentowy_desktop, przewodnik_prezentowy_mobile, "Przewodnik prezentowy", "Przygotowany z myślą o mężczyznach chcących poznać nasze rady i sugestie przed wyborem prezentu na 8 marca."],[szkatulki_desktop, szkatulki_mobile, "Szkatułki", "Idealny - estetyczny oraz praktyczny - upominek dla kobiety kochającej i kolekcjonującej biżuterię oraz zegarki."]]} />
-        <h1 className='text-center font-bold text-[4vw] sm:text-[3.1vw] md:text-[2.8vw]  lg:text-[1.8vw] my-7'>NASZE KOLEKCJE</h1>
+        <LandingHeader headerContent={'NASZE KOLEKCJE'}/>
         <BigLandingImageWithButton 
           hasTitles={
             {
@@ -91,7 +104,7 @@ const Home = () => {
           buttonPosition={"top-[90%] left-[5%] md:top-[75%] md:left-[15%] lg:left-[17%] xl:left-[18.5%]"}
           buttonHref={'/'} 
         />
-        <h1 className='text-center font-bold text-[4vw] sm:text-[3.1vw] md:text-[2.8vw]  lg:text-[1.8vw] my-7'>BIŻUTERIA Z DIAMENTAMI</h1>
+        <LandingHeader headerContent={'BIŻUTERIA I DIAMENTY'}/>
         <BigLandingImageWithButton 
           hasTitles={
             {
@@ -122,7 +135,7 @@ const Home = () => {
           buttonHref={'/'} 
         />
         <RandomAmountProducts header={""}/> 
-        <h1 className='text-center font-bold text-[4vw] sm:text-[3.1vw] md:text-[2.8vw]  lg:text-[1.8vw] my-7'>PIERŚCIONKI ZARĘCZYNOWE</h1>
+        <LandingHeader headerContent={'PIERŚCIONKI ZARĘCZYNOWE'}/>
         <BigLandingImageWithButton 
           hasTitles={
             {
@@ -152,7 +165,7 @@ const Home = () => {
           buttonHref={'/'} 
         />
         <RandomAmountProducts header={""} categorySlug={"pierscionki"} /> 
-        <h1 className='text-center font-bold text-[4vw] sm:text-[3.1vw] md:text-[2.8vw]  lg:text-[1.8vw] my-7'>NASZA BIŻUTERIA</h1>
+        <LandingHeader headerContent={'NASZA BIŻUTERIA'}/>
         <BigLandingImageWithButton 
           hasTitles={
             {
@@ -181,8 +194,45 @@ const Home = () => {
           buttonIsAbsolute={true}
           buttonHref={'/'} 
         />
+        <FourCards title={
+          {
+            topHeader_one:"Czuj to ciągle",
+            topHeader_two: "Z nami",
+            bottomText: "Biżuteryjne nowości w klasycznym lub modowym stylu. Wśród premierowych wzorów z pewnością czeka ten, który zachwyci",
+            button: true,
+            buttonText: "ZOBACZ NOWOŚCI",
+            buttonWidth: "w-[170px]",
+            position: "right"
+          }
+        } 
+        cards={[
+          {
+            desktopImage: bizuteria_srebrna_pozlacane_desktop,
+            mobileImage: bizuteria_srebrna_pozlacane_mobile,
+            subTitle: "Biżuteria srebrna pozłacana",
+            hrefQuery: "/"
+          },
+          {
+            desktopImage: bizuteria_z_diamentami_desktop,
+            mobileImage: bizuteria_z_diamentami_mobile,
+            subTitle: "Biżuteria z diamentami",
+            hrefQuery: "/"
+          },
+          {
+            desktopImage: srebrna_bizuteria_desktop,
+            mobileImage: srebrna_bizuteria_mobile,
+            subTitle: "Srebrna biżuteria",
+            hrefQuery: "/"
+          },
+          {
+            desktopImage: zlota_bizuteria_desktop,
+            mobileImage: zlota_bizuteria_mobile,
+            subTitle: "Złota biżuteria",
+            hrefQuery: "/"
+          },
+        ]}/>
         <RandomAmountProducts header={"BIŻUTERIA W RÓŻNYCH PRZEDZIAŁACH CENOWYCH"} /> 
-        <h1 className='text-center font-bold text-[4vw] sm:text-[3.1vw] md:text-[2.8vw]  lg:text-[1.8vw] my-7'>BIŻUTERIA I ZEGARKI NIE TYLKO DLA NAJMŁODSZYCH</h1>
+        <LandingHeader headerContent={'BIŻUTERIA I ZEGARKI NIE TYLKO DLA NAJMŁODSZYCH'}/>
         <BigLandingImageWithButton 
           maxQueryWidth={1024} 
           minQueryWidth={1025} 
@@ -196,7 +246,77 @@ const Home = () => {
           buttonHref={'/'}
           buttonPosition={"top-[80%] left-[25%] md:top-[80%] sm:left-[37%] md:left-[42%] lg:left-[75%] xl:left-[70%]"}
         />
-
+        <FourCards title={
+          {
+            topHeader_one:"Dla dziecka",
+            topHeader_two: "i mamy",
+            bottomText: "Wybrane kolekcje zaprojektowane dla dzieci, w których także ich mamy odkrywają biżuterię dla siebie",
+            position: "right"
+          }
+        } 
+        cards={[
+          {
+            desktopImage: bizuteria_srebrna_pozlacane_desktop,
+            mobileImage: bizuteria_srebrna_pozlacane_mobile,
+            subTitle: "Biżuteria srebrna pozłacana",
+            hrefQuery: "/"
+          },
+          {
+            desktopImage: bizuteria_z_diamentami_desktop,
+            mobileImage: bizuteria_z_diamentami_mobile,
+            subTitle: "Biżuteria z diamentami",
+            hrefQuery: "/"
+          },
+          {
+            desktopImage: srebrna_bizuteria_desktop,
+            mobileImage: srebrna_bizuteria_mobile,
+            subTitle: "Srebrna biżuteria",
+            hrefQuery: "/"
+          },
+          {
+            desktopImage: zlota_bizuteria_desktop,
+            mobileImage: zlota_bizuteria_mobile,
+            subTitle: "Złota biżuteria",
+            hrefQuery: "/"
+          },
+        ]}/>
+        <FourCards title={
+          {
+            topHeader_one:"Chwile warte",
+            topHeader_two: "podkreślenia",
+            bottomText: "W życiu są wydarzenia, które wymagają niezwykłej oprawy. Zobacz specjalne kolekcje, stworzone z myślą o zaręczynach, ślubie oraz narodzinach i chrzcie dziecka",
+            position: "left",
+            button:true,
+            buttonText:"ZOBACZ WSZYSTKIE OKAZJE",
+            buttonWidth:"w-[250px]"
+          }
+        } 
+        cards={[
+          {
+            desktopImage: bizuteria_srebrna_pozlacane_desktop,
+            mobileImage: bizuteria_srebrna_pozlacane_mobile,
+            subTitle: "Biżuteria srebrna pozłacana",
+            hrefQuery: "/"
+          },
+          {
+            desktopImage: bizuteria_z_diamentami_desktop,
+            mobileImage: bizuteria_z_diamentami_mobile,
+            subTitle: "Biżuteria z diamentami",
+            hrefQuery: "/"
+          },
+          {
+            desktopImage: srebrna_bizuteria_desktop,
+            mobileImage: srebrna_bizuteria_mobile,
+            subTitle: "Srebrna biżuteria",
+            hrefQuery: "/"
+          },
+          {
+            desktopImage: zlota_bizuteria_desktop,
+            mobileImage: zlota_bizuteria_mobile,
+            subTitle: "Złota biżuteria",
+            hrefQuery: "/"
+          },
+        ]}/>       
       </section>
     </div>
   :null
