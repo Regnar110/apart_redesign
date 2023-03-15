@@ -7,6 +7,7 @@ import RandomAmountProducts from '../components/RandomAmountProducts/RandomAmoun
 import ProductPresentation from '../components/ProductsPresentations/ProductPresentation'
 import LandingHeader from '../components/LandingHeader/LandingHeader'
 import FourCards from '../components/FourCards/FourCards'
+import DoubleBrandsPresentation from '../components/DoubleBrandsPresentation/DoubleBrandsPresentation'
 
 //BigLandingImageWithButton component image src's:
 
@@ -59,6 +60,8 @@ import slub_desktop from '../public/FourCardsImages/set_three/ślub_desktop.jpg'
 import slub_mobile from '../public/FourCardsImages/set_three/slub_mobile.webp'
 import zareczyny_desktop from '../public/FourCardsImages/set_three/zareczyny_desktop.jpg'
 import zareczyny_mobile from '../public/FourCardsImages/set_three/zaręczyny_mobile.webp'
+
+//DOUBLE BRAND
 
 const Home = () => {
   // const isTabletOrLess = useMediaQuery({ query: '(max-width: 768px)' }) // to uzycie react-responsive powodowało przy zwróceniu true z tego query Re-render kompoonentu!!!!!
@@ -331,7 +334,8 @@ const Home = () => {
             subTitle: "Chrzest dziecka",
             hrefQuery: "/"
           },
-        ]}/>       
+        ]}/>
+        <DoubleBrandsPresentation />
       </section>
     </div>
   :null

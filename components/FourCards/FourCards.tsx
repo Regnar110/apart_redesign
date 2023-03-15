@@ -50,23 +50,23 @@ const FourCards = ({title, cards}:Props) => {
         <div className={`card_row flex ${title?.position && title?.position ==="right" ? "flex-row" : "flex-row-reverse"} w-full justify-center items-center gap-x-4`}>
             <>
             {
-                cards.map(el => {
+                cards.map((el,i) => {
                     return(
-                        <div onClick={() => Router.push(el.hrefQuery)} className='card flex flex-col gap-5 justify-around items-center sm:h-[200px] md:h-[340px] lg:h-[370px] xl:h-[460px]'>
+                        <div key={i} onClick={() => Router.push(el.hrefQuery)} className='card flex flex-col gap-5 justify-around items-center sm:h-[200px] md:h-[340px] lg:h-[370px] xl:h-[460px]'>
                             <MediaQuery minWidth={1280}>
-                                <Image src={el.desktopImage} width={190} height={380} style={{objectFit:"contain"}} alt="card_image"/> 
+                                <Image sizes='(min-width:1280px) 190px' src={el.desktopImage} style={{objectFit:"contain", width:"190px", height:"380px"}} alt="card_image"/> 
                                 <h3 className='text-center w-[190px]'>
                                     {el.subTitle}
                                 </h3>
                             </MediaQuery>
                             <MediaQuery minWidth={1024} maxWidth={1280}>
-                                <Image src={el.desktopImage} width={160} height={380} style={{objectFit:"contain"}} alt="card_image"/> 
+                                <Image sizes='(min-width:1024px, maxWidth:1280px) 160px' src={el.desktopImage} style={{objectFit:"contain", width:"160px", height:"380px"}} alt="card_image"/> 
                                 <h3 className='text-center w-[160px]'>
                                     {el.subTitle}
                                 </h3>
                             </MediaQuery>
                             <MediaQuery minWidth={768} maxWidth={1024}>
-                                <Image src={el.desktopImage} width={110} height={380} style={{objectFit:"contain"}} alt="card_image"/> 
+                                <Image sizes='(min-width:768px, maxWidth:1024px) 110px' src={el.desktopImage}  style={{objectFit:"contain", width:"110px", height:"380px"}} alt="card_image"/> 
                                 <h3 className='text-center w-[110px]'>
                                     {el.subTitle}
                                 </h3>
@@ -118,11 +118,11 @@ const FourCards = ({title, cards}:Props) => {
     <MediaQuery maxWidth={767}>
         <div className='mobile_cards w-full h-full relative grid grid-cols-2 grid-rows-2 gap-3 p-4'>
             {
-                cards.map(el => {
+                cards.map((el,i) => {
                     return (
-                        <div onClick={() => Router.push(el.hrefQuery)} className='card w-full h-[80vw] relative flex flex-col gap-5 justify-around items-center'>
+                        <div key={i} onClick={() => Router.push(el.hrefQuery)} className='card w-full h-[80vw] relative flex flex-col gap-5 justify-around items-center'>
                             <div className='w-[100%] h-[100%] m-auto relative'>
-                                <Image fill={true} src={el.mobileImage} style={{objectFit:"cover"}} alt="card_image"/>                         
+                                <Image sizes='(max-width:767px) 100%' fill={true} src={el.mobileImage} style={{objectFit:"cover"}} alt="card_image"/>                         
                             </div>
                             <h3 className='text-center '>
                                {el.subTitle}
