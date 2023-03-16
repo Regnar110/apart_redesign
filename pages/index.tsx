@@ -63,6 +63,15 @@ import zareczyny_mobile from '../public/FourCardsImages/set_three/zaręczyny_mob
 
 //DOUBLE BRAND
 
+import charms_desktop from '../public/DoubleBrands/set_one/charms_desktop.jpg'
+import charms_mobile from '../public/DoubleBrands/set_one/charms_mobile.webp'
+import beads_desktop from '../public/DoubleBrands/set_one/beads_desktop.jpg'
+import beads_mobile from '../public/DoubleBrands/set_one/beads_mobile.webp'
+import piora_desktop from '../public/DoubleBrands/set_two/piora_desktop.jpg'
+import piora_mobile from '../public/DoubleBrands/set_two/piora_mobile.webp'
+import dlugopisy_desktop from '../public/DoubleBrands/set_two/dlugopisy_desktop.jpg'
+import dlugopisy_mobile from '../public/DoubleBrands/set_two/dlugopisy_mobile.webp'
+
 const Home = () => {
   // const isTabletOrLess = useMediaQuery({ query: '(max-width: 768px)' }) // to uzycie react-responsive powodowało przy zwróceniu true z tego query Re-render kompoonentu!!!!!
   const [isMounted, setIsMounted] = useState(false) // pozwala na uniknięcie Hydration Error. 
@@ -298,6 +307,27 @@ const Home = () => {
             hrefQuery: "/"
           },
         ]}/>
+        <DoubleBrandsPresentation
+        button={true}
+        images={[
+          {
+            desktop: piora_desktop,
+            mobile: piora_mobile,
+            description: {
+              header: "Pióra wieczne",
+              text:"Prezent z klasą dla każdego, kto ceni nienaganny styl i prestiż. Wybierz pióro wieczne renomowanych marek, od lat cieszących się uznaniem na rynku"
+            }
+          },
+          {
+            desktop: dlugopisy_desktop,
+            mobile: dlugopisy_mobile,
+            description: {
+              header: "Długopisy",
+              text:"Idealny wybór jako podarunek dla tych, którzy wysoko cenią akcesoria wyróżniające się jakością, potwierdzoną logo uznanego producenta oraz wygodą użytkowania"
+            }
+          }          
+        ]}
+        />
         <FourCards title={
           {
             topHeader_one:"Chwile warte",
@@ -335,7 +365,25 @@ const Home = () => {
             hrefQuery: "/"
           },
         ]}/>
-        <DoubleBrandsPresentation />
+        <DoubleBrandsPresentation
+          button={true}
+          images={[
+            {
+              desktop: charms_desktop,
+              mobile: charms_mobile,
+              description: {
+                header: "Charms Collection"
+              }
+            },
+            {
+              desktop: beads_desktop,
+              mobile: beads_mobile,
+              description: {
+                header: "Beads Collection"
+              }
+            }
+          ]}
+        />
       </section>
     </div>
   :null
