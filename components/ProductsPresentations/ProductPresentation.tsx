@@ -25,7 +25,8 @@ const ProductPresentation = ({products}:ProductPresentation) => {
                         </MediaQuery>
                         <h1 className='font-playfair text-center text-[28px] lg:text-[30px] my-5'>{el[2]}</h1>
                         <p className='md:w-2/3 lg:w-2/3 text-center text-[14px] mb-4'>{el[3]}</p>
-                        <CustomTextButton textContent='' isArrow={true} hrefQuery='/'/>                        
+                        <div className='button_width_setter w-[70px]'><CustomTextButton textContent='' isArrow={true} hrefQuery='/'/></div>
+                                            
                     </div>
 
                 )

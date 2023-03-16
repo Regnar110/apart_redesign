@@ -14,7 +14,7 @@ interface TextButtonProps {
 
 const CustomTextButton = ({textContent, isAbsolute, position, isArrow, hrefQuery, buttonWidth}:TextButtonProps) => {
   return isArrow ?
-      <div onClick={() => Router.push(hrefQuery)} className={`font-roboto ${isAbsolute ? "absolute":"inline-block"} ${position ? position : null} flex items-center justify-center gap-x-2 border-[1px] border-black text-[13px] font-light bg-white p-2 text-black cursor-pointer hover:bg-black hover:text-white transition-all`}>
+      <div onClick={() => Router.push(hrefQuery)} className={`font-roboto ${isAbsolute ? "absolute":"inline-block"} ${position ? position : null} flex items-center justify-center flex-nowrap gap-x-2 border-[1px] border-black text-[13px] xl:text-[15px] 2xl:text-[18px] font-light bg-white p-2 text-black cursor-pointer hover:bg-black hover:text-white transition-all`}>
         {
           textContent?
           <Link href={hrefQuery}>{textContent}</Link>
@@ -23,7 +23,7 @@ const CustomTextButton = ({textContent, isAbsolute, position, isArrow, hrefQuery
         <AiOutlineArrowRight className='w-4 h-4'/>
       </div>   
       :
-      <div className={`font-roboto ${isAbsolute ? "absolute":`${buttonWidth}`} ${position ? position : null} inline-flex items-center justify-center gap-x-2 text-black text-[12px] font-light bg-white p-2 cursor-pointer hover:bg-[#F39DAA] transition-all`}>
+      <div className={`font-roboto ${isAbsolute ? "absolute":`${buttonWidth}`} ${position ? position : "relative"} inline-flex items-center justify-center gap-x-2 text-black text-[12px] xl:text-[14px] 2xl:text-[19px] font-light bg-white p-2 cursor-pointer hover:bg-[#F39DAA] transition-all`}>
         <Link href={hrefQuery}>{textContent}</Link>
         <AiOutlineArrowRight className='w-4 h-4'/>
       </div>      

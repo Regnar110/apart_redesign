@@ -72,7 +72,13 @@ import piora_mobile from '../public/DoubleBrands/set_two/piora_mobile.webp'
 import dlugopisy_desktop from '../public/DoubleBrands/set_two/dlugopisy_desktop.jpg'
 import dlugopisy_mobile from '../public/DoubleBrands/set_two/dlugopisy_mobile.webp'
 import SmallLandingImageWithButton from '../components/SmallLandingImageWithButton/SmallLandingImageWithButton'
+import aztorin from '../public/DoubleBrands/aztorin.jpg'
+import aztorin_logo from '../public/DoubleBrands/aztorin-logo.svg'
+import elixa from '../public/DoubleBrands/elixa.jpg'
+import elixa_logo from '../public/DoubleBrands/elixa-logo.svg'
+
 import Footer from '../components/Footer/Footer'
+import Benefits from '../components/Benefits/Benefits'
 
 const Home = () => {
   // const isTabletOrLess = useMediaQuery({ query: '(max-width: 768px)' }) // to uzycie react-responsive powodowało przy zwróceniu true z tego query Re-render kompoonentu!!!!!
@@ -102,6 +108,8 @@ const Home = () => {
           buttonPosition={"top-[90%] left-[5%] md:top-[75%] md:left-[15%] lg:left-[17%] xl:left-[18.5%]"}
           buttonHref={'/'} 
         />
+        <LandingHeader headerContent='KORZYŚCI KUPOWANIA NA APART.PL' />
+        <Benefits />
         <RandomAmountProducts header={"NIESKOŃCZONOŚĆ PRODUKTÓW"} /> 
         {/* Komponent zwracający Div, który zawiera header i losowe produkty zawarte w randomProducts w systemie grid */}
         <ProductPresentation products={[[przewodnik_prezentowy_desktop, przewodnik_prezentowy_mobile, "Przewodnik prezentowy", "Przygotowany z myślą o mężczyznach chcących poznać nasze rady i sugestie przed wyborem prezentu na 8 marca."],[szkatulki_desktop, szkatulki_mobile, "Szkatułki", "Idealny - estetyczny oraz praktyczny - upominek dla kobiety kochającej i kolekcjonującej biżuterię oraz zegarki."]]} />
@@ -115,7 +123,8 @@ const Home = () => {
               desktop: {
                 placing:"right",
                 titles_color:"text-black",
-                desktopButtonPosition: "top-[90%] left-[5%] md:top-[100%] lg:left-[72%] xl:left-[74%]"
+                desktopButtonPosition: "top-[100%] right-[10%]"
+                // "top-[90%] left-[5%] md:top-[100%] lg:left-[72%] xl:left-[74%]"
               },
               mobile: {
                 placing:"center",
@@ -165,7 +174,7 @@ const Home = () => {
               desktop: {
                 placing:"right",
                 titles_color:"text-black",
-                desktopButtonPosition: "top-[90%] left-[5%] md:top-[100%] lg:left-[72%] xl:left-[74%]"
+                desktopButtonPosition: "top-[100%] right-[10%]"
               },
               mobile: {
                 placing:"center",
@@ -198,7 +207,7 @@ const Home = () => {
               desktop: {
                 placing:"left",
                 titles_color:"text-white",
-                desktopButtonPosition: "top-[90%] left-[5%] md:top-[100%] lg:left-[10%] xl:left-[15%]"
+                desktopButtonPosition: "top-[100%] left-[10%]"
               },
               mobile: {
                 placing:"center",
@@ -228,7 +237,7 @@ const Home = () => {
               desktop: {
                 placing:"right",
                 titles_color:"text-black",
-                desktopButtonPosition: "top-[90%] left-[5%] md:top-[100%] lg:left-[73%] xl:left-[77%]"
+                desktopButtonPosition: "top-[100%] right-[10%]"
               },
               mobile: {
                 placing:"center",
@@ -252,7 +261,7 @@ const Home = () => {
             bottomText: "Biżuteryjne nowości w klasycznym lub modowym stylu. Wśród premierowych wzorów z pewnością czeka ten, który zachwyci",
             button: true,
             buttonText: "ZOBACZ NOWOŚCI",
-            buttonWidth: "w-[170px]",
+            buttonWidth: "w-[170px] 2xl:w-[250px]",
             position: "right"
           }
         } 
@@ -283,6 +292,21 @@ const Home = () => {
           },
         ]}/>
         <RandomAmountProducts header={"BIŻUTERIA W RÓŻNYCH PRZEDZIAŁACH CENOWYCH"} /> 
+        <DoubleBrandsPresentation
+        button={true}
+        images={[
+          {
+            desktop: elixa,
+            mobile: elixa,
+            logo: elixa_logo
+          },
+          {
+            desktop: aztorin,
+            mobile: aztorin,
+            logo: aztorin_logo
+          }          
+        ]}
+        />
         <LandingHeader headerContent={'BIŻUTERIA I ZEGARKI NIE TYLKO DLA NAJMŁODSZYCH'}/>
         <BigLandingImageWithButton 
           maxQueryWidth={1024} 
@@ -360,7 +384,7 @@ const Home = () => {
             position: "left",
             button:true,
             buttonText:"ZOBACZ WSZYSTKIE OKAZJE",
-            buttonWidth:"w-[220px]"
+            buttonWidth:"w-[220px] 2xl:w-[350px]"
           }
         } 
         cards={[

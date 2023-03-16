@@ -48,7 +48,7 @@ const DoubleBrandsPresentation = ({button, buttonText, images}:Props) => {
               {
                 el.logo? 
                 (
-                  <div className='relative my-6 w-[50%]'>
+                  <div className='relative my-6 w-[50%] flex justify-center items-center'>
                     <Image src={el.logo} style={{objectFit:"contain"}} alt="card_brand"/>
                   </div>
                 )
