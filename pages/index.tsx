@@ -71,6 +71,7 @@ import piora_desktop from '../public/DoubleBrands/set_two/piora_desktop.jpg'
 import piora_mobile from '../public/DoubleBrands/set_two/piora_mobile.webp'
 import dlugopisy_desktop from '../public/DoubleBrands/set_two/dlugopisy_desktop.jpg'
 import dlugopisy_mobile from '../public/DoubleBrands/set_two/dlugopisy_mobile.webp'
+import SmallLandingImageWithButton from '../components/SmallLandingImageWithButton/SmallLandingImageWithButton'
 
 const Home = () => {
   // const isTabletOrLess = useMediaQuery({ query: '(max-width: 768px)' }) // to uzycie react-responsive powodowało przy zwróceniu true z tego query Re-render kompoonentu!!!!!
@@ -163,6 +164,8 @@ const Home = () => {
           buttonPosition={"top-[90%] left-[5%] md:top-[75%] md:left-[15%] lg:left-[17%] xl:left-[18.5%]"}
           buttonHref={'/'} 
         />
+        <LandingHeader headerContent='ZŁOTA SZTABKI ORAZ MONETY INWESTYCYJNE'/>
+        <SmallLandingImageWithButton />
         <RandomAmountProducts header={""}/> 
         <LandingHeader headerContent={'PIERŚCIONKI ZARĘCZYNOWE'}/>
         <BigLandingImageWithButton 

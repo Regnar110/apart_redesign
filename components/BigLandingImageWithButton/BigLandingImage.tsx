@@ -54,12 +54,12 @@ const BigLandingImageWithButton = (
       const leftPositionStyleQuery = "left-[10%]"
 
   return (
-        <div className='landing-image relative w-full h-auto'>
+        <div className='landing-image relative h-auto flex justify-center items-center'>
           <MediaQuery maxWidth={maxQueryWidth}>
-            <Image width={imageWidth} height={imageHeight} alt='landing_apart_image' priority style={{objectFit:"contain"}} src={mobileImageSrc}/>            
+            <Image alt='landing_apart_image' priority style={{objectFit:"contain"}} src={mobileImageSrc}/>            
           </MediaQuery>
           <MediaQuery minWidth={minQueryWidth}>
-            <Image width={imageWidth} height={imageHeight} alt='landing_apart_image' priority style={{objectFit:"contain"}} src={desktopImageSrc}/>            
+            <Image alt='landing_apart_image' priority style={{objectFit:"contain"}} src={desktopImageSrc}/>            
           </MediaQuery>
           {
             !hasTitles ? 
