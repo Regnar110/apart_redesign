@@ -77,9 +77,30 @@ import aztorin_logo from '../public/DoubleBrands/aztorin-logo.svg'
 import elixa from '../public/DoubleBrands/elixa.jpg'
 import elixa_logo from '../public/DoubleBrands/elixa-logo.svg'
 
+//MULTIPLE CARDS
+import promoce_bizuteria from '../public/promocje/promocje-bizuteria.jpg'
+import promocje_zegarki from '../public/promocje/promocje-zegarki.jpg'
+import adc from '../public/promocje/adc.jpg'
+import grawer from '../public/okazje/grawer.jpg'
+import upominki_biznesowe from '../public/okazje/upominki-biznesowe.jpg'
+
+import promocje_zegarki_mobile from '../public/promocje/promocje-zegarki-mobile.webp'
+import promocje_bizuteria_mobile from '../public/promocje/promocje-bizuteria-mobile.webp'
+import adc_mobile from '../public/promocje/adc-mobile.webp'
+import grawer_mobile from '../public/okazje/grawer-mobile.webp'
+import upominki_biznesowe_mobile from '../public/okazje/upominki-biznesowe-mobile.webp'
 import Footer from '../components/Footer/Footer'
 import Benefits from '../components/Benefits/Benefits'
-import ThreeCards from '../components/ThreeCards/ThreeCards'
+import MultipleCards from '../components/MultipleCards/MultipleCards'
+import ThreeCardsInOne from '../components/ThreeCardsInOne/ThreeCardsInOne'
+
+//THREE IN ONE CARDS
+import elek_karta from '../public/okazje/elektroniczna-karta-podarunkowa.jpg'
+import elek_karta_mobile from '../public/okazje/elektroniczna-karta-podarunkowa-mobile.webp'
+import dedykacja from '../public/okazje/dedykacja.jpg'
+import dedykacja_mobile from '../public/okazje/dedykacja-mobile.webp'
+import karta_podarunkowa from '../public/okazje/karty-podarunkowe.jpg'
+import karta_podarunkowa_mobile from '../public/okazje/karty-podarunkowe-mobile.webp'
 
 const Home = () => {
   // const isTabletOrLess = useMediaQuery({ query: '(max-width: 768px)' }) // to uzycie react-responsive powodowało przy zwróceniu true z tego query Re-render kompoonentu!!!!!
@@ -196,7 +217,29 @@ const Home = () => {
         <LandingHeader headerContent='ZŁOTA SZTABKI ORAZ MONETY INWESTYCYJNE'/>
         <SmallLandingImageWithButton />
         <LandingHeader headerContent='BIŻUTERIA I ZEGARKI W PROMOCYJNYCH CENACH'/>
-        <ThreeCards />
+        <MultipleCards images={[
+          {
+            desktop:promoce_bizuteria,
+            mobile:promocje_bizuteria_mobile,
+            button:true,
+            buttonText:"SKORZYSTAJ"
+
+          },
+          {
+            desktop:promocje_zegarki,
+            mobile:promocje_zegarki_mobile,
+            button:true,
+            buttonText:"SKORZYSTAJ"
+
+          },
+          {
+            desktop:adc,
+            mobile:adc_mobile,
+            button:true,
+            buttonText:"SKORZYSTAJ"
+
+          },
+        ]} />
         <LandingHeader headerContent='KORZYŚCI KUPOWANIA NA APART.PL' />
         <Benefits />
         <RandomAmountProducts header={""}/> 
@@ -358,6 +401,7 @@ const Home = () => {
             hrefQuery: "/"
           },
         ]}/>
+        <LandingHeader headerContent='PIÓRA WIECZNE ORAZ DŁUGOPISY MARKI WATERMAN I PARKER'/>
         <DoubleBrandsPresentation
         button={true}
         images={[
@@ -379,6 +423,7 @@ const Home = () => {
           }          
         ]}
         />
+        <LandingHeader headerContent='NA SPECJALNE OKAZE'/>
         <FourCards title={
           {
             topHeader_one:"Chwile warte",
@@ -416,7 +461,54 @@ const Home = () => {
             hrefQuery: "/"
           },
         ]}/>
+        <MultipleCards images={[
+          {
+            desktop:grawer,
+            mobile:grawer_mobile,
+            button:true,
+            buttonText:"KUP BIŻUTERIĘ Z GRAWERUNKIEM"
 
+          },
+          {
+            desktop:upominki_biznesowe,
+            mobile:upominki_biznesowe_mobile,
+            button:true,
+            buttonText:"KUP UPOMINKI BIZNESOWE"
+
+          },
+        ]} />
+        <RandomAmountProducts header='BIŻUTERIA WYBRANA DLA CIEBIE'/>
+        <LandingHeader headerContent='KARTY PODARUNKOWE I DEDYKACJE'/>
+        <ThreeCardsInOne 
+          row_1={[
+            {
+              desktop: karta_podarunkowa,
+              mobile: karta_podarunkowa_mobile,
+              header: "Karty Podarunkowe",
+              button: true,
+              buttonText:"KUP KARTĘ",
+              buttonWidth:"w-[140px]"
+            },
+            {
+              desktop: dedykacja,
+              mobile: dedykacja_mobile,
+              header: "Osobista dedykacja",
+              button: true,
+              buttonText:"JAK TO DZIAŁA",
+              buttonWidth:"w-[180px]"
+            },
+          ]}
+          row_2_bigger={
+            {
+              desktop: elek_karta,
+              mobile: elek_karta_mobile,
+              header:"Elektroniczna karta podarunkowa",
+              button:true,
+              buttonText:"KUP KARTĘ",
+              buttonWidth:"w-[140px]"
+            }
+          }
+        />
       </section>
       <Footer />
     </div>
