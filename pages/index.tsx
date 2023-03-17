@@ -79,6 +79,7 @@ import elixa_logo from '../public/DoubleBrands/elixa-logo.svg'
 
 import Footer from '../components/Footer/Footer'
 import Benefits from '../components/Benefits/Benefits'
+import ThreeCards from '../components/ThreeCards/ThreeCards'
 
 const Home = () => {
   // const isTabletOrLess = useMediaQuery({ query: '(max-width: 768px)' }) // to uzycie react-responsive powodowało przy zwróceniu true z tego query Re-render kompoonentu!!!!!
@@ -108,8 +109,6 @@ const Home = () => {
           buttonPosition={"top-[90%] left-[5%] md:top-[75%] md:left-[15%] lg:left-[17%] xl:left-[18.5%]"}
           buttonHref={'/'} 
         />
-        <LandingHeader headerContent='KORZYŚCI KUPOWANIA NA APART.PL' />
-        <Benefits />
         <RandomAmountProducts header={"NIESKOŃCZONOŚĆ PRODUKTÓW"} /> 
         {/* Komponent zwracający Div, który zawiera header i losowe produkty zawarte w randomProducts w systemie grid */}
         <ProductPresentation products={[[przewodnik_prezentowy_desktop, przewodnik_prezentowy_mobile, "Przewodnik prezentowy", "Przygotowany z myślą o mężczyznach chcących poznać nasze rady i sugestie przed wyborem prezentu na 8 marca."],[szkatulki_desktop, szkatulki_mobile, "Szkatułki", "Idealny - estetyczny oraz praktyczny - upominek dla kobiety kochającej i kolekcjonującej biżuterię oraz zegarki."]]} />
@@ -196,6 +195,10 @@ const Home = () => {
         />
         <LandingHeader headerContent='ZŁOTA SZTABKI ORAZ MONETY INWESTYCYJNE'/>
         <SmallLandingImageWithButton />
+        <LandingHeader headerContent='BIŻUTERIA I ZEGARKI W PROMOCYJNYCH CENACH'/>
+        <ThreeCards />
+        <LandingHeader headerContent='KORZYŚCI KUPOWANIA NA APART.PL' />
+        <Benefits />
         <RandomAmountProducts header={""}/> 
         <LandingHeader headerContent={'PIERŚCIONKI ZARĘCZYNOWE'}/>
         <BigLandingImageWithButton
