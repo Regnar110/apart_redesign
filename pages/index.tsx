@@ -101,6 +101,7 @@ import dedykacja from '../public/okazje/dedykacja.jpg'
 import dedykacja_mobile from '../public/okazje/dedykacja-mobile.webp'
 import karta_podarunkowa from '../public/okazje/karty-podarunkowe.jpg'
 import karta_podarunkowa_mobile from '../public/okazje/karty-podarunkowe-mobile.webp'
+import Pajacyk from '../components/Pajacyk/Pajacyk'
 
 const Home = () => {
   // const isTabletOrLess = useMediaQuery({ query: '(max-width: 768px)' }) // to uzycie react-responsive powodowało przy zwróceniu true z tego query Re-render kompoonentu!!!!!
@@ -509,6 +510,8 @@ const Home = () => {
             }
           }
         />
+        <LandingHeader headerContent='DZIAŁANIA CSR' />
+        <Pajacyk />
       </section>
       <Footer />
     </div>
