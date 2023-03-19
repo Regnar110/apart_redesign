@@ -14,7 +14,7 @@ const Inspirations = ({images}:Props) => {
         {
             images.map((el,i) => {
                 return (
-                    <div key={i} className='insp flex flex-col items-center gap-y-4 md:w-auto'>
+                    <div key={i} className='insp cursor-pointer flex flex-col items-center gap-y-4 md:w-auto'>
                         <MediaQuery minWidth={768}>
                             <Image src={el.desktop} style={{objectFit:"contain"}} alt="insipration_card"/>
                         </MediaQuery>
