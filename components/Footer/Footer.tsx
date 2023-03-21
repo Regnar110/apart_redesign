@@ -57,7 +57,7 @@ const Footer = () => {
           <p>Otrzymuj najnowsze oferty</p>
           <small>Zamawiam usługę Newsletter i Wyrażam zgodę <br/> na świadczenie jej na podstawie Regulaminu Usługi Newsletter</small>
           <div className='footer_email_input flex gap-1'>
-            <input placeholder='Podaj adres email' className="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-200" id="inline-email" type="email" value=""/>
+            <input readOnly={true} placeholder='Podaj adres email' className="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-200" id="inline-email" type="email" value=""/>
             <div className='p-3 cursor-pointer bg-[#F4C1C5] hover:bg-[#c7747b] text-[#ae535a] hover:text-white transition-all'>Zapisz się</div>
           </div>
         </div>

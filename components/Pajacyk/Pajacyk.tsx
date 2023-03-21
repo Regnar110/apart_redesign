@@ -1,12 +1,17 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MediaQuery from 'react-responsive'
 import pajacyk from '../../public/csr/pajacyk.jpg'
 import pajacyk_mobile from '../../public/csr/pajacyk_mobile.webp'
 import CustomTextButton from '../button/CustomTextButton'
 
+
 const Pajacyk = () => {
-  return (
+  const [isMounted, setIsMounted] = useState(false) // pozwala na uniknięcie Hydration Error. 
+  useEffect(() => {
+    setIsMounted(true)
+  },[])
+  return isMounted ?
     <div className='csr_pajacyk flex flex-col md:flex-row w-[98%] md:w-[90%] justify-center items-center md:items-start  lg:items-end'>
       <div className='pajacyk_image_container relative flex justify-start items-start'>
         <MediaQuery minWidth={768}>
@@ -21,7 +26,8 @@ const Pajacyk = () => {
         <CustomTextButton hrefQuery='/' textContent='DOWIEDZ SIĘ WIĘCEJ' isArrow={true}/>
       </div>
     </div>
-  )
+  :
+  null
 }
 
 export default Pajacyk
