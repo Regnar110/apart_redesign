@@ -96,7 +96,22 @@ interface ProductList {
 }
 
 
+//LOGIN OR REGISTER TYPES
 
+interface SuccesLoginResponse {
+    _id:string;
+    user_email: string;
+    name:string;
+    surname:string;
+    wishList_productsRef: string[];
+    user_basket: string[]
+}
+
+interface SuccesRegisterResponse {
+    name:string;
+    surname:string;
+    hello_message:string
+}
 
 
 

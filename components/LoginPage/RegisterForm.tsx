@@ -4,11 +4,13 @@ import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
 import React from 'react'
 import { useForm } from 'react-hook-form';
+import { handleLoginOrRegister } from '../../utils/handleLoginOrRegister';
 
 const RegisterForm = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = (data) => {
-        console.log(data); // tutaj po otrzymaniu zwalidowanych danych kontaktujemy się z API i w zależności od tego czy jest to register czy login wykonujemy dane działanie.
+    const onSubmit = async (data) => {
+        const registerResponse = await handleLoginOrRegister<SuccesRegisterResponse>('userRegister')
+        console.log(registerResponse);
     }
     console.log(errors)
 
@@ -71,39 +73,38 @@ const RegisterForm = () => {
                 type="password" 
             />                    
         </div>
-        <div className='data_set w-full flex flex-col justify-center lg:flex-row gap-5'>
-            <div className='name flex justify-center items-end w-full md:w-auto'>
-                <PersonIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                <TextField 
-                    error={errors.register_name?.message ? true : false} 
-                    helperText={`${errors.register_name?.message ? errors.register_name.message:""}`}
-                    {...register("register_name", {
-                        required: "To pole jest wymagane", 
-                        maxLength: {value:100, message:"Imię jest zbyt długie"},
-                    })} 
-                    className='w-[95%] md:w-[250px] lg:w-[380px]' 
-                    id="input-with-sx" 
-                    label="Imię" 
-                    variant="standard" 
-                    type="text" 
-                />                    
-            </div>
-            <div className='surname flex justify-center items-end w-full md:w-auto'>
-                <TextField 
-                    error={errors.register_surname?.message ? true : false} 
-                    helperText={`${errors.register_surname?.message ? errors.register_surname.message:""}`}
-                    {...register("register_surname", {
-                        required: "To pole jest wymagane", 
-                        maxLength: {value: 100, message:"Nazwisko jest zbyt długie"}
-                    })} 
-                    className='w-[95%] md:w-[250px] lg:w-[380px]' 
-                    id="input-with-sx" 
-                    label="Nazwisko" 
-                    variant="standard" 
-                    type="text" 
-                />                    
-            </div>                    
+        <div className='name flex justify-center items-end w-full md:w-auto'>
+            <PersonIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+            <TextField 
+                error={errors.register_name?.message ? true : false} 
+                helperText={`${errors.register_name?.message ? errors.register_name.message:""}`}
+                {...register("register_name", {
+                    required: "To pole jest wymagane", 
+                    maxLength: {value:100, message:"Imię jest zbyt długie"},
+                })} 
+                className='w-[95%] md:w-[250px] lg:w-[380px]' 
+                id="input-with-sx" 
+                label="Imię" 
+                variant="standard" 
+                type="text" 
+            />                    
         </div>
+        <div className='surname flex justify-center items-end w-full md:w-auto'>
+            <PersonIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+            <TextField 
+                error={errors.register_surname?.message ? true : false} 
+                helperText={`${errors.register_surname?.message ? errors.register_surname.message:""}`}
+                {...register("register_surname", {
+                    required: "To pole jest wymagane", 
+                    maxLength: {value: 100, message:"Nazwisko jest zbyt długie"}
+                })} 
+                className='w-[95%] md:w-[250px] lg:w-[380px]' 
+                id="input-with-sx" 
+                label="Nazwisko" 
+                variant="standard" 
+                type="text" 
+            />                    
+        </div>                    
         <Button type='submit' className='w-[95%] md:w-[250px] lg:w-[380px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' variant="contained">Zarejestruj się</Button>
     </form>
   )

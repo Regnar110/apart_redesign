@@ -3,11 +3,16 @@ import { TextField, Button } from '@mui/material'
 import LockIcon from '@mui/icons-material/Lock';
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
+import { handleLoginOrRegister } from '../../utils/handleLoginOrRegister';
 
 const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
-    console.log(errors)
+    const onSubmit = async (data) => {
+        console.log(data)
+        const loginResponse = await handleLoginOrRegister<SuccesLoginResponse>(`userLogin`)
+        console.log("dane to:")
+        console.log(loginResponse);
+    }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='login_subsection flex w-full md:w-auto flex-col items-center gap-y-5'>
         <h2 className='text-center text-[22px] font-light'>Mam już konto</h2>
