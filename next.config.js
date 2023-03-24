@@ -4,4 +4,7 @@ module.exports = {
   images: {
     domains: ['cdn.sanity.io'],
   },
+  env: {
+    ATLAS_URI: 'mongodb+srv://mateuszwrycza3:587188Ab@cluster0.ttuiuub.mongodb.net/?retryWrites=true&w=majority',
+  },
 }

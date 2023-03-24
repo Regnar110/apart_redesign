@@ -98,13 +98,25 @@ interface ProductList {
 
 //LOGIN OR REGISTER TYPES
 
-interface SuccesLoginResponse {
+interface SuccessLoginData { // interfejs określający dane przekazywane z komponentu do funkcji ganleLoginOrRegister
+    login_email:string;
+    login_password:string;
+}
+
+interface SuccesLoginResponse { // Interfejs określający dane zwracany z udanego logowania - dane z mongoDb
     _id:string;
     user_email: string;
     name:string;
     surname:string;
     wishList_productsRef: string[];
     user_basket: string[]
+}
+
+interface SuccesRegisterData { // j/w
+    register_email:string;
+    register_password:string;
+    register_name:string;
+    register_surname:string;
 }
 
 interface SuccesRegisterResponse {

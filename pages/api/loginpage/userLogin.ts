@@ -1,10 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import mongoose from 'mongoose'
-import { ObjectId } from 'mongodb';
-    type LoginReqBody = {
-        login_email:string;
-        login_password: string;
-      }
+import clientPromise from '../../../utils/connectMongo'
 
       
 const handler = async (
@@ -12,25 +7,18 @@ const handler = async (
         req: NextApiRequest,
         res: NextApiResponse<SuccesLoginResponse>
       ) => {
-        await mongoose.connect(`${process.env.ATLAS_URI}`)
-        const userSchema = new mongoose.Schema({
-          _id: ObjectId,
-          user_email: String,
-          password: String,
-          user_name: String,
-          user_surname:String,
-          wishList_productsRef: Array,
-          user_basket:Array
-        })
-        
-        const body = req.body as LoginReqBody
-        res.json({
-            _id:"jakieśid",
-            user_email:body.login_email,
-            name:"Mateusz",
-            surname:"Wrycza",
-            wishList_productsRef: ["sdasdasd","dwadwadwa"],
-            user_basket: ["asdasd","productid"]
-        })
+        const client = await clientPromise;
+        const db = client.db("registered_users")
+        const user1 = await db.collection("user").findOne()
+        const body = req.body as SuccessLoginData
+        res.json(req.body)
+        // res.json({
+        //     _id:"jakieśid",
+        //     user_email:body.login_email,
+        //     name:"Mateusz",
+        //     surname:"Wrycza",
+        //     wishList_productsRef: ["sdasdasd","dwadwadwa"],
+        //     user_basket: ["asdasd","productid"]
+        // })
       }
 export default handler
