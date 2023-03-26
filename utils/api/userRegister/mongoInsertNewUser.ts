@@ -40,9 +40,7 @@ export const mongoInsertNewUser:Props = async (db, register_email, hashed_passwo
             is_error: true,
             is_userExist:false,
             error_message:"Status 500: userRegister mongoInsertNewUser ROUTE UTILITY CATCH BLOCK ERROR",
-            name:"",
-            surname:"",
-            response_message: "Coś poszło nie tak. Nie można zarejestrować użytkownika. Skontaktuj się z centrum pomocy abyu uzyskać pomoc"
+            response_message: "Coś poszło nie tak. Nie można zarejestrować użytkownika. Skontaktuj się z centrum pomocy aby uzyskać pomoc"
           })
     }
 }

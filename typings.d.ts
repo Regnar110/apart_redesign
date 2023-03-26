@@ -1,3 +1,4 @@
+
 interface Props {
     categories: {
         categories: Category[];
@@ -103,13 +104,16 @@ interface SuccessLoginData { // interfejs określający dane przekazywane z komp
     login_password:string;
 }
 
-interface SuccesLoginResponse { // Interfejs określający dane zwracany z udanego logowania - dane z mongoDb
-    _id:string;
-    user_email: string;
-    name:string;
-    surname:string;
-    wishList_productsRef: string[];
-    user_basket: string[]
+interface LoginResponse { // Interfejs określający dane zwracany z udanego logowania - dane z mongoDb
+    is_error?: boolean;
+    is_userExist?:boolean;
+    error_message?:string
+    _id?:string;
+    user_email?: string;
+    name?:string;
+    surname?:string;
+    wishList_productsRef?: string[];
+    user_basket?: string[]
 }
 
 interface SuccesRegisterData { // j/w
@@ -123,9 +127,9 @@ interface RegisterResponse {
     is_error: boolean;
     is_userExist?:boolean,
     error_message?: string;
-    name:string;
-    surname:string;
-    response_message:string
+    name?:string;
+    surname?:string;
+    response_message?:string
 }
 
 

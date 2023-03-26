@@ -35,8 +35,6 @@ const handler = async (
           res.status(500).json({
             is_error: true,
             error_message:"Status 500: userRegister ROUTE CATCH BLOCK ERROR",
-            name:"",
-            surname:"",
             response_message: "Coś poszło nie tak. Skontaktuj się z nami żeby uzyskać pomoc."
           })
         }
