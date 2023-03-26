@@ -11,7 +11,7 @@ const handler = async (
         const db = client.db("registered_users")
         const user1 = await db.collection("user").findOne()
         const body = req.body as SuccessLoginData
-        res.json(req.body)
+        res.json(user1)
         // res.json({
         //     _id:"jakieśid",
         //     user_email:body.login_email,

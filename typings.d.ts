@@ -119,10 +119,13 @@ interface SuccesRegisterData { // j/w
     register_surname:string;
 }
 
-interface SuccesRegisterResponse {
+interface RegisterResponse {
+    is_error: boolean;
+    is_userExist?:boolean,
+    error_message?: string;
     name:string;
     surname:string;
-    hello_message:string
+    response_message:string
 }
 
 

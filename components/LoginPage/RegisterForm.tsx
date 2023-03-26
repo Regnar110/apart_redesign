@@ -10,8 +10,7 @@ const RegisterForm = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
         delete data["register_repeat_password"] // usuwamy wartość, którea była jedynie potrzebna do walidacji inputu
-        console.log(data)
-        const registerResponse = await handleLoginOrRegister<SuccesRegisterResponse>('userRegister', data)
+        const registerResponse = await handleLoginOrRegister<RegisterResponse>('userRegister', data)
         console.log(registerResponse);
     }
     console.log(errors)
