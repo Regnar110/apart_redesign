@@ -30,7 +30,7 @@ export const mongoInsertNewUser:Props = async (db, register_email, hashed_passwo
               is_userExist: false,
               name: register_name,
               surname: register_surname,
-              response_message:"Dziękujemy za rejestrację w naszym serwisie!"
+              response_message:"Dziękujemy za rejestrację w naszym serwisie. Może zalogować się za pomocą e-mail i hasła."
             })
           } else {
             throw new Error()

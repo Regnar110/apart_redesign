@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
-
 import Footer from '../components/Footer/Footer'
 import Navigation from '../components/Navigation'
 import Pajacyk from '../components/Pajacyk/Pajacyk';

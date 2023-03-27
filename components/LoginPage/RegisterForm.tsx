@@ -1,20 +1,17 @@
 import { AccountCircle } from '@mui/icons-material'
 import { TextField, Button } from '@mui/material'
 import LockIcon from '@mui/icons-material/Lock';
-import ErrorIcon from '@mui/icons-material/Error';
-import FlagIcon from '@mui/icons-material/Flag';
 import PersonIcon from '@mui/icons-material/Person';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { handleLoginOrRegister } from '../../utils/handleLoginOrRegister';
-import toast, {Toaster}  from 'react-hot-toast';
 
 interface Props {
     notifyAction(toastNotofication:string, httpStatusCode:number):void
 }
 
 const RegisterForm = ({notifyAction}:Props) => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, reset, formState: { errors, isSubmitSuccessful } } = useForm();
     const onSubmit = async (data) => {
         delete data["register_repeat_password"] // usuwamy wartość, którea była jedynie potrzebna do walidacji inputu
         const registerResponse = await handleLoginOrRegister<RegisterResponse>('userRegister', data)
@@ -24,10 +21,9 @@ const RegisterForm = ({notifyAction}:Props) => {
             console.error(registerResponse.error_message)
         } else {
             notifyAction(registerResponse.response_message as string, 200)
+            reset();
         }
     }
-    console.log(errors)
-
   return (
     <form  onSubmit={handleSubmit((data) => onSubmit(data))} className='register_subsection flex w-full md:w-auto flex-col items-center gap-y-5'>
         <h2 className='text-center text-[22px] font-light'>Załóż nowe konto w esklepie i Apart Diamond Club</h2>
@@ -119,7 +115,6 @@ const RegisterForm = ({notifyAction}:Props) => {
             />                    
         </div>                    
         <Button type='submit' className='w-[95%] md:w-[250px] lg:w-[380px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' variant="contained">Zarejestruj się</Button>
-        <Toaster position='bottom-center'/>
     </form>
   )
 }

@@ -1,16 +1,18 @@
 import { AccountCircle } from '@mui/icons-material'
 import { TextField, Button } from '@mui/material'
 import LockIcon from '@mui/icons-material/Lock';
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useForm } from 'react-hook-form';
 import { handleLoginOrRegister } from '../../utils/handleLoginOrRegister';
+import { useRouter } from 'next/router';
 
 interface Props {
     notifyAction(toastNotofication:string, httpStatusCode:number):void
 }
 
 const LoginForm = ({notifyAction}:Props) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm();
+    const {push} = useRouter();
     const onSubmit = async (data:SuccessLoginData) => {
         console.log(data)
         const loginResponse = await handleLoginOrRegister<LoginResponse>(`userLogin`, data)
@@ -18,8 +20,18 @@ const LoginForm = ({notifyAction}:Props) => {
         if(loginResponse.is_error) {
             notifyAction(loginResponse.error_message as string, 500)
             console.error(loginResponse.error_message)
+        } else {
+            push("/")
         }
     }
+
+    useEffect(() => {
+        console.log("effect")
+        if(isSubmitSuccessful === true) {
+            reset()
+        }
+        
+    },[reset, isSubmitSuccessful])
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='login_subsection flex w-full md:w-auto flex-col items-center gap-y-5'>
         <h2 className='text-center text-[22px] font-light'>Mam już konto</h2>

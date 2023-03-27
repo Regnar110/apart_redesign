@@ -76,9 +76,9 @@ const Navigation = () => {
             </div>
             <Image priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className={`w-24 ${isMobileOrTablet? "hidden":"visible"} md:w-40`}/>
             <div className='flex gap-x-5'>  
-                <BsPerson className='w-6 h-6'/>
-                <BsHeart className='w-6 h-6'/>
-                <BsHandbag className='w-6 h-6'/>
+                <BsPerson onClick={() => Router.push({pathname:"/login"})} className='cursor-pointer w-6 h-6'/>
+                <BsHeart className='cursor-pointer w-6 h-6'/>
+                <BsHandbag className='cursor-pointer w-6 h-6'/>
             </div>            
         </div>
         <div className='w-full flex justify-center items-center gap-x-10 border-b-2 border-gray-300 font-light'>
