@@ -1,10 +1,12 @@
 import { AccountCircle } from '@mui/icons-material'
-import { TextField, Button } from '@mui/material'
+import { TextField } from '@mui/material'
 import LockIcon from '@mui/icons-material/Lock';
 import React, {useEffect} from 'react'
 import { useForm } from 'react-hook-form';
 import { handleLoginOrRegister } from '../../utils/handleLoginOrRegister';
 import { useRouter } from 'next/router';
+import { userSignIn } from '../../redux/slices/userSlice';
+import { store } from '../../redux/store';
 
 interface Props {
     notifyAction(toastNotofication:string, httpStatusCode:number):void
@@ -12,6 +14,7 @@ interface Props {
 
 const LoginForm = ({notifyAction}:Props) => {
     const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm();
+    const {dispatch} = store
     const {push} = useRouter();
     const onSubmit = async (data:SuccessLoginData) => {
         console.log(data)
@@ -20,7 +23,8 @@ const LoginForm = ({notifyAction}:Props) => {
         if(loginResponse.is_error) {
             notifyAction(loginResponse.error_message as string, 500)
             console.error(loginResponse.error_message)
-        } else {
+        } else { // jeżeli zwrócony dokument użytkownika nie zawiera pola is_error oznacza, że użytkownik zalogowął się w pełni poprawnie!
+            dispatch(userSignIn({...loginResponse}))
             push("/")
         }
     }
@@ -69,7 +73,7 @@ const LoginForm = ({notifyAction}:Props) => {
                 type="password" 
             />                    
         </div>
-        <Button type='submit' className='w-[95%] md:w-[250px] lg:w-[380px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' variant="contained">Zaloguj się</Button>
+        <button type='submit' className='p-2 rounded-md shadow-lg w-[95%] md:w-[250px] lg:w-[380px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' >Zaloguj się</button>
         <div className='login_note bg-[#FCF8E3] w-[95%] md:w-[370px] p-4 text-[13px]'>
         Jeśli posiadasz aktywną i zarejestrowaną kartę Apart Diamond Club, w celu skorzystania z przysługujących przywilejów i rabatów musisz się zalogować.
         <br/>

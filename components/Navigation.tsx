@@ -3,6 +3,7 @@ import Image from 'next/image';
 import apart_logo from '../public/logo.gif'
 import {AiOutlineSearch} from 'react-icons/ai'
 import {BsPerson, BsHeart, BsHandbag} from 'react-icons/bs'
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useMediaQuery } from 'react-responsive'
 import "swiper/css/scrollbar";
@@ -17,12 +18,16 @@ import ReactDOM from 'react-dom';
 import Router from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { store } from '../redux/store';
+import { userSignOut } from '../redux/slices/userSlice';
 
 
 const Navigation = () => {
+    const {dispatch} = store;
     const categories = useSelector((state:RootState):Category[] =>{
         return state.categories as Category[]
     })
+    const {user} = useSelector((state:RootState) => state)
 
     const [mounted, setMounted ] = useState(false)
     const [ isNavFixed, setIsNavFixed ] = useState(false)
@@ -62,7 +67,6 @@ const Navigation = () => {
         setMobileMenuPanelStatus(status)
     } 
 
-    useEffect(() => console.log("mount nav"),[])
   return mounted? ( // mounted jest po to żeby react-responsive działał bez wywalania błędu Warning: Prop `className` did not match. co oznacza że classname na serverze i po stronie klienta się różnią co psuje layout
     <nav className={`${isNavFixed ? 'fixed': 'sticky' } pt-2 md:pt-8 flex flex-col w-full justify-center items-center z-50 bg-white`}>
         <div className={`flex ${isMobileOrTablet? "flex-wrap-reverse justify-between px-3": "flex-nowrap justify-around"} items-center w-full h-30`}>
@@ -75,8 +79,11 @@ const Navigation = () => {
                 <Image priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className="w-28 md:w-36"/>
             </div>
             <Image priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className={`w-24 ${isMobileOrTablet? "hidden":"visible"} md:w-40`}/>
-            <div className='flex gap-x-5'>  
-                <BsPerson onClick={() => Router.push({pathname:"/login"})} className='cursor-pointer w-6 h-6'/>
+            <div className='flex gap-x-5'>
+                {
+                    user.name ? <div onClick={() => dispatch(userSignOut())} className='flex flex-col items-center cursor-pointer'><LogoutIcon/><span>Wyloguj</span> </div>  : <BsPerson onClick={() => Router.push({pathname:"/login"})} className='cursor-pointer w-6 h-6'/>
+                }  
+                
                 <BsHeart className='cursor-pointer w-6 h-6'/>
                 <BsHandbag className='cursor-pointer w-6 h-6'/>
             </div>            

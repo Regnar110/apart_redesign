@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React from 'react'
 import Footer from '../components/Footer/Footer'
 import Navigation from '../components/Navigation'
 import Pajacyk from '../components/Pajacyk/Pajacyk';
@@ -10,6 +10,9 @@ import RegisterForm from '../components/LoginPage/RegisterForm';
 import ErrorIcon from '@mui/icons-material/Error';
 import FlagIcon from '@mui/icons-material/Flag';
 import toast, {Toaster}  from 'react-hot-toast';
+import { isUserLogged } from '../redux/slices/userSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 const Login = () => {
   const notifyAction= (toastNotification:string, httpStatusCode:number) => {
@@ -22,7 +25,10 @@ const Login = () => {
         <p>{toastNotification}</p>
         </div>
     ))
-}
+  }
+
+  const isUser = useSelector((state:RootState) => isUserLogged(state))
+
   return (
     <div className='login_page box-border overflow-x-hidden'>
     <Head>
@@ -36,8 +42,16 @@ const Login = () => {
             <p className='subtitle text-[14px]'>Zaloguj się lub utwórz nowe konto</p>            
         </div>
         <div className='login_and_register_container flex flex-col justify-around 2xl:justify-center gap-y-14 gap-x-4 2xl:gap-x-48 md:flex-row w-full md:w-[80%] '>
-           <LoginForm notifyAction={notifyAction}/>
-           <RegisterForm notifyAction={notifyAction}/>
+           {
+            isUser ? 
+            <h2>Jesteś już zalogowany</h2>
+            :
+            <>
+            <LoginForm notifyAction={notifyAction}/>
+            <RegisterForm notifyAction={notifyAction}/>            
+            </>
+           }
+
         </div>
         <LandingHeader headerContent='Załóż konto i wspieraj akcje charytatywną!' />
         <Pajacyk />

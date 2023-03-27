@@ -103,13 +103,19 @@ import karta_podarunkowa from '../public/okazje/karty-podarunkowe.jpg'
 import karta_podarunkowa_mobile from '../public/okazje/karty-podarunkowe-mobile.webp'
 import Pajacyk from '../components/Pajacyk/Pajacyk'
 import InspireYourself from '../components/InspireYourself/InspireYourself'
+import { useSelector } from 'react-redux'
+import { RootState } from '../redux/store'
 
 const Home = () => {
   // const isTabletOrLess = useMediaQuery({ query: '(max-width: 768px)' }) // to uzycie react-responsive powodowało przy zwróceniu true z tego query Re-render kompoonentu!!!!!
   const [isMounted, setIsMounted] = useState(false) // pozwala na uniknięcie Hydration Error. 
+  const {user} = useSelector((state:RootState)=>state)
   useEffect(() => {
     console.log("HOME MOUNTED")
     setIsMounted(true)
+    setTimeout(() =>{
+      console.log(user)
+    },5000)
   },[])
 
   return isMounted ?// Renderujemy layout kiedy komponent się zamontuje

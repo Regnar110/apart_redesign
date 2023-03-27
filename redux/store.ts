@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import categoryReducer from "./slices/categoriesSlice";
 import productsReducer from "./slices/productsSlice";
+import userReducer from './slices/userSlice'
 
 // interface PreloadedState {
 //     [0]:ProductList
@@ -37,7 +38,8 @@ import productsReducer from "./slices/productsSlice";
 export const store = configureStore({
     reducer: {
         products: productsReducer,
-        categories: categoryReducer
+        categories: categoryReducer,
+        user: userReducer
     }
 })
 

@@ -1,8 +1,8 @@
 import { AccountCircle } from '@mui/icons-material'
-import { TextField, Button } from '@mui/material'
+import { TextField } from '@mui/material'
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form';
 import { handleLoginOrRegister } from '../../utils/handleLoginOrRegister';
 
@@ -114,7 +114,7 @@ const RegisterForm = ({notifyAction}:Props) => {
                 type="text" 
             />                    
         </div>                    
-        <Button type='submit' className='w-[95%] md:w-[250px] lg:w-[380px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' variant="contained">Zarejestruj się</Button>
+        <button type='submit' className='p-2 rounded-md shadow-lg w-[95%] md:w-[250px] lg:w-[380px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' >Zarejestruj się</button>
     </form>
   )
 }
