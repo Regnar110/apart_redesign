@@ -1,5 +1,5 @@
 import Router from 'next/router'
-import React, { useEffect } from 'react'
+import React from 'react'
 import MediaQuery from 'react-responsive'
 import { urlFor } from '../../sanity'
 import CustomTextButton from '../button/CustomTextButton'

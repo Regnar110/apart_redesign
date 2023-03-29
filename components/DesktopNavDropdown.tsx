@@ -21,7 +21,7 @@ const DesktopNavDropdown = ({title, activityHandler }:Props) => {
                                  {
                                     el[1].map((el,i) => {
                                         return i<6? (
-                                            <Link className='py-1 hover text-[12px] cursor-pointer hover:text-[#d6ac52]' key={el._id} href={`product/${el.category._ref}/${el._id}`}>{el.title}</Link>
+                                            <Link className='py-1 hover text-[12px] cursor-pointer hover:text-[#d6ac52]' key={el._id} href={`/product/${el.category._ref}/${el._id}`}>{el.title}</Link>
                                         ):
                                         null
                                     })

@@ -18,7 +18,7 @@ import ReactDOM from 'react-dom';
 import Router from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { store } from '../redux/store';
+import store from '../redux/store';
 import { userSignOut } from '../redux/slices/userSlice';
 
 
@@ -76,9 +76,9 @@ const Navigation = () => {
             </div>
             <div className={`flex items-center justify-center gap-x-6 ${isMobileOrTablet? "py-4 gap-x-2": "hidden"}`}>
                 <MobileMenuPanel activityHandler={showOrHideMobileMenu} menuStatus={mobileMenuPanelStatus}/>
-                <Image priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className="w-28 md:w-36"/>
+                <Image onClick={() => Router.push("/")} priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className="w-28 md:w-36"/>
             </div>
-            <Image priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className={`w-24 ${isMobileOrTablet? "hidden":"visible"} md:w-40`}/>
+            <Image onClick={() => Router.push("/")} priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className={`cursor-pointer w-24 ${isMobileOrTablet? "hidden":"visible"} md:w-40`}/>
             <div className='flex gap-x-5'>
                 {
                     user.name ? <div onClick={() => dispatch(userSignOut())} className='flex flex-col items-center cursor-pointer'><LogoutIcon/><span>Wyloguj</span> </div>  : <BsPerson onClick={() => Router.push({pathname:"/login"})} className='cursor-pointer w-6 h-6'/>

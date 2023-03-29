@@ -36,7 +36,6 @@ import zaplac_mobile from '../../public/korzysci/mobile/paypo-1x.webp'
 const Benefits = () => {
     const [isMounted, setIsMounted] = useState(false) // pozwala na uniknięcie Hydration Error. 
     useEffect(() => {
-      console.log("HOME MOUNTED")
       setIsMounted(true)
     },[])
   return isMounted ?

@@ -1,14 +1,16 @@
 import '../styles/globals.css'
 import type { AppContext, AppProps } from 'next/app'
-import { store } from '../redux/store'
+import store from '../redux/store'
 import { Provider } from 'react-redux'
 import { autoFetch } from '../utils/autoFetch'
 import App from 'next/app'
 import { fetchProducts } from '../redux/slices/productsSlice'
 import { useEffect } from 'react'
 import { fetchCategories } from '../redux/slices/categoriesSlice'
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist'
 
-
+let persistor = persistStore(store)
 function MyApp({ Component, pageProps }: AppProps) {
   const {dispatch} = store
   useEffect(() => {
@@ -20,7 +22,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
   <Provider store={store}>
-    <Component {...pageProps}/>    
+    <PersistGate persistor={persistor}>
+      <Component {...pageProps}/>       
+    </PersistGate>
+       
   </Provider>
   )
   // Component to aktualna strona która jest wyświetlana

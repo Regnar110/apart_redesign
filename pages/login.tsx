@@ -44,7 +44,7 @@ const Login = () => {
         <div className='login_and_register_container flex flex-col justify-around 2xl:justify-center gap-y-14 gap-x-4 2xl:gap-x-48 md:flex-row w-full md:w-[80%] '>
            {
             isUser ? 
-            <h2>Jesteś już zalogowany</h2>
+            <h2 className='font-roboto text-[22px]'>Jesteś już zalogowany!</h2>
             :
             <>
             <LoginForm notifyAction={notifyAction}/>

@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { handleLoginOrRegister } from '../../utils/handleLoginOrRegister';
 import { useRouter } from 'next/router';
 import { userSignIn } from '../../redux/slices/userSlice';
-import { store } from '../../redux/store';
+import store from '../../redux/store';
 
 interface Props {
     notifyAction(toastNotofication:string, httpStatusCode:number):void

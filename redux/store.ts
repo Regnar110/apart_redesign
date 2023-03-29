@@ -1,7 +1,41 @@
-import { configureStore } from "@reduxjs/toolkit";
 import categoryReducer from "./slices/categoriesSlice";
 import productsReducer from "./slices/productsSlice";
 import userReducer from './slices/userSlice'
+
+import { configureStore } from '@reduxjs/toolkit'
+import { setupListeners } from '@reduxjs/toolkit/query'
+import { combineReducers } from '@reduxjs/toolkit'
+import storage from 'redux-persist/lib/storage'
+import {
+    persistReducer,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+  } from 'redux-persist'
+  const persistConfig = {
+    key: 'root',
+    storage: storage,
+    blacklist: ["products, categories"] // stan, który nie będzie cachowany w pamięci podręcznej przeglądarki. Jedynym stanem, który będzie się "Zapamiętywał" będzie user ponieważ categories i products mogą się zmieniać dynamicznie jeżeli np ktoś doda nowe produkty
+  }
+  export const rootReducers = combineReducers({
+    user: userReducer,
+    products: productsReducer,
+    categories: categoryReducer
+  })
+  const persistedReducer = persistReducer(persistConfig, rootReducers)
+  const store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
+  })
+  setupListeners(store.dispatch)
 
 // interface PreloadedState {
 //     [0]:ProductList
@@ -35,14 +69,14 @@ import userReducer from './slices/userSlice'
 // };
 
 //Zwykły store - bez integracji w SSR i SSG
-export const store = configureStore({
-    reducer: {
-        products: productsReducer,
-        categories: categoryReducer,
-        user: userReducer
-    }
-})
-
+// export const store = configureStore({
+//     reducer: {
+//         products: productsReducer,
+//         categories: categoryReducer,
+//         user: userReducer
+//     }
+// })
+export default store;
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch

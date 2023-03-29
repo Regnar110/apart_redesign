@@ -30,9 +30,8 @@ export const categorizedProducts = (state:RootState, _ref:string) => {
 
 export const selectedProduct = ((state:RootState, _id:string, category_ref:string) => {
     const targetedCategory = categorizedProducts(state, category_ref)
-    return targetedCategory.map(el => {
-        return el[1].filter(el => el._id === _id)
-    })
+    const product = targetedCategory[0][1].filter(el => el._id=== _id)
+    return product[0]
 })
 
 
