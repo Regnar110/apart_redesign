@@ -12,17 +12,32 @@ import Image from 'next/image'
 import MediaQuery from 'react-responsive';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Scrollbar } from "swiper";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import ModeOfTravelIcon from '@mui/icons-material/ModeOfTravel';
 import eko_opakowania from '../../public/eko.jpg'
+import AddToWishList from '../../components/AddToWishList/AddToWishList';
+import { isUserLogged } from '../../redux/slices/userSlice';
+import toast, { Toaster } from 'react-hot-toast';
+import ErrorIcon from '@mui/icons-material/Error';
+import FlagIcon from '@mui/icons-material/Flag';
 
 const Product = () => {
+    const notifyAction= (toastNotification:string, httpStatusCode:number) => {
+        // return httpStatusCode === 200 ? toast.success(toastNotofication): toast.error(toastNotofication)
+        return toast.custom(t => (
+            <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} ${httpStatusCode === 500 ? "bg-[#c7747b] text-white font-bold" : "bg-white text-black font-medium"} max-w-md w-full p-5 shadow-2xl rounded-lg pointer-events-auto flex gap-x-5 items-center justify-center ring-1 ring-black ring-opacity-5`}>
+            {
+                httpStatusCode === 500 ? <ErrorIcon className='w-8 h-8' style={{color:"#F7C600"}}/> :<FlagIcon className='w-8 h-8' style={{color:"green"}}/>
+            }
+            <p>{toastNotification}</p>
+            </div>
+        ))
+      }
 
     // 768PX Mobile break point
     const router = useRouter();
-    
+    const userLogged= useSelector((state:RootState) => isUserLogged(state))
     const {product_id} = router.query // tablica [id produktu, referencja do kategori tego produktu]
     let singleProduct;
     if(product_id && typeof product_id[1] === "string") singleProduct = useSelector((state:RootState) => selectedProduct(state, product_id[1], product_id[0])) // product_id[0] to odniesienie do kategori, w której znajduje się produkt tj product_id[1].
@@ -91,7 +106,9 @@ const Product = () => {
                         <p className='mb-5 text-[14px]'>100 dni na <span className='font-bold'>DARMOWY ZWROT</span>  |  Piękne opakowanie gratis</p>
                         <div className='product_interface_icons flex flex-col gap-y-3'>
                             <div className='wish_list flex gap-x-3 items-center cursor-pointer'>
-                                <FavoriteBorderIcon className='w-10 h-10 transition-all text-black hover:text-[#c7747b] '/>
+                                
+                                <AddToWishList wishProductId={singleProduct?._id as string} isUserLogged={userLogged} notifyAction={notifyAction}/>
+                                {/* <FavoriteBorderIcon className='w-10 h-10 transition-all text-black hover:text-[#c7747b] '/> */}
                                 <span className='text-[14px] transition-all text-black hover:text-[#c7747b] '>Dodaj do listy życzeń</span>
                             </div>
                             <div className='location flex gap-x-3 items-center cursor-pointer'>
@@ -187,6 +204,7 @@ const Product = () => {
                 </div>
             </div>
             <Footer/>
+            <Toaster position='bottom-center'/>
         </div>
     )
 }

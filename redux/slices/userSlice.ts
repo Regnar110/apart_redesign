@@ -20,8 +20,7 @@ export const userSlice = createSlice({
             } else {
                 console.log("nie istnieje")
                 const newState = state.wishList_productsRef?.push(action.payload)
-                state = Object.assign(state, newState)     
-
+                state = Object.assign(state, newState)   
             }
 
         },
@@ -31,7 +30,7 @@ export const userSlice = createSlice({
                 state = state
             } else {
                 const newState = state.wishList_productsRef?.splice(productIndexIfExist, 1)
-                state = Object.assign(state, newState)                
+                state = Object.assign(state, newState)              
             }
 
         }

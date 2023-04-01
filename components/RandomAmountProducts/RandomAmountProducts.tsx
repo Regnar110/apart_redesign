@@ -1,5 +1,5 @@
 import Router from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 import MediaQuery from 'react-responsive'
 import { urlFor } from '../../sanity'
 import CustomTextButton from '../button/CustomTextButton'
@@ -7,8 +7,6 @@ import Image from 'next/image'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { getCategorizedRandomProducts, getFourRandomtAmountProducts } from '../../redux/slices/productsSlice'
-import { isUserLogged } from '../../redux/slices/userSlice'
-import AddToWishList from '../AddToWishList/AddToWishList'
 
 
 interface RandomAmountProducts {
@@ -18,9 +16,7 @@ interface RandomAmountProducts {
 }
 
 const RandomAmountProducts = ({header, categorySlug}:RandomAmountProducts) => {
-    console.log("Random mounted")
 // const randomProducts = productsCategorySlug ? useSelector((state:RootState) => getCategorizedRandomProducts(state,4, productsCategorySlug)) as Product[] : useSelector((state:RootState) =>  getFourRandomtAmountProducts(state,4)) as Product[]
-    const userLogged= useSelector((state:RootState) => isUserLogged(state))
     const randomProducts = categorySlug ? 
     useSelector((state:RootState)=> getCategorizedRandomProducts(state, 4, categorySlug)) as Product[]
     :
@@ -40,7 +36,6 @@ return randomProducts ?
                 </MediaQuery>
                 <span className='text-center text-[12px] md:text-[14px] lg:text-[16px] m-2'>{el.title.toUpperCase()}</span>
                 <CustomTextButton textContent='Sprawdź' isArrow={true} hrefQuery={`/product/${el.category._ref}/${el._id}`}/>
-                <AddToWishList isUserLogged={userLogged} wishProductId={el._id} />
             </div>)
             })
             }        

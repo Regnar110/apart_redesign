@@ -2,36 +2,29 @@ import React from 'react'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useDispatch, useSelector } from 'react-redux';
-import {addToWishList, removeFromWishList, isProductAdded} from '../../redux/slices/userSlice'
+import { getLoggedUser, isProductAdded } from '../../redux/slices/userSlice'
 import { RootState } from '../../redux/store';
+import { addOrRemoveFromWish } from '../../utils/addOrRemoveFromWish';
 
 interface Props {
     wishProductId: string;
     isUserLogged: boolean
+    notifyAction(toastNotofication:string, httpStatusCode:number):void
 }
 
-const AddToWishList = ({wishProductId, isUserLogged}:Props) => {
+const AddToWishList = ({wishProductId, isUserLogged, notifyAction}:Props) => {
     const dispatch = useDispatch()
     const isProductInWishList = useSelector((state:RootState) => isProductAdded(state, wishProductId))
-    const addOrRemoveFromWish = (product_id:string, action:string) => {
-        switch(action) {
-            case "ADD": 
-                dispatch(addToWishList(product_id))
-                console.log("dodane")
-                break;
-            case "REMOVE":
-                dispatch(removeFromWishList(product_id))
-                console.log("usunięte")
-                break;
-        }
-    }
+    const user = useSelector((state:RootState) => getLoggedUser(state))
+
+
   return  isProductInWishList && isUserLogged ? 
-            <div className='fav-icon absolute bottom-6 right-6 z-50' onClick={() => addOrRemoveFromWish(wishProductId, "REMOVE")}>
-                <FavoriteIcon fontSize='large'/>                            
+            <div className='fav-icon bottom-6 right-6 text-red-500' onClick={() => addOrRemoveFromWish(wishProductId, user.user_email, "REMOVE", dispatch, notifyAction)}>
+                <FavoriteIcon fontSize='medium'/>                            
             </div>
             :
-            <div className='fav-icon absolute bottom-6 right-6 z-50' onClick={() => addOrRemoveFromWish(wishProductId, "ADD")}>
-                <FavoriteBorderIcon fontSize='large'/>                            
+            <div className='fav-icon bottom-6 right-6' onClick={() => isUserLogged? addOrRemoveFromWish(wishProductId, user.user_email, "ADD", dispatch, notifyAction) : notifyAction("Zaloguj się żeby dodać produkt do listy życzeń!", 500)}>
+                <FavoriteBorderIcon  fontSize='medium'/>                            
             </div>
                 
 }
