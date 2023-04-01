@@ -11,11 +11,34 @@ export const userSlice = createSlice({
         userSignIn: (state, action:PayloadAction<LoginResponse>) => {
             state = Object.assign(state, action.payload)
         },
-        userSignOut:() => initialState
+        userSignOut:() => initialState,
+        addToWishList: (state, action:PayloadAction<string>) => {
+            const productIndexIfExist = state.wishList_productsRef?.findIndex(el => el === action.payload) as number
+            console.log(productIndexIfExist)
+            if(productIndexIfExist >= 0) {
+                state = state
+            } else {
+                console.log("nie istnieje")
+                const newState = state.wishList_productsRef?.push(action.payload)
+                state = Object.assign(state, newState)     
+
+            }
+
+        },
+        removeFromWishList: (state, action:PayloadAction<string>) => {
+            const productIndexIfExist = state.wishList_productsRef?.findIndex(el => el === action.payload) as number
+            if(productIndexIfExist === -1) {
+                state = state
+            } else {
+                const newState = state.wishList_productsRef?.splice(productIndexIfExist, 1)
+                state = Object.assign(state, newState)                
+            }
+
+        }
     }
 })
 
-export const { userSignIn, userSignOut } = userSlice.actions
+export const { userSignIn, userSignOut, addToWishList, removeFromWishList } = userSlice.actions
 
 export default userSlice.reducer
 
@@ -27,4 +50,9 @@ export const getLoggedUser = (state:RootState) => {
 
 export const isUserLogged = (state:RootState):boolean => { // W planach uzycie redux persist żeby zachowywać stan aplikacji w momencie gdy jest ona np odświeżana
    return state.user.name ? true:false
+}
+
+export const isProductAdded = (state:RootState, productId:string):boolean => {
+    const isAdded = state.user.wishList_productsRef?.findIndex(el => el===productId);
+    return isAdded === -1 ? false : true
 }
