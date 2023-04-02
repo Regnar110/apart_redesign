@@ -23,7 +23,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import FlagIcon from '@mui/icons-material/Flag';
 
 const Product = () => {
-    const notifyAction= (toastNotification:string, httpStatusCode:number) => {
+    const notifyAction= (toastNotification:string, httpStatusCode:number) => { // NEXT - TO PRZENIEŚĆ DO OSOBNEGO KOMPONENTU I W FUNKCJI ZWRACAĆ TLKO TEN KOMPONENT
         // return httpStatusCode === 200 ? toast.success(toastNotofication): toast.error(toastNotofication)
         return toast.custom(t => (
             <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} ${httpStatusCode === 500 ? "bg-[#c7747b] text-white font-bold" : "bg-white text-black font-medium"} max-w-md w-full p-5 shadow-2xl rounded-lg pointer-events-auto flex gap-x-5 items-center justify-center ring-1 ring-black ring-opacity-5`}>
@@ -42,7 +42,6 @@ const Product = () => {
     let singleProduct;
     if(product_id && typeof product_id[1] === "string") singleProduct = useSelector((state:RootState) => selectedProduct(state, product_id[1], product_id[0])) // product_id[0] to odniesienie do kategori, w której znajduje się produkt tj product_id[1].
     const details = singleProduct ? Object.entries(singleProduct.details) : null
-    console.log(details)
     return(
         <div className='product_page box-border overflow-x-hidden'>
             <Head>
@@ -71,9 +70,9 @@ const Product = () => {
                                 }}
                             modules={[Scrollbar]}
                         >
-                            <SwiperSlide><Image width={380} height={300} style={{objectFit:"contain", width:"100%", height:"300px"}} src={urlFor(singleProduct?.image[0]).url()} alt={'product_image'} /></SwiperSlide>
-                            <SwiperSlide><Image width={380} height={300} style={{objectFit:"contain", width:"100%", height:"300px"}} src={urlFor(singleProduct?.image[0]).url()} alt={'product_image'} /></SwiperSlide>
-                            <SwiperSlide><Image width={380} height={300} style={{objectFit:"contain", width:"100%", height:"300px"}} src={urlFor(singleProduct?.image[0]).url()} alt={'product_image'} /></SwiperSlide>
+                            <SwiperSlide><Image priority width={380} height={300} style={{objectFit:"contain", width:"100%", height:"300px"}} src={urlFor(singleProduct?.image[0]).url()} alt={'product_image'} /></SwiperSlide>
+                            <SwiperSlide><Image priority width={380} height={300} style={{objectFit:"contain", width:"100%", height:"300px"}} src={urlFor(singleProduct?.image[0]).url()} alt={'product_image'} /></SwiperSlide>
+                            <SwiperSlide><Image priority width={380} height={300} style={{objectFit:"contain", width:"100%", height:"300px"}} src={urlFor(singleProduct?.image[0]).url()} alt={'product_image'} /></SwiperSlide>
                         </Swiper>
                         </MediaQuery>
      
@@ -109,7 +108,6 @@ const Product = () => {
                                 
                                 <AddToWishList wishProductId={singleProduct?._id as string} isUserLogged={userLogged} notifyAction={notifyAction}/>
                                 {/* <FavoriteBorderIcon className='w-10 h-10 transition-all text-black hover:text-[#c7747b] '/> */}
-                                <span className='text-[14px] transition-all text-black hover:text-[#c7747b] '>Dodaj do listy życzeń</span>
                             </div>
                             <div className='location flex gap-x-3 items-center cursor-pointer'>
                                 <ModeOfTravelIcon className='w-10 h-10 transition-all text-black hover:text-[#c7747b] '/>
@@ -132,7 +130,7 @@ const Product = () => {
                             {
                                 details!.map(el => {
                                     return (
-                                        <div className='property text-[14px] flex gap-x-4'>
+                                        <div key={el[0]} className='property text-[14px] flex gap-x-4'>
                                             <span className='font-semibold'>{el[0]}:</span>
                                             <span className='font-light'>{el[1]}</span>
                                         </div>

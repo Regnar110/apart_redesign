@@ -17,9 +17,7 @@ const LoginForm = ({notifyAction}:Props) => {
     const {dispatch} = store
     const {push} = useRouter();
     const onSubmit = async (data:SuccessLoginData) => {
-        console.log(data)
         const loginResponse = await handleLoginOrRegister<LoginResponse>(`userLogin`, data)
-        console.log(loginResponse);
         if(loginResponse.is_error) {
             notifyAction(loginResponse.error_message as string, 500)
             console.error(loginResponse.error_message)
@@ -30,11 +28,9 @@ const LoginForm = ({notifyAction}:Props) => {
     }
 
     useEffect(() => {
-        console.log("effect")
-        if(isSubmitSuccessful === true) {
+        if(isSubmitSuccessful === true) { // jeżeli dane zostały wprowadzone poprawnie tzn zgodnie ze wskazanym w polach paternem to czyścimy te pola
             reset()
         }
-        
     },[reset, isSubmitSuccessful])
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='login_subsection flex w-full md:w-auto flex-col items-center gap-y-5'>

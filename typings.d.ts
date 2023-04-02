@@ -104,6 +104,15 @@ interface SuccessLoginData { // interfejs określający dane przekazywane z komp
     login_password:string;
 }
 
+interface MongoUserDocument {
+    _id:string;
+    user_email:string;
+    name:string;
+    surname:string;
+    wishList_productsRef: string[];
+    user_basket: string[]
+}
+
 interface LoginResponse { // Interfejs określający dane zwracany z udanego logowania - dane z mongoDb
     is_error?: boolean;
     is_userExist?:boolean;
@@ -130,6 +139,14 @@ interface RegisterResponse {
     name?:string;
     surname?:string;
     response_message?:string
+}
+
+
+//WISHLIST UPDATES
+
+interface MongoDbWishListUpdateReturn {
+    isError:boolean
+    message:string
 }
 
 

@@ -15,7 +15,6 @@ const RegisterForm = ({notifyAction}:Props) => {
     const onSubmit = async (data) => {
         delete data["register_repeat_password"] // usuwamy wartość, którea była jedynie potrzebna do walidacji inputu
         const registerResponse = await handleLoginOrRegister<RegisterResponse>('userRegister', data)
-        console.log(registerResponse);
         if(registerResponse.is_error) {
             notifyAction(registerResponse.response_message as string, 500)
             console.error(registerResponse.error_message)

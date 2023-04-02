@@ -6,16 +6,26 @@ import { autoFetch } from "./autoFetch";
 export const addOrRemoveFromWish = async (product_id:string, user_email:string, action:string, dispatch:Dispatch<AnyAction>, notifyAction:(toastNotofication:string, httpStatusCode:number)=>void) => {
     switch(action) {
         case "ADD": 
-            dispatch(addToWishList(product_id))
-            const updateWishListResponseAdd = await autoFetch<string, {action:string, product_id:string, user_email:string}>("updateWishListMongoDB", {action, product_id, user_email})
-            notifyAction("Dodano produkt do listy życzeń", 200)
-            console.log(updateWishListResponseAdd)
-            break;
+            const updateWishListResponseAdd = await autoFetch<MongoDbWishListUpdateReturn, {action:string, product_id:string, user_email:string}>("updateWishListMongoDB", {action, product_id, user_email})
+            if(updateWishListResponseAdd.isError) {
+              notifyAction(updateWishListResponseAdd.message, 500)
+              console.error(updateWishListResponseAdd.message)
+              break;
+            } else {
+                dispatch(addToWishList(product_id))
+                notifyAction(updateWishListResponseAdd.message, 200)              
+                break;
+            }
         case "REMOVE":
-            dispatch(removeFromWishList(product_id))
-            const updateWishListResponseRemove = await autoFetch<string, {action:string, product_id:string, user_email:string}>("updateWishListMongoDB", {action, product_id, user_email})
-            notifyAction("Usunięto produkt z listy życzeń", 500)
-            console.log(updateWishListResponseRemove)
-            break;
+            const updateWishListResponseRemove = await autoFetch<MongoDbWishListUpdateReturn, {action:string, product_id:string, user_email:string}>("updateWishListMongoDB", {action, product_id, user_email})
+            if(updateWishListResponseRemove.isError) {
+              notifyAction(updateWishListResponseRemove.message, 500)  
+              console.error(updateWishListResponseRemove.message)
+              break;
+            } else {
+                dispatch(removeFromWishList(product_id))
+                notifyAction(updateWishListResponseRemove.message, 200)         
+                break;
+            }
     }
 }
