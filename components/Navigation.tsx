@@ -68,7 +68,7 @@ const Navigation = () => {
     } 
 
   return mounted? ( // mounted jest po to żeby react-responsive działał bez wywalania błędu Warning: Prop `className` did not match. co oznacza że classname na serverze i po stronie klienta się różnią co psuje layout
-    <nav className={`${isNavFixed ? 'fixed': 'sticky' } pt-2 md:pt-8 flex flex-col w-full justify-center items-center z-50 bg-white`}>
+    <nav className={`${isNavFixed ? 'fixed': 'sticky' } pt-2 md:pt-8 flex flex-col w-full justify-center items-center z-40 bg-white`}>
         <div className={`flex ${isMobileOrTablet? "flex-wrap-reverse justify-between px-3": "flex-nowrap justify-around"} items-center w-full h-30`}>
             <div className={`flex ${isMobileOrTablet? "w-full" : "md:w-auto"} h-7 font-roboto border-2 border-gray-200 mx-5`}>
                 <AiOutlineSearch className='w-4 h-6 cursor-pointer'/>

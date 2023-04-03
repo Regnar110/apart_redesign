@@ -5,15 +5,21 @@ import { Provider } from 'react-redux'
 import { autoFetch } from '../utils/autoFetch'
 import App from 'next/app'
 import { fetchProducts } from '../redux/slices/productsSlice'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchCategories } from '../redux/slices/categoriesSlice'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
+import Router from 'next/router'
+import Loader from '../components/Loader/Loader'
 
 let persistor = persistStore(store)
 function MyApp({ Component, pageProps }: AppProps) {
   const {dispatch} = store
+  const [loading, setLoading] = useState<boolean>(false);
+  Router.events.on("routeChangeStart", (url => setLoading(true)))
+  Router.events.on("routeChangeComplete", (url) => setLoading(false) )
   useEffect(() => {
+    console.log("apptsx")
     dispatch(fetchProducts({...pageProps.initialReduxState.products}))
     dispatch(fetchCategories(pageProps.initialReduxState.categories.categories))
   },[])
@@ -23,9 +29,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-      <Component {...pageProps}/>       
+      {
+        loading && <Loader/>
+      }
+      <Component {...pageProps}/>
     </PersistGate>
-       
   </Provider>
   )
   // Component to aktualna strona która jest wyświetlana

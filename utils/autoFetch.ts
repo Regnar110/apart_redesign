@@ -1,6 +1,6 @@
 
 
-export const autoFetch =  async <ReturnType, PayloadType>(targetAPI:string, payload:PayloadType) => {
+export const autoFetch =  async <ReturnType, PayloadType>(targetAPI:string, payload?:PayloadType) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/${targetAPI}`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
