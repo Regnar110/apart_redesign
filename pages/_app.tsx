@@ -47,8 +47,8 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   //powyżej wywołujemy inicjującą funkkcję żeby komponent App był zinstancjonowany z domyslnymi propsami z domyślnego kontekstu jego użycia.
   //appContext to obiekt zawierający m.in nasze pageProps, które są potem przekazywane dalej do komponentów dzieci MyApp
   //initialise redux store on server side
-  let products = await autoFetch<ProductList>("getProducts")
-  const categories = await autoFetch<Category[]>("getCategories")
+  let products = await autoFetch<ProductList, any>("getProducts")
+  const categories = await autoFetch<Category[], any>("getCategories")
   appProps.pageProps = {
     ...appProps.pageProps,
     store,

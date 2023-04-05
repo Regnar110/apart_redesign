@@ -27,7 +27,7 @@ return randomProducts ?
         <h1 className='font-bold text-black text-[16px] md:text-[17px] lg:text-[22px] text-center my-7'>{header}</h1>
         <div className='randomp-wrapper w-12/12 md:w-10/12 grid grid-flow-col grid-rows-2 lg:grid-rows-1 auto-cols-fr gap-5'>
         {randomProducts.map(el => {
-            return (<div key={el._id} className='z-40 relative random-product cursor-pointer flex flex-col items-center justify-center border-1 rounded-md p-2 shadow-md transition-all hover:scale-[1.02]'>
+            return (<div key={el._id} className='z-30 relative random-product cursor-pointer flex flex-col items-center justify-center border-1 rounded-md p-2 shadow-md transition-all hover:scale-[1.02]'>
                 <MediaQuery maxWidth={1024}>
                     <Image onClick={() => Router.push(`/product/${el.category._ref}/${el._id}`)} width={250} height={250} style={{objectFit:"contain", width:"auto"}} src={urlFor(el.image[0]).url()} alt={'product_image'} />            
                 </MediaQuery>

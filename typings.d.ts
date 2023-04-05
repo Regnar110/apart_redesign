@@ -150,6 +150,12 @@ interface MongoDbWishListUpdateReturn {
 }
 
 
+// LOCAL BASKET
+
+type LocalBasket = {
+    product_id:string;
+    quantity:number;
+}[]
 
 
 

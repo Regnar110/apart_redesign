@@ -1,7 +1,7 @@
 import categoryReducer from "./slices/categoriesSlice";
 import productsReducer from "./slices/productsSlice";
 import userReducer from './slices/userSlice'
-
+import localBasketReducer from './slices/localBasketSlice'
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { combineReducers } from '@reduxjs/toolkit'
@@ -18,12 +18,14 @@ import {
   const persistConfig = {
     key: 'root',
     storage: storage,
-    blacklist: ["products, categories"] // stan, który nie będzie cachowany w pamięci podręcznej przeglądarki. Jedynym stanem, który będzie się "Zapamiętywał" będzie user ponieważ categories i products mogą się zmieniać dynamicznie jeżeli np ktoś doda nowe produkty
+    blacklist: ["products, categories"],// stan, który nie będzie cachowany w pamięci podręcznej przeglądarki. Jedynym stanem, który będzie się "Zapamiętywał" będzie user ponieważ categories i products mogą się zmieniać dynamicznie jeżeli np ktoś doda nowe produkty
+    whitelist: ["user", "localBasket"] 
   }
   export const rootReducers = combineReducers({
     user: userReducer,
     products: productsReducer,
-    categories: categoryReducer
+    categories: categoryReducer,
+    localBasket: localBasketReducer,
   })
   const persistedReducer = persistReducer(persistConfig, rootReducers)
   const store = configureStore({

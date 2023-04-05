@@ -21,6 +21,8 @@ import { isUserLogged } from '../../redux/slices/userSlice';
 import toast, { Toaster } from 'react-hot-toast';
 import ErrorIcon from '@mui/icons-material/Error';
 import FlagIcon from '@mui/icons-material/Flag';
+import AddToBasket from '../../components/AddToBasket/AddToBasket';
+import { showLocalBasket } from '../../redux/slices/localBasketSlice';
 
 const Product = () => {
     const notifyAction= (toastNotification:string, httpStatusCode:number) => { // NEXT - TO PRZENIEŚĆ DO OSOBNEGO KOMPONENTU I W FUNKCJI ZWRACAĆ TLKO TEN KOMPONENT
@@ -34,7 +36,8 @@ const Product = () => {
             </div>
         ))
       }
-
+      const basket = useSelector((state:RootState) => showLocalBasket(state))
+      console.log(basket)
     // 768PX Mobile break point
     const router = useRouter();
     const userLogged= useSelector((state:RootState) => isUserLogged(state))
@@ -100,7 +103,7 @@ const Product = () => {
                                 <span className='text-[12px] text-[#777777]'>Najniższa cena w okresie ostatnich 30 dni przed obniżką</span>
                             </div>
                         </div>
-                        <button className='text-[14px] my-5 p-4 shadow-lg w-[300px] md:w-[100%] bg-black text-white hover:bg-[#c7747b] hover:text-white transition-all' >DODAJ DO KOSZYKA</button>
+                        <AddToBasket represented_product_id={singleProduct?._id as string}/>
                         <p className='mt-5 text-[14px]'>Dostawa <span className='font-bold'>GRATIS</span>  |  Wysyłka zamówienia w <span className='font-bold'>24 godziny</span></p>
                         <p className='mb-5 text-[14px]'>100 dni na <span className='font-bold'>DARMOWY ZWROT</span>  |  Piękne opakowanie gratis</p>
                         <div className='product_interface_icons flex flex-col gap-y-3'>
