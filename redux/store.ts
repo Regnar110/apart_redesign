@@ -18,7 +18,7 @@ import {
   const persistConfig = {
     key: 'root',
     storage: storage,
-    blacklist: ["products, categories"],// stan, który nie będzie cachowany w pamięci podręcznej przeglądarki. Jedynym stanem, który będzie się "Zapamiętywał" będzie user ponieważ categories i products mogą się zmieniać dynamicznie jeżeli np ktoś doda nowe produkty
+    blacklist: ["products, categories"],// stan, który nie będzie cachowany w pamięci podręcznej przeglądarki. Jedynym stanem, który będzie się "Zapamiętywał" będzie user i localbasker ponieważ categories i products mogą się zmieniać dynamicznie jeżeli np ktoś doda nowe produkty
     whitelist: ["user", "localBasket"] 
   }
   export const rootReducers = combineReducers({

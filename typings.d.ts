@@ -110,7 +110,6 @@ interface MongoUserDocument {
     name:string;
     surname:string;
     wishList_productsRef: string[];
-    user_basket: string[]
 }
 
 interface LoginResponse { // Interfejs określający dane zwracany z udanego logowania - dane z mongoDb
@@ -122,7 +121,6 @@ interface LoginResponse { // Interfejs określający dane zwracany z udanego log
     name?:string;
     surname?:string;
     wishList_productsRef?: string[];
-    user_basket?: string[]
 }
 
 interface SuccesRegisterData { // j/w

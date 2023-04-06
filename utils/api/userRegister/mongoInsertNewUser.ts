@@ -9,12 +9,11 @@ interface Props {
         register_name: string,
         register_surname: string,
         wishList_productsRef: [],
-        user_basket: [],
         res:NextApiResponse<RegisterResponse>
     ): Promise<void>
 
 }
-export const mongoInsertNewUser:Props = async (db, register_email, hashed_password, register_name, register_surname, wishList_productsRef, user_basket, res) => {
+export const mongoInsertNewUser:Props = async (db, register_email, hashed_password, register_name, register_surname, wishList_productsRef, res) => {
     try {
         const user = await db.collection("user").insertOne({
             user_email: register_email,
@@ -22,7 +21,6 @@ export const mongoInsertNewUser:Props = async (db, register_email, hashed_passwo
             name: register_name,
             surname: register_surname,
             wishList_productsRef,
-            user_basket
         })
         if(user.insertedId && user.acknowledged){
             res.status(200).json({

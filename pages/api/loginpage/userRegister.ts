@@ -28,7 +28,7 @@ const handler = async (
               break
             case false:
               const hashed_password = await bcrypt.hash(register_password, 10)
-              await mongoInsertNewUser(db, register_email, hashed_password, register_name, register_surname, [], [], res) // funckja, która dodaje nowego użyutkownika do naszej bazy
+              await mongoInsertNewUser(db, register_email, hashed_password, register_name, register_surname, [], res) // funckja, która dodaje nowego użyutkownika do naszej bazy
               break;
           }
         } catch (error) { // blok obsługujący błędy powstałe w wyniku npm subskrypcji clientPromise.
