@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import Footer from '../../components/Footer/Footer';
 import Navigation from '../../components/Navigation';
@@ -23,8 +23,11 @@ import ErrorIcon from '@mui/icons-material/Error';
 import FlagIcon from '@mui/icons-material/Flag';
 import AddToBasket from '../../components/AddToBasket/AddToBasket';
 import { showLocalBasket } from '../../redux/slices/localBasketSlice';
+import BasketModal from '../../components/BasketModal/BasketModal';
 
 const Product = () => {
+    const [basketModal, setBasketModal] = useState<boolean>(false);
+    const basket = useSelector((state:RootState) => showLocalBasket(state))
     const notifyAction= (toastNotification:string, httpStatusCode:number) => { // NEXT - TO PRZENIEŚĆ DO OSOBNEGO KOMPONENTU I W FUNKCJI ZWRACAĆ TLKO TEN KOMPONENT
         // return httpStatusCode === 200 ? toast.success(toastNotofication): toast.error(toastNotofication)
         return toast.custom(t => (
@@ -36,7 +39,9 @@ const Product = () => {
             </div>
         ))
       }
-      const basket = useSelector((state:RootState) => showLocalBasket(state))
+
+    const notifyBasket = (status:boolean) => setBasketModal(status)
+      
       console.log(basket)
     // 768PX Mobile break point
     const router = useRouter();
@@ -46,7 +51,7 @@ const Product = () => {
     if(product_id && typeof product_id[1] === "string") singleProduct = useSelector((state:RootState) => selectedProduct(state, product_id[1], product_id[0])) // product_id[0] to odniesienie do kategori, w której znajduje się produkt tj product_id[1].
     const details = singleProduct ? Object.entries(singleProduct.details) : null
     return(
-        <div className='product_page box-border overflow-x-hidden'>
+        <div className={`product_page box-border overflow-x-hidden ${basketModal ? "overscroll-none":""}`}>
             <Head>
             <title>{singleProduct?.title}</title>
             <link rel="icon" href="/favicon.ico" />
@@ -103,7 +108,7 @@ const Product = () => {
                                 <span className='text-[12px] text-[#777777]'>Najniższa cena w okresie ostatnich 30 dni przed obniżką</span>
                             </div>
                         </div>
-                        <AddToBasket represented_product_id={singleProduct?._id as string}/>
+                        <AddToBasket represented_product_id={singleProduct?._id as string} product_name={singleProduct?.title!} price={singleProduct?.cena!} product_img={singleProduct?.image!} notifyBasket={notifyBasket}/>
                         <p className='mt-5 text-[14px]'>Dostawa <span className='font-bold'>GRATIS</span>  |  Wysyłka zamówienia w <span className='font-bold'>24 godziny</span></p>
                         <p className='mb-5 text-[14px]'>100 dni na <span className='font-bold'>DARMOWY ZWROT</span>  |  Piękne opakowanie gratis</p>
                         <div className='product_interface_icons flex flex-col gap-y-3'>
@@ -205,6 +210,9 @@ const Product = () => {
                 </div>
             </div>
             <Footer/>
+            {
+                basketModal ? <BasketModal notifyBasket={notifyBasket}/> :null
+            }
             <Toaster position='bottom-center'/>
         </div>
     )

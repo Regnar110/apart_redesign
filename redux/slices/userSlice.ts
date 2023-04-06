@@ -55,3 +55,5 @@ export const isProductAdded = (state:RootState, productId:string):boolean => {
     const isAdded = state.user.wishList_productsRef?.findIndex(el => el===productId);
     return isAdded === -1 ? false : true
 }
+
+export const wishListQuantity = (state:RootState) => state.user.wishList_productsRef?.length as number

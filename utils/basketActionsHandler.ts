@@ -1,13 +1,12 @@
 import { Dispatch } from "react";
-import { autoFetch } from "./autoFetch";
 import { AnyAction } from "@reduxjs/toolkit";
 import { addToLocalBasket } from "../redux/slices/localBasketSlice";
 
-export const basketActionsHandler = async (action:string, product_id:string, dispatch:Dispatch<AnyAction>) => {
+export const basketActionsHandler = async (action:string, product_id:string, product_name:string, price:number, product_img:Image[], dispatch:Dispatch<AnyAction>) => {
     switch(action) {
         case "ADD": 
             console.log(action, product_id)
-            dispatch(addToLocalBasket(product_id))
+            dispatch(addToLocalBasket({product_id, product_name, price, product_img}))
             break;
         case "REMOVE":
             

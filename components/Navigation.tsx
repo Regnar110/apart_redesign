@@ -20,6 +20,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import store from '../redux/store';
 import { userSignOut } from '../redux/slices/userSlice';
+import { basketQuantity } from '../redux/slices/localBasketSlice';
+import { wishListQuantity } from '../redux/slices/userSlice';
 
 
 const Navigation = () => {
@@ -28,7 +30,8 @@ const Navigation = () => {
         return state.categories as Category[]
     })
     const {user} = useSelector((state:RootState) => state)
-
+    const basketItemsAmount = useSelector((state:RootState) => basketQuantity(state))
+    const wishListItemsAmount = useSelector((state:RootState) => wishListQuantity(state))
     const [mounted, setMounted ] = useState(false)
     const [ isNavFixed, setIsNavFixed ] = useState(false)
     const [ mobileMenuPanelStatus, setMobileMenuPanelStatus ] = useState(false)
@@ -81,11 +84,18 @@ const Navigation = () => {
             <Image onClick={() => Router.push("/")} priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className={`cursor-pointer w-24 ${isMobileOrTablet? "hidden":"visible"} md:w-40`}/>
             <div className='flex gap-x-5'>
                 {
-                    user.name ? <div onClick={() => dispatch(userSignOut())} className='flex flex-col items-center cursor-pointer'><LogoutIcon/><span>Wyloguj</span> </div>  : <BsPerson onClick={() => Router.push({pathname:"/login"})} className='cursor-pointer w-6 h-6'/>
+                    user.name ? <div onClick={() => dispatch(userSignOut())} className='flex flex-col items-center cursor-pointer'><LogoutIcon/></div>  : <BsPerson onClick={() => Router.push({pathname:"/login"})} className='cursor-pointer w-6 h-6'/>
                 }  
+                <div className='nav_handbag relative'>
+                    <BsHeart className='cursor-pointer w-6 h-6'/>
+                    <div className='nav_handbag_quantity absolute top-4 left-2 bg-[#c7747b] text-[13px] font-bold text-white w-[25px] text-center rounded-2xl'>{wishListItemsAmount > 0 ? wishListItemsAmount: ""}</div>    
+                </div>
                 
-                <BsHeart className='cursor-pointer w-6 h-6'/>
-                <BsHandbag className='cursor-pointer w-6 h-6'/>
+                <div className='nav_handbag relative'>
+                    <BsHandbag className='cursor-pointer w-6 h-6'/>
+                    <div className='nav_handbag_quantity absolute top-4 left-2 bg-[#c7747b] text-[13px] font-bold text-white w-[25px] text-center rounded-r-lg rounded-l-lg'>{basketItemsAmount > 0 ? basketItemsAmount:""}</div>
+                </div>
+                
             </div>            
         </div>
         <div className='w-full flex justify-center items-center gap-x-10 border-b-2 border-gray-300 font-light'>
