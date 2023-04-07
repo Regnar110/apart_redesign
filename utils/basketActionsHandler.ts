@@ -1,15 +1,15 @@
 import { Dispatch } from "react";
 import { AnyAction } from "@reduxjs/toolkit";
-import { addToLocalBasket } from "../redux/slices/localBasketSlice";
+import { addToLocalBasket, removeFromLocalBasket } from "../redux/slices/localBasketSlice";
 
-export const basketActionsHandler = async (action:string, product_id:string, product_name:string, price:number, product_img:Image[], dispatch:Dispatch<AnyAction>) => {
+export const basketActionsHandler = async (action:string, dispatch:Dispatch<AnyAction>, product_id:string, product_name?:string, price?:number, product_img?:Image[]) => {
     switch(action) {
         case "ADD": 
             console.log(action, product_id)
             dispatch(addToLocalBasket({product_id, product_name, price, product_img}))
             break;
         case "REMOVE":
-            
+            dispatch(removeFromLocalBasket({product_id}))
             break;
     }
 }

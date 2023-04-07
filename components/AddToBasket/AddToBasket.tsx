@@ -14,7 +14,7 @@ const AddToBasket = ({represented_product_id, product_name, price, product_img, 
 
   return (
     <button onClick={() => {
-      basketActionsHandler("ADD", represented_product_id, product_name, price, product_img, dispatch)
+      basketActionsHandler("ADD", dispatch, represented_product_id, product_name, price, product_img)
       notifyBasket(true)
       }
     } className='text-[14px] my-5 p-4 shadow-lg w-[300px] md:w-[100%] bg-black text-white hover:bg-[#c7747b] hover:text-white transition-all' >DODAJ DO KOSZYKA</button>

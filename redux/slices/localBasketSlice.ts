@@ -9,6 +9,10 @@ interface AddPayload {
   price:number;
   product_img:Image[]
 }
+
+interface RemovePayload {
+  product_id:string
+}
 export const localBasketSlice = createSlice({
     name: "localBasket",
     initialState,
@@ -34,8 +38,8 @@ export const localBasketSlice = createSlice({
               })
             }
           },
-        removeFromLocalBasket: (state, action:PayloadAction<string>) => {
-            state = Object.assign(state, action.payload)
+        removeFromLocalBasket: (state, action:PayloadAction<RemovePayload>) => {
+            return state.filter(el => el.product_id !== action.payload.product_id)
         }
     }
 })
