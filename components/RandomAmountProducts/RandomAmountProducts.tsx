@@ -6,7 +6,7 @@ import CustomTextButton from '../button/CustomTextButton'
 import Image from 'next/image'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
-import { getCategorizedRandomProducts, getFourRandomtAmountProducts } from '../../redux/slices/productsSlice'
+import { getCategorizedRandomProducts, getRandomtAmountProducts } from '../../redux/slices/productsSlice'
 
 
 interface RandomAmountProducts {
@@ -20,7 +20,7 @@ const RandomAmountProducts = ({header, categorySlug}:RandomAmountProducts) => {
     const randomProducts = categorySlug ? 
     useSelector((state:RootState)=> getCategorizedRandomProducts(state, 4, categorySlug)) as Product[]
     :
-    useSelector((state:RootState) => getFourRandomtAmountProducts(state, 4)) as Product[]
+    useSelector((state:RootState) => getRandomtAmountProducts(state, 4)) as Product[]
 
 return randomProducts ?
     <div className='landing-random-products p-3 flex flex-col justify-center items-center'>

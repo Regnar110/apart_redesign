@@ -108,7 +108,7 @@ const Product = () => {
                                 <span className='text-[12px] text-[#777777]'>Najniższa cena w okresie ostatnich 30 dni przed obniżką</span>
                             </div>
                         </div>
-                        <AddToBasket represented_product_id={singleProduct?._id as string} product_name={singleProduct?.title!} price={singleProduct?.cena!} product_img={singleProduct?.image!} notifyBasket={notifyBasket}/>
+                        <AddToBasket represented_product_id={singleProduct?._id as string} product_name={singleProduct?.title!} price={singleProduct?.cena!} product_img={singleProduct?.image!} notifyBasket={notifyBasket} buttonColor='bigBlack'/>
                         <p className='mt-5 text-[14px]'>Dostawa <span className='font-bold'>GRATIS</span>  |  Wysyłka zamówienia w <span className='font-bold'>24 godziny</span></p>
                         <p className='mb-5 text-[14px]'>100 dni na <span className='font-bold'>DARMOWY ZWROT</span>  |  Piękne opakowanie gratis</p>
                         <div className='product_interface_icons flex flex-col gap-y-3'>

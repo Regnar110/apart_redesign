@@ -35,7 +35,7 @@ export const selectedProduct = ((state:RootState, _id:string, category_ref:strin
 })
 
 
-    export const getFourRandomtAmountProducts = ((state:RootState, amount = 4) => { // funkcja zwraca 4 losowe przedmioty, każdy z innej kategorii
+    export const getRandomtAmountProducts = ((state:RootState, amount = 4) => { // funkcja zwraca 4 losowe przedmioty, każdy z innej kategorii
         const productIds = Object.keys(state.products) as string[];
         const selectedProductIds = new Set<string>(); // towrzy zestaw unikalnych wartości wskazanego typu - tutaj string. Jest to dobre rozwiązanie gdy chcemy tylko "Zerknąć" na unikalne wartości
         // w tym zestawie. Nie jest to dobra opcja keidy chcemy iterować przez wartośći w zestawie np używając map, filter, reduce lub np include.
