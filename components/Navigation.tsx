@@ -94,7 +94,7 @@ const Navigation = ({stickToTop}:Props) => {
                     <div className='nav_handbag_quantity absolute top-4 left-2 bg-[#c7747b] text-[13px] font-bold text-white w-[25px] text-center rounded-2xl'>{wishListItemsAmount > 0 ? wishListItemsAmount: ""}</div>    
                 </div>
                 
-                <div className='nav_handbag relative'>
+                <div className='nav_handbag relative' onClick={() => Router.push("/basket")}>
                     <BsHandbag className='cursor-pointer w-6 h-6'/>
                     <div className='nav_handbag_quantity absolute top-4 left-2 bg-[#c7747b] text-[13px] font-bold text-white w-[25px] text-center rounded-r-lg rounded-l-lg'>{basketItemsAmount > 0 ? basketItemsAmount:""}</div>
                 </div>

@@ -13,6 +13,10 @@ interface AddPayload {
 interface RemovePayload {
   product_id:string
 }
+
+interface QuantityIncramentDecramentPayload {
+  product_id:string
+}
 export const localBasketSlice = createSlice({
     name: "localBasket",
     initialState,
@@ -40,11 +44,14 @@ export const localBasketSlice = createSlice({
           },
         removeFromLocalBasket: (state, action:PayloadAction<RemovePayload>) => {
             return state.filter(el => el.product_id !== action.payload.product_id)
-        }
+        },
+
+        quantityIncrament: (state, action:PayloadAction<QuantityIncramentDecramentPayload>) => state.map(el=> el.product_id === action.payload.product_id ? {...el, quantity: el.quantity +1} : el),
+        quantityDecrament: (state, action:PayloadAction<QuantityIncramentDecramentPayload>) => state.map(el => el.product_id === action.payload.product_id ? {...el, quantity: el.quantity -1}: el)
     }
 })
 
-export const { addToLocalBasket, removeFromLocalBasket } = localBasketSlice.actions
+export const { addToLocalBasket, removeFromLocalBasket, quantityIncrament, quantityDecrament } = localBasketSlice.actions
 
 export default localBasketSlice.reducer
 
