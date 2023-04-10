@@ -47,7 +47,11 @@ export const localBasketSlice = createSlice({
         },
 
         quantityIncrament: (state, action:PayloadAction<QuantityIncramentDecramentPayload>) => state.map(el=> el.product_id === action.payload.product_id ? {...el, quantity: el.quantity +1} : el),
-        quantityDecrament: (state, action:PayloadAction<QuantityIncramentDecramentPayload>) => state.map(el => el.product_id === action.payload.product_id ? {...el, quantity: el.quantity -1}: el)
+        quantityDecrament: (state, action:PayloadAction<QuantityIncramentDecramentPayload>) => {
+          return state.map(el => {
+            return el.product_id === action.payload.product_id && el.quantity >1 ? {...el, quantity: el.quantity -1}: el
+          })
+        }
     }
 })
 

@@ -34,6 +34,29 @@ export const selectedProduct = ((state:RootState, _id:string, category_ref:strin
     return product[0]
 })
 
+export const multipleSelectedProductsById = ((state:RootState, product_id:string[]) => {
+    const productsArrays = Object.entries(state.products)
+    if(product_id) {
+        let products = productsArrays.flatMap(el => {
+            return el[1].filter(el => {
+                let i=0
+                while(i<10){
+                    if(el._id === product_id[i]) {
+                        i++
+                        return el
+                    } else {
+                        i++
+                    }
+                }
+            })
+        })
+        return products        
+    }
+    return []
+
+})
+
+
 
     export const getRandomtAmountProducts = ((state:RootState, amount = 4) => { // funkcja zwraca 4 losowe przedmioty, każdy z innej kategorii
         const productIds = Object.keys(state.products) as string[];

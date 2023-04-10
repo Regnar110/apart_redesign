@@ -89,14 +89,14 @@ const Navigation = ({stickToTop}:Props) => {
                 {
                     user.name ? <div onClick={() => dispatch(userSignOut())} className='flex flex-col items-center cursor-pointer'><LogoutIcon/></div>  : <BsPerson onClick={() => Router.push({pathname:"/login"})} className='cursor-pointer w-6 h-6'/>
                 }  
-                <div className='nav_handbag relative'>
+                <div className='nav_handbag relative' onClick={() => Router.push("/wishlist")}>
                     <BsHeart className='cursor-pointer w-6 h-6'/>
-                    <div className='nav_handbag_quantity absolute top-4 left-2 bg-[#c7747b] text-[13px] font-bold text-white w-[25px] text-center rounded-2xl'>{wishListItemsAmount > 0 ? wishListItemsAmount: ""}</div>    
+                    <div onClick={() => Router.push("/wishlist")} className='nav_handbag_quantity cursor-pointer absolute top-4 left-2 bg-[#c7747b] text-[13px] font-bold text-white w-[25px] text-center rounded-2xl'>{wishListItemsAmount > 0 ? wishListItemsAmount: ""}</div>    
                 </div>
                 
                 <div className='nav_handbag relative' onClick={() => Router.push("/basket")}>
                     <BsHandbag className='cursor-pointer w-6 h-6'/>
-                    <div className='nav_handbag_quantity absolute top-4 left-2 bg-[#c7747b] text-[13px] font-bold text-white w-[25px] text-center rounded-r-lg rounded-l-lg'>{basketItemsAmount > 0 ? basketItemsAmount:""}</div>
+                    <div onClick={() => Router.push("/basket")} className='nav_handbag_quantity cursor-pointer absolute top-4 left-2 bg-[#c7747b] text-[13px] font-bold text-white w-[25px] text-center rounded-r-lg rounded-l-lg'>{basketItemsAmount > 0 ? basketItemsAmount:""}</div>
                 </div>
                 
             </div>            

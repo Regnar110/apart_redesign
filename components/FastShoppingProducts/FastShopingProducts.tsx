@@ -25,7 +25,7 @@ const FastShopingProducts = ({notifyBasket}:Props) => {
                 products.map(el => {
                     return (
                         <div key={el._id} className='product flex col-span-1 w-full py-10'>
-                            <Image className='cursor-pointer' onClick={() => Router.push(`/product/${el.category._ref}/${el._id}`)} src={urlFor(el.image[0]).url()} width={100} height={100} style={{objectFit:"contain"}} alt="fast_shopping_image"/>
+                            <Image priority={true} className='cursor-pointer' onClick={() => Router.push(`/product/${el.category._ref}/${el._id}`)} src={urlFor(el.image[0]).url()} width={100} height={100} style={{objectFit:"contain", width:"auto", height:"auto"}} alt="fast_shopping_image"/>
                             <div className='fast_shopping_product_details flex flex-col justify-around'>
                                 <span onClick={() => Router.push(`/product/${el.category._ref}/${el._id}`)} className='cursor-pointer font-semibold text-[14px]'>{el.title}</span>
                                 <span className='font-light'>Cena: {el.cena} zł</span>

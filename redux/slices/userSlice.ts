@@ -57,3 +57,5 @@ export const isProductAdded = (state:RootState, productId:string):boolean => {
 }
 
 export const wishListQuantity = (state:RootState) => state.user.wishList_productsRef?.length as number
+
+export const getWishListProductsRefs = (state:RootState) => state.user.wishList_productsRef

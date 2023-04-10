@@ -20,7 +20,6 @@ const Basket = () => {
     const basketProducts = useSelector((state:RootState) => showLocalBasket(state))
     const finalPrice = useSelector((state:RootState) => getFinalPrice(state))
     const dispatch = useDispatch()
-    console.log(basketProducts)
   return (
     <div className='basket_page box-border relative flex flex-col items-center'>
       <Head>
@@ -45,8 +44,8 @@ const Basket = () => {
                 {
                   basketProducts.map(el => {
                     return (
-                        <div className='basket_product grid grid-cols-12 justify-center items-start py-4 text-[13px] md:text-[16px] border-b-[1px] px-3'>
-                            <div className='relative col-span-2 border-black rounded-sm'><Image src={urlFor(el.product_img[0]).url()} width={120} height={120} style={{objectFit:"contain"}} alt="modal_basket_image"/></div>
+                        <div key={el.product_id} className='basket_product grid grid-cols-12 justify-center items-start py-4 text-[13px] md:text-[16px] border-b-[1px] px-3'>
+                            <div className='relative col-span-2 border-black rounded-sm'><Image priority={true} src={urlFor(el.product_img[0]).url()} width={120} height={120} style={{objectFit:"contain", width:"auto", height:"auto"}} alt="modal_basket_image"/></div>
                             <div className='product_name col-span-4 md:col-span-6 font-semibold text-[14px] flex flex-col justify-center'>
                               <span className='cursor-pointer text-black hover:text-[#d4a82f] transition-all'>{el.product_name}</span>
                               <span onClick={() => basketActionsHandler("REMOVE", dispatch, el.product_id)} className='cursor-pointer font-light text-[#777] hover:text-[#d4a82f] transition-all flex'><CloseIcon fontSize='small'/>Usuń artykuł</span>
