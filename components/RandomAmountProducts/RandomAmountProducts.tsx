@@ -1,5 +1,5 @@
 import Router from 'next/router'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MediaQuery from 'react-responsive'
 import { urlFor } from '../../sanity'
 import CustomTextButton from '../button/CustomTextButton'
@@ -16,17 +16,19 @@ interface RandomAmountProducts {
 }
 
 const RandomAmountProducts = ({header, categorySlug}:RandomAmountProducts) => {
-// const randomProducts = productsCategorySlug ? useSelector((state:RootState) => getCategorizedRandomProducts(state,4, productsCategorySlug)) as Product[] : useSelector((state:RootState) =>  getFourRandomtAmountProducts(state,4)) as Product[]
+    const [randomizedProducts, setRandomProducts] = useState<Product[]>([])
     const randomProducts = categorySlug ? 
     useSelector((state:RootState)=> getCategorizedRandomProducts(state, 4, categorySlug)) as Product[]
     :
     useSelector((state:RootState) => getRandomtAmountProducts(state, 4)) as Product[]
-
-return randomProducts ?
+    useEffect(() => {
+        setRandomProducts(randomProducts)
+    },[])
+return randomizedProducts ?
     <div className='landing-random-products p-3 flex flex-col justify-center items-center'>
         <h1 className='font-bold text-black text-[16px] md:text-[17px] lg:text-[22px] text-center my-7'>{header}</h1>
         <div className='randomp-wrapper w-12/12 md:w-10/12 grid grid-flow-col grid-rows-2 lg:grid-rows-1 auto-cols-fr gap-5'>
-        {randomProducts.map(el => {
+        {randomizedProducts.map(el => {
             return (<div key={el._id} className='z-30 relative random-product cursor-pointer flex flex-col items-center justify-center border-1 rounded-md p-2 shadow-md transition-all hover:scale-[1.02]'>
                 <MediaQuery maxWidth={1024}>
                     <Image onClick={() => Router.push(`/product/${el.category._ref}/${el._id}`)} width={250} height={250} style={{objectFit:"contain", width:"auto"}} src={urlFor(el.image[0]).url()} alt={'product_image'} />            

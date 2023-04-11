@@ -40,3 +40,6 @@ const handler = async (
         }
       }
 export default handler
+
+// Funkcja obsługująca rejestrację nowego użytkownika do serwisu wraz z obsługą błędów, które mogą wystąpić w trakcie tego procesu.
+// Użytkownik jest informowany o statusie realizacji jego akcji w postaci zwracanych obiektów.

@@ -14,3 +14,6 @@ export const handleLoginOrRegister = async <ReturnType>(targetAPI:string, data:S
     const parsedData = await responseData.json();
     return parsedData as ReturnType
 }
+
+// Jest to funkcja, która obsługuje logowanie i rejestrację. Wysyła ona żądanie do api wskazanego przez użytkownika. może być to np userLogin lub userRegister. Następnie otrzymujemy
+// odpowiedź.

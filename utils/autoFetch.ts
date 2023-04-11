@@ -18,3 +18,6 @@ export const autoFetch =  async <ReturnType, PayloadType>(targetAPI:string, payl
     const fetchedData:ReturnType = data
     return fetchedData;
 }
+
+// Jest to Funkcja generyczna, która służy do pobierania danych z użyciem POST z api wskazanego przez użytkownika. Może zawierać ciało requestu, którego typ jest
+//predefiniowany przez użytkownika przy użyciu funkcji. 

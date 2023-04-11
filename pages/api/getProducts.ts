@@ -166,3 +166,5 @@ const handler = async (
         res.status(200).json(products)
       }
 export default handler
+
+//funckja zwracająca produkty na bazie żądania w formacie groq query.

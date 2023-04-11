@@ -116,7 +116,7 @@ const Navigation = ({stickToTop}:Props) => {
                         categories.map((category, i) => {
                             return (
                             <SwiperSlide className='my-2' key={i}>
-                                <div key={category!._id} onClick={() => Router.push({pathname:`/category/${category._id}`})} className="relative flex flex-col items-center justify-center">
+                                <div key={category!._id} onClick={() => Router.push(`/category/${category._id}`)} className="relative flex flex-col items-center justify-center">
                                     <div  className='relative w-11 h-11 md:w-14 md:h-14'>
                                         <Image sizes='(min-width: 1024px) 44px' className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
                                     </div>

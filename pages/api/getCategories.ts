@@ -19,3 +19,5 @@ const handler = async (
         res.status(200).json({categories})
       }
 export default handler
+
+//funkcja zwracająca kategorie na bazie groq query z sanity.

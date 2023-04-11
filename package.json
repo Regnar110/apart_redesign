@@ -24,6 +24,7 @@
     "react-hook-form": "^7.43.7",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.7.1",
+    "react-paginate": "^8.1.5",
     "react-redux": "^8.0.5",
     "react-responsive": "^9.0.2",
     "redux-persist": "^6.0.0",

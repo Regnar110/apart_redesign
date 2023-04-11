@@ -20,7 +20,6 @@ const handler = async (
             })
             result.modifiedCount > 0 ? res.status(200).json({isError:false, message:"Dodano produkt do listy życzeń."}) : res.status(500).json({isError:true, message:"Nie udało się dodac produktu do listy życzeń. Skontaktuj się z nami aby uzyskać pomoc."})      
         } else { //REMOVE
-            console.log(userDocument.wishList_productsRef)
             const indexOfProduct = userDocument.wishList_productsRef.indexOf(payload.product_id)
             const indexOfProductToRemove:number = userDocument.wishList_productsRef.findIndex((el:string) => {
                 return el === payload.product_id
@@ -42,8 +41,9 @@ const handler = async (
     } catch (error) {
         res.status(500).json({isError:true, message:"ERROR STATUS 500: updateWishListMongoDB OVERALL ERROR!"})
     }
-
-
-    
   }
 export default handler
+
+// Jest to funkcja wykonywana po stronie servera, która obsługuje zlecone przez użytkownika zadania ADD lub REMOVE na liście życzeń.
+//Funkcja ta ma wbudowaną obsługę błędów, dzięki czemu jest wstanie poinformować użytkownika o tym czy jego akcja usunięcia lub dodania produktu do listy
+// powiodła się lub nie oraz w jaki sposób się powiodła oraz w jaki sposób się nie powiodła

@@ -26,7 +26,7 @@ const DesktopNavDropdown = ({title, activityHandler }:Props) => {
                                         null
                                     })
                                  }
-                                 <Link className='w-full text-center text-[14px] text-red-500 border-2' href={`category/${el[1][0].category._ref}`}>More</Link>
+                                 <Link className='w-full text-center text-[14px] text-red-500 border-2' href={`/category/${el[1][0].category._ref}`}>More</Link>
                             </div>
                         )
                     })

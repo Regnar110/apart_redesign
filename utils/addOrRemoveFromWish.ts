@@ -29,3 +29,9 @@ export const addOrRemoveFromWish = async (product_id:string, user_email:string, 
             }
     }
 }
+
+// Jest to funkcja, która służy to rozdzielania przy użyciu metody SWITCH zadań zleconych przez użytkownika.
+// Obsługuje ona zadania ADD i REMOVE służące do modyfikowania stanu  listy życzeń. 
+//Przy konkretnym wyborze  aktualizujemy listę w naszej bazie danych. Jeżeli żądanie aktualizacji nie zwróci obiektu zawierającego isError:true to znaczy
+// że żądanie się udało, a przynajmniej dotarło do miejsca, w którym miał zostać obsłużone. Dopiero potem zmieniany jest stan aplikacji w store reduxa przy użyciu dispatch
+// a potem otrzymujemy powiadomienie przez notifyAction.

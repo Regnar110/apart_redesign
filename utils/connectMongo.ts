@@ -22,3 +22,6 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default clientPromise as Promise<MongoClient>
+
+
+// Jest to plik który inicjalizuje połączenie z naszym kawałkiem bazdy mondo DB.

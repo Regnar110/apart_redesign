@@ -40,3 +40,6 @@ const handler = async (
         }
       }
 export default handler
+
+// Funkcja obsługująca akcję logowania się użytkownika na stronę. Ma ona wbudowaną obsługę błędów dla kilku przypadków. Dzięki temu użytkownik jest wstanie otrzymać
+// wiadomość zwrotną z informacją o wykonaniu żądania oraz o np. błędzie w wykonaniu żądania.
