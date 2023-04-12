@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '../store'
 
 const initialState:Partial<Category[]>= []
 
@@ -16,3 +17,8 @@ export const categoriesSlice = createSlice({
 export const { fetchCategories } = categoriesSlice.actions
 
 export default categoriesSlice.reducer
+
+
+export const getCategories = (state:RootState) => {
+    return state.categories
+}

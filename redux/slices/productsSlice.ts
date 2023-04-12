@@ -34,6 +34,11 @@ export const selectedProduct = ((state:RootState, _id:string, category_ref:strin
     return product[0]
 })
 
+export const selectedCategoryProductsQuantity = (state:RootState, category_ref:string) => {
+    const category = categorizedProducts(state, category_ref)
+    return category[0][1].length
+}
+
 export const multipleSelectedProductsById = ((state:RootState, product_id:string[]) => {
     const productsArrays = Object.entries(state.products)
     if(product_id) {

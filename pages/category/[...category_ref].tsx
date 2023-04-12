@@ -19,7 +19,7 @@ const Category = () => {
         <div className='category_page w-full'>
             <Navigation />
             <section className='products_pagination_section w-full flex justify-center'>
-                <PaginatedItems current_ref={category_ref!} itemsPerPage={8}/>
+                <PaginatedItems current_ref={category_ref!} itemsPerPage={5}/>
             </section>
 
             <Footer />    
