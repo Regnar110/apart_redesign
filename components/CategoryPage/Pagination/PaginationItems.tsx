@@ -17,6 +17,7 @@ const PaginationItems = ({current_items, title}:Props) => {
       <div className='category_items grid grid-cols-3 justify-items-center items-center gap-10'>
         {
           current_items && current_items.map(el => <CategoryProduct 
+              key={el._id}
               user_email={user_email as string} 
               product_id={el._id} 
               product_category_ref={el.category._ref}

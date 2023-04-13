@@ -16,8 +16,7 @@ interface Props {
 }
 
 const CategoryProduct = ({user_email, product_id, product_category_ref, product_name, price, image}:Props) => {
-  const notifyAction= (toastNotification:string, httpStatusCode:number) => { // NEXT - TO PRZENIEŚĆ DO OSOBNEGO KOMPONENTU I W FUNKCJI ZWRACAĆ TLKO TEN KOMPONENT
-    // return httpStatusCode === 200 ? toast.success(toastNotofication): toast.error(toastNotofication)
+  const notifyAction= (toastNotification:string, httpStatusCode:number) => { 
     return toast.custom(t => (
         <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} ${httpStatusCode === 500 ? "bg-[#c7747b] text-white font-bold" : "bg-white text-black font-medium"} max-w-md w-full p-5 shadow-2xl rounded-lg pointer-events-auto flex gap-x-5 items-center justify-center ring-1 ring-black ring-opacity-5`}>
         {
@@ -28,11 +27,11 @@ const CategoryProduct = ({user_email, product_id, product_category_ref, product_
     ))
   }
   return (
-    <div onClick={() => Router.push(`/product/${product_category_ref}/${product_id}`)} key={product_id} className='category_page_product max-w-[250px] relative cursor-pointer flex flex-col font-roboto border-b-[1px] hover:border-[#db0000] transition-all'>
-      <Image priority={true} src={urlFor(image[0]).url()} width={200} height={200} style={{objectFit:"contain", width:"auto", height:"auto"}} alt="wishList_product_image"/>
-      <span className='text-[14px] text-[#222222] font-light hover:text-[#d4a82f] transition-all'>{product_name}</span>
+    <div className='category_page_product max-w-[250px]  relative cursor-pointer flex flex-col justify-start font-roboto border-b-[1px] hover:border-[#db0000] transition-all'>
+      <Image onClick={() => Router.push(`/product/${product_category_ref}/${product_id}`)} key={product_id} priority={true} src={urlFor(image[0]).url()} width={200} height={200} style={{objectFit:"contain", width:"auto", height:"auto"}} alt="wishList_product_image"/>
+      <span onClick={() => Router.push(`/product/${product_category_ref}/${product_id}`)} key={product_id} className='text-[14px] text-[#222222] font-light hover:text-[#d4a82f] transition-all'>{product_name}</span>
       <span className='text-[22px] font-light'>{price} zł</span>
-      <div className='wishList_hearth absolute top-0 right-0 cursor-pointer'>
+      <div className='wishList_hearth absolute top-0 right-[-20px] cursor-pointer'>
         <AddToWishList wishProductId={product_id} isUserLogged={user_email ? true:false} notifyAction={notifyAction} onlyIcon={true}/>
       </div>
       <Toaster position='bottom-center'/>

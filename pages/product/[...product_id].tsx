@@ -41,8 +41,6 @@ const Product = () => {
       }
 
     const notifyBasket = (status:boolean) => setBasketModal(status)
-      
-      console.log(basket)
     // 768PX Mobile break point
     const router = useRouter();
     const userLogged= useSelector((state:RootState) => isUserLogged(state))

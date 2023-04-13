@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
+import { getCategoryNameByItsRef, getCategoryNameWithQuantity } from './categoriesSlice'
 
 
 const initialState:Partial<ProductList>= {}
@@ -21,23 +22,33 @@ export const { fetchProducts } = productsSlice.actions
 
 // SELEKTORY
 
-export const categorizedProducts = (state:RootState, _ref:string) => {
-    const data = Object.entries(state.products).filter(el => {
-        return el[1][0].category._ref === _ref
-    })
-    return data
+export const categorizedProducts = (state:RootState, _ref:string):[string, Product[]] => {
+    if(_ref !== "all") {
+        const data = Object.entries(state.products).flatMap(([,el]):Product[] => el.filter(el => el.category._ref===_ref))
+        const [category] = getCategoryNameByItsRef(state, _ref)
+        return [category.title, data]
+    }
+    const data = Object.entries(state.products).flatMap(([,el]) => el)
+    return ["Wszystkie produkty", data]
+
 }
 
 export const selectedProduct = ((state:RootState, _id:string, category_ref:string) => {
-    const targetedCategory = categorizedProducts(state, category_ref)
-    const product = targetedCategory[0][1].filter(el => el._id=== _id)
-    return product[0]
+    const [,targetedProduct] = categorizedProducts(state, category_ref)
+    const [product] = targetedProduct.filter(el => el._id=== _id)
+    return product
 })
 
 export const selectedCategoryProductsQuantity = (state:RootState, category_ref:string) => {
-    const category = categorizedProducts(state, category_ref)
-    return category[0][1].length
+    if(category_ref !== "all") {
+        const category = categorizedProducts(state, category_ref)
+        return category[1].length        
+    }
+    const allQuantity = Object.entries(state.products).reduce((acc, [,el]) => el.length+acc,0)
+    return allQuantity
 }
+
+export const productsNumber = (state:RootState) => Object.entries(state.products).reduce((acc, [,el]) => el.length+acc,0)
 
 export const multipleSelectedProductsById = ((state:RootState, product_id:string[]) => {
     const productsArrays = Object.entries(state.products)
