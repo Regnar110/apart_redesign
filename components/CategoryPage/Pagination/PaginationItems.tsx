@@ -12,9 +12,9 @@ interface Props {
 const PaginationItems = ({current_items, title}:Props) => {
     const { user_email } = useSelector((state:RootState) => getLoggedUser(state))
   return (
-    <div className='items_container flex flex-col w-fit'>
+    <div className='items_container flex flex-col w-fit min-h[450px]'>
       <h1 className='text-[28px] font-light'>{title.toUpperCase()}</h1>
-      <div className='category_items grid grid-cols-3 justify-items-center items-center gap-10'>
+      <div className='category_items grid grid-cols-3 justify-items-center items-center gap-10 min-h[450px]'>
         {
           current_items && current_items.map(el => <CategoryProduct 
               key={el._id}

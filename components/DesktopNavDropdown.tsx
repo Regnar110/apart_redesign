@@ -10,7 +10,8 @@ interface Props {
 const DesktopNavDropdown = ({title, activityHandler }:Props) => {
     const {products} = useSelector((state:RootState) => state)
     return (
-        <div onMouseLeave={() => activityHandler(false)} className='w-full bg-white flex justify-center items-center flex-col gap-y-7 py-10 overflow-visible'>
+        <div onMouseLeave={() => activityHandler(false)} className='relative w-full bg-white flex justify-center items-center flex-col gap-y-7 py-10 overflow-visible'>
+            <span onClick={() => activityHandler(false)} className='absolute top-5 right-5 w-8 h-8 p-1 bg-[#F4C1C5] text-black text-center cursor-pointer'>X</span>
             <h1 className='text-2xl'>{title.toUpperCase()}</h1>
             <div className='xl:w-11/12 w-full flex xl:justify-start justify-center items-start flex-row xl:gap-x-0  gap-x-4 gap-y-7'>
                 {

@@ -84,7 +84,7 @@ const Navigation = ({stickToTop}:Props) => {
                 <MobileMenuPanel activityHandler={showOrHideMobileMenu} menuStatus={mobileMenuPanelStatus}/>
                 <Image onClick={() => Router.push("/")} priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className="w-28 md:w-36"/>
             </div>
-            <Image onClick={() => Router.push("/")} priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className={`cursor-pointer w-24 ${isMobileOrTablet? "hidden":"visible"} md:w-40`}/>
+            <Image onClick={() => Router.push("/")} priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className={`cursor-pointer w-24 ${isMobileOrTablet? "hidden":"visible"} md:w-60`}/>
             <div className='flex gap-x-5'>
                 {
                     user.name ? <div onClick={() => dispatch(userSignOut())} className='flex flex-col items-center cursor-pointer'><LogoutIcon/></div>  : <BsPerson onClick={() => Router.push({pathname:"/login"})} className='cursor-pointer w-6 h-6'/>
@@ -133,12 +133,12 @@ const Navigation = ({stickToTop}:Props) => {
                 :
                 categories.map((category, i) => {
                     return (
-                        <div key={i} onClick={() => Router.push({pathname:`/category/${category._id}`})} className="relative flex flex-col items-center justify-center">
-                            <div  className='relative w-14 h-14'>
-                                <Image sizes='(max-width: 1024px) 56px' className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
+                        <div key={i} onClick={() => Router.push({pathname:`/category/${category._id}`})} className="relative flex flex-col items-center justify-center py-3">
+                            <div  className='relative w-14'>
+                                {/* <Image sizes='(max-width: 1024px) 56px' className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/> */}
                             </div>
                             <div className='relative'>
-                                <span className='h-10 text-md hover:text-[#ebc470] cursor-pointer' id={category.title} key={i} onMouseEnter={() => showDropdown(category.title)}>{category.title.toUpperCase()}</span>                                    
+                                <span className='h-10 text-[19px] hover:text-[#ebc470] cursor-pointer' id={category.title} key={i} onMouseEnter={() => showDropdown(category.title)}>{category.title.toUpperCase()}</span>                                    
                             </div>
                             
                         </div>
