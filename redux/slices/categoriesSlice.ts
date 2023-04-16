@@ -23,7 +23,6 @@ export default categoriesSlice.reducer
 export const getCategoryNameWithQuantity = (state:RootState):[Category, number][] => {
     const categoriesWithQuantity = state.categories.map(el=> {
         const quantity = selectedCategoryProductsQuantity(state, el!._id)
-        console.log(quantity)
         return [el, quantity] as [Category, number]
     })
     return categoriesWithQuantity

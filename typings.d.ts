@@ -159,5 +159,9 @@ type LocalBasket = {
 }[]
 
 
+//CATEGORY PAGE
 
-
+interface AppliedFilters {
+    from_price_filter?:number;
+    to_price_filter?:number;
+  }

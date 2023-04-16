@@ -5,10 +5,7 @@ interface Props {
 }
 
 export const priceFilter = ({from, to, items_to_filter}:Props):Product[] => {
-    if(to && from && from >= to ) { // BŁEDNY WPIS UŻYTKOWNIKA. JEŻELI OD jest WIEKSZE niż DO wtedy zwracamy całą tablicę
-        return items_to_filter
-        
-    } else if(to && from){
+    if(to && from){
         return items_to_filter.filter(el => el.cena >= from && el.cena <= to)
     } else if(!to && from) {
         console.log("od")
