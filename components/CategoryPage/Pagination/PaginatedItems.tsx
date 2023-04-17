@@ -10,6 +10,7 @@ import { getCategoryNameWithQuantity } from '../../../redux/slices/categoriesSli
 import Router from 'next/router';
 import PriceFilter from '../Filters/PriceFilter';
 import { priceFilter } from '../../../utils/CategoryPageFilters/PriceFiltersUtils/priceFilter';
+import SortProductsFilter from '../Filters/SortProductsFilter';
 
 interface Props {
     current_ref:string[] | string
@@ -65,8 +66,6 @@ const PaginatedItems = ({current_ref, itemsPerPage}:Props) => {
   return isMounted ?
     <div className='paginated_categorized_items relative flex flex-row-reverse items-center justify-center border-[#969696] min-h-[450px] md:w-[768px] lg:w-[1024px] xl:w-[1280px] px-4 lg:px-0 py-8'>
         <div className='paginated_items relative  flex flex-col justify-center items-center'>
-            <div className='applied_filters flex gap-3 text-[12px] text-white'>
-            </div>
             <PaginationItems current_items={currentItems as Product[]} title={product_title} />
             <ReactPaginate
                 breakLabel="..."
@@ -85,27 +84,11 @@ const PaginatedItems = ({current_ref, itemsPerPage}:Props) => {
         </div>
         <div className='categories_choices  w-[250px] flex flex-col justify-start h-full px-3'>
         <div className='applied_filters flex gap-3 text-[12px] text-white'>
-        </div>
-        <div className='applied_filters flex gap-3 text-[12px] text-white'>
           {
             Object.entries(appliedFilters).map(([filter, filter_object]) => {
               return Object.entries(filter_object).map(([single_filter_name, filter_value]) => filter_value? <div key={single_filter_name} className='bg-[#AE535A] w-fit p-1 rounded-md flex justify-center items-center gap-2'>{`${single_filter_name}: ${filter_value}`} zł <span onClick={(e) => removeSelectedFilter(e, single_filter_name, "PRICE")} id={filter}>x</span></div> : null)
             })
           }
-          {/* {
-            appliedFilters.length ? (
-              appliedFilters.map(el => {
-                const entries = Object.entries(el)
-                return entries.map(el => {
-                  if(el[0] === "from_price_filter") {
-                    return <div key={el[0]} className='bg-[#AE535A] w-fit p-1 rounded-md flex justify-center items-center gap-2'>od: {el[1]} zł <span id={el[0]} onClick={(e) => removeSelectedFilter(e)}>x</span></div>
-                  }
-                  return <div key={el[0]} className='bg-[#AE535A] w-fit p-1 rounded-md flex justify-center items-center gap-2'>do: {el[1]} zł <span id={el[0]} onClick={(e) => removeSelectedFilter(e)}>x</span></div>
-                })
-              })
-            ):
-            null
-          }         */}
         </div>
 
          <h1 className='font-light text-[16px] border-b-[1px] border-[#ccc] h-fit w-full my-2'>Produkty</h1>
@@ -123,6 +106,8 @@ const PaginatedItems = ({current_ref, itemsPerPage}:Props) => {
          }
          <h1 className='font-light text-[16px] border-b-[1px] border-[#ccc] h-fit w-full my-2'>CENA</h1>
          <PriceFilter setFilters={setAppliedFilters} setAllProducts={setAllProductsByCategory} items_to_filter={productsByCategory} recent_filters={appliedFilters}/>
+         <h1 className='font-light text-[16px] border-b-[1px] border-[#ccc] h-fit w-full my-2'>SORTUJ</h1>
+         <SortProductsFilter setFilters={setAppliedFilters} setAllProducts={setAllProductsByCategory} items_to_filter={Object.entries(appliedFilters).length?allProductsByCategory as Product[]: productsByCategory as Product[]} recent_filters={appliedFilters} />
         </div>
     </div>
     :
