@@ -1,7 +1,7 @@
 interface Props {
     from?:number;
     to?:number;
-    items_to_filter:Product[]
+    items_to_filter:Product[];
 }
 
 export const priceFilter = ({from, to, items_to_filter}:Props):Product[] => {

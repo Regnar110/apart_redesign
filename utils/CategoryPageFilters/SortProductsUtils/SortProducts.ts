@@ -3,6 +3,21 @@ interface Props {
     filter_type:string;
 }
 export const SortProducts = ({items_to_filter, filter_type}:Props) => {
-    items_to_filter.sort((a,b) => a.cena - b.cena)
+    console.log("jestem w funkcjiii")
     console.log(items_to_filter)
+    console.log(filter_type)
+    switch(filter_type) {
+        case "HIGH":
+            const fromHighest = items_to_filter.sort((a,b) => {
+                return b.cena - a.cena
+            })
+            return fromHighest as Product[];
+        case "LOW":
+            const fromLowest = items_to_filter.sort((a,b) => {
+                return a.cena - b.cena
+            })
+            return fromLowest as Product[];
+        default:
+            return [] as Product[]
+    }
 }

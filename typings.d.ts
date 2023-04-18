@@ -165,5 +165,8 @@ interface AppliedFilters {
     price_filter?: {
         od?:number;
         do?:number;
+    };
+    sort_filter?: {
+        cena:string;
     }
 }

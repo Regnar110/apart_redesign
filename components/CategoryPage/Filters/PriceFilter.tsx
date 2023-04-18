@@ -3,12 +3,13 @@ import { useForm } from 'react-hook-form';
 import { TextField } from '@mui/material'
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { priceFilter } from '../../../utils/CategoryPageFilters/PriceFiltersUtils/priceFilter';
+import { ApplyFiltersOnProducts } from '../../../utils/CategoryPageFilters/ApplyFiltersOnProducts';
 
 interface Props {
     setFilters: React.Dispatch<React.SetStateAction<AppliedFilters>>;
     recent_filters: AppliedFilters
     setAllProducts:  React.Dispatch<React.SetStateAction<Product[] | undefined>>;
-    items_to_filter: Product[]
+    items_to_filter: Product[];
 }
 
 const PriceFilter = ({setFilters, setAllProducts, items_to_filter, recent_filters}:Props) => {
@@ -16,11 +17,12 @@ const PriceFilter = ({setFilters, setAllProducts, items_to_filter, recent_filter
   const { register, handleSubmit, reset, formState } = useForm();
 
   const onSubmit = async (data:{from_price_filter:number, to_price_filter:number}) => {
-    if((data.from_price_filter && data.to_price_filter=== false && data.from_price_filter > data.to_price_filter ) || (data.from_price_filter && data.to_price_filter && data.from_price_filter> data.to_price_filter) ) {
-      //JEŻELI Cena od jest większa od ceny DO oraz jeżeli cena OD istnieje a cena DO nie istnieje LUB jeżeli obie ceny istnieją i cena  OD jest większa niż DO
-      //Takie zastosowanie filtra jest nie dopuszczalne
+    if((data.from_price_filter && data.to_price_filter && +data.from_price_filter > +data.to_price_filter )) {
+      console.log(`od: ${data.from_price_filter} do: ${data.to_price_filter} wynik: ${data.from_price_filter > data.to_price_filter }`)
+
       console.log("złe filtry")
-    } else {
+    }else {
+      
       const filteredByPriceItems = priceFilter({from:data.from_price_filter, to:data.to_price_filter, items_to_filter})
       setAllProducts(filteredByPriceItems)
       for (let key in data) {
@@ -29,9 +31,14 @@ const PriceFilter = ({setFilters, setAllProducts, items_to_filter, recent_filter
         }
       }
       console.log(Object.entries(recent_filters))
-      const newFilters = {...recent_filters, price_filter:{od:data.from_price_filter, do:data.to_price_filter}}
-      console.log(newFilters)
-      setFilters(newFilters)      
+      const newFilter = {
+        price_filter: {
+          od:data.from_price_filter,
+          do:data.to_price_filter
+        }
+      }
+      ApplyFiltersOnProducts(items_to_filter, recent_filters, newFilter, "PRICE")
+      setFilters({...recent_filters, ...newFilter})  
     }
   }
   return (
