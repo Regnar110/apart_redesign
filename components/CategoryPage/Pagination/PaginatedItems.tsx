@@ -11,6 +11,7 @@ import Router from 'next/router';
 import PriceFilter from '../Filters/PriceFilter';
 import { priceFilter } from '../../../utils/CategoryPageFilters/PriceFiltersUtils/priceFilter';
 import SortProductsFilter from '../Filters/SortProductsFilter';
+import { ApplyFiltersOnProducts } from '../../../utils/CategoryPageFilters/ApplyFiltersOnProducts';
 
 interface Props {
     current_ref:string[] | string
@@ -45,15 +46,9 @@ const PaginatedItems = ({current_ref, itemsPerPage}:Props) => {
       }
     }
     const changedFilters = Object.fromEntries(appliedFiltersClone)
-    setAppliedFilters(changedFilters)
-    switch(filter_type_to_remove) {
-      case "PRICE":
-        const itemsAfterRemoveFilter = priceFilter({from:changedFilters.price_filter?.od, to:changedFilters.price_filter?.do, items_to_filter:productsByCategory})
-        setDisplayedProducts(itemsAfterRemoveFilter)  
-        break;
-      default:
-        break;      
-    }
+    const newSortResult = ApplyFiltersOnProducts(productsByCategory, appliedFilters, changedFilters, "PRICE")
+    setDisplayedProducts(newSortResult.filteredProducts)
+    setAppliedFilters({...newSortResult.appliedFilters})
   }
 
   
@@ -105,7 +100,7 @@ const PaginatedItems = ({current_ref, itemsPerPage}:Props) => {
          <h1 className='font-light text-[16px] border-b-[1px] border-[#ccc] h-fit w-full my-2'>CENA</h1>
          <PriceFilter setFilters={setAppliedFilters} setAllProducts={setDisplayedProducts} items_to_filter={productsByCategory as Product[]} recent_filters={appliedFilters}/>
          <h1 className='font-light text-[16px] border-b-[1px] border-[#ccc] h-fit w-full my-2'>SORTUJ</h1>
-         <SortProductsFilter setFilters={setAppliedFilters} setAllProducts={setDisplayedProducts} items_to_filter={displayedProducts as Product[]} recent_filters={appliedFilters} />
+         <SortProductsFilter setFilters={setAppliedFilters} setAllProducts={setDisplayedProducts} items_to_filter={productsByCategory as Product[]} recent_filters={appliedFilters} />
         </div>
     </div>
     :

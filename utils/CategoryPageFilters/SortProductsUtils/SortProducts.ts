@@ -3,9 +3,6 @@ interface Props {
     filter_type:string;
 }
 export const SortProducts = ({items_to_filter, filter_type}:Props) => {
-    console.log("jestem w funkcjiii")
-    console.log(items_to_filter)
-    console.log(filter_type)
     switch(filter_type) {
         case "HIGH":
             const fromHighest = items_to_filter.sort((a,b) => {

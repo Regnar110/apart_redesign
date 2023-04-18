@@ -22,23 +22,16 @@ const PriceFilter = ({setFilters, setAllProducts, items_to_filter, recent_filter
 
       console.log("złe filtry")
     }else {
-      
-      const filteredByPriceItems = priceFilter({from:data.from_price_filter, to:data.to_price_filter, items_to_filter})
-      setAllProducts(filteredByPriceItems)
-      for (let key in data) {
-        if (data.hasOwnProperty(key) && !data[key]) {
-          delete data[key];
-        }
-      }
-      console.log(Object.entries(recent_filters))
       const newFilter = {
         price_filter: {
           od:data.from_price_filter,
           do:data.to_price_filter
         }
       }
-      ApplyFiltersOnProducts(items_to_filter, recent_filters, newFilter, "PRICE")
-      setFilters({...recent_filters, ...newFilter})  
+      const {appliedFilters, filteredProducts} = ApplyFiltersOnProducts(items_to_filter, recent_filters, newFilter, "PRICE")
+      // const filteredByPriceItems = priceFilter({from:data.from_price_filter, to:data.to_price_filter, items_to_filter})
+      setAllProducts(filteredProducts)
+      setFilters({...recent_filters, ...appliedFilters})  
     }
   }
   return (

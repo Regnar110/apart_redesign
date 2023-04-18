@@ -15,18 +15,11 @@ interface Props {
 
 const SortProductsFilter = ({setFilters, setAllProducts, items_to_filter, recent_filters}:Props) => {
     const handleChange = (event: SelectChangeEvent) => {
-      event.preventDefault()
       const filter_type = event.target.value
-      const sortedProducts = SortProducts({items_to_filter, filter_type})
-      setAllProducts(sortedProducts)
-      const newFilter = {
-        sort_filter:{
-          cena: event.target.value === "LOW"? "od najniższej": "od najwyższej"
-        }
-        
-      }
-      ApplyFiltersOnProducts(items_to_filter, recent_filters, newFilter, event.target.value)
-      setFilters({...recent_filters, ...newFilter}) 
+      const newFilter = {sort_filter:{cena: event.target.value === "LOW"? "od najniższej": "od najwyższej"}}
+      const {appliedFilters, filteredProducts} = ApplyFiltersOnProducts(items_to_filter, recent_filters, newFilter, filter_type)
+      setAllProducts(filteredProducts)
+      setFilters({...recent_filters, ...appliedFilters}) 
     };
 
 
