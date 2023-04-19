@@ -3,7 +3,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { SortProducts } from '../../../utils/CategoryPageFilters/SortProductsUtils/SortProducts';
 import { ApplyFiltersOnProducts } from '../../../utils/CategoryPageFilters/ApplyFiltersOnProducts';
 
 interface Props {
@@ -18,6 +17,7 @@ const SortProductsFilter = ({setFilters, setAllProducts, items_to_filter, recent
       const filter_type = event.target.value
       const newFilter = {sort_filter:{cena: event.target.value === "LOW"? "od najniższej": "od najwyższej"}}
       const {appliedFilters, filteredProducts} = ApplyFiltersOnProducts(items_to_filter, recent_filters, newFilter, filter_type)
+      console.log(filteredProducts)
       setAllProducts(filteredProducts)
       setFilters({...recent_filters, ...appliedFilters}) 
     };

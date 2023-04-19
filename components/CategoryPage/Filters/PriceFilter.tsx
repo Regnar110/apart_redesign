@@ -29,6 +29,7 @@ const PriceFilter = ({setFilters, setAllProducts, items_to_filter, recent_filter
         }
       }
       const {appliedFilters, filteredProducts} = ApplyFiltersOnProducts(items_to_filter, recent_filters, newFilter, "PRICE")
+      console.log(filteredProducts)
       // const filteredByPriceItems = priceFilter({from:data.from_price_filter, to:data.to_price_filter, items_to_filter})
       setAllProducts(filteredProducts)
       setFilters({...recent_filters, ...appliedFilters})  

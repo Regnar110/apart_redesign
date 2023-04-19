@@ -7,22 +7,25 @@ import PaginationItems from './PaginationItems';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { getCategoryNameWithQuantity } from '../../../redux/slices/categoriesSlice';
-import Router from 'next/router';
 import PriceFilter from '../Filters/PriceFilter';
-import { priceFilter } from '../../../utils/CategoryPageFilters/PriceFiltersUtils/priceFilter';
 import SortProductsFilter from '../Filters/SortProductsFilter';
 import { ApplyFiltersOnProducts } from '../../../utils/CategoryPageFilters/ApplyFiltersOnProducts';
+import NumberOfItems from '../Filters/NumberOfItems';
+import AppliedFilters from '../ProductsCategoriesChoice/AppliedFilters/AppliedFilters';
+import ProductsCategoriesChoice from '../ProductsCategoriesChoice/ProductsCategoriesChoice';
 
 interface Props {
     current_ref:string[] | string
-    itemsPerPage:number;
+    defaultItemsPerPage:number;
 }
 
-const PaginatedItems = ({current_ref, itemsPerPage}:Props) => {
+const PaginatedItems = ({current_ref, defaultItemsPerPage}:Props) => {
   const [isMounted, setIsMounted] = useState<boolean>(false) // Usttawiane na true przy końcu componentDidMount.
   const [itemOffset, setItemOffset] = useState(0);
   const [appliedFilters, setAppliedFilters] = useState<AppliedFilters>({}) // służy do definiowania przez komponent użytych filtrów, żeby wyświetlić je w UI
   const [displayedProducts, setDisplayedProducts] = useState<Product[]>();
+  const [selectedPage, setSelectedPage] = useState<number>(1) // służy do wskazania instancjom ReactPaginate jaką strone mają aktualnie renderować. Użyteczne przy dwóch iunstancjach
+  const [itemsPerOnePage, setItemPerOnePage] = useState<number>()
 
 
   const [product_title, productsByCategory]:[string, Product[]] = useSelector((state:RootState) => categorizedProducts(state, current_ref[0])) // pobieramy ze store skategoryzowane produkty w postaci [string, Product[]]
@@ -30,15 +33,16 @@ const PaginatedItems = ({current_ref, itemsPerPage}:Props) => {
   const allProductsQuantity = useSelector((state:RootState) => productsNumber(state)) // pobieramy liczbę wszystkich produktów dostępnych w sklepie
   
   
-  const endOffset = itemOffset + itemsPerPage;
+  const endOffset = itemOffset + (itemsPerOnePage? itemsPerOnePage: defaultItemsPerPage);
   const currentItems = displayedProducts?.slice(itemOffset, endOffset)
-  const pageCount = Math.ceil(displayedProducts? displayedProducts!.length / itemsPerPage:0);
+  const pageCount = Math.ceil(displayedProducts? displayedProducts!.length / (itemsPerOnePage? itemsPerOnePage: defaultItemsPerPage):0);
 
   const handlePageClick = (event:any) => {
-    const newOffset = (event.selected * itemsPerPage) % displayedProducts!.length;
+    const newOffset = (event.selected * (itemsPerOnePage? itemsPerOnePage: defaultItemsPerPage)) % displayedProducts!.length;
     setItemOffset(newOffset);
+    setSelectedPage(event.selected)
   };
-  const removeSelectedFilter = (e:any, single_filter_name:string, filter_type_to_remove:"PRICE") => {
+  const removeSelectedFilter = (e:any, single_filter_name:string, filter_type_to_remove:string) => {
     const appliedFiltersClone = Object.entries(appliedFilters)
     for(let i=0; i<appliedFiltersClone.length; i++) {
       if(appliedFiltersClone[i][0] === e.target!.id) {
@@ -46,62 +50,64 @@ const PaginatedItems = ({current_ref, itemsPerPage}:Props) => {
       }
     }
     const changedFilters = Object.fromEntries(appliedFiltersClone)
-    const newSortResult = ApplyFiltersOnProducts(productsByCategory, appliedFilters, changedFilters, "PRICE")
+    const newSortResult = ApplyFiltersOnProducts(productsByCategory, appliedFilters, changedFilters, filter_type_to_remove) // tu zmienić!
     setDisplayedProducts(newSortResult.filteredProducts)
     setAppliedFilters({...newSortResult.appliedFilters})
   }
 
   
   useEffect(() => {
-    setDisplayedProducts(productsByCategory)
+    setItemOffset(0) // usuwa problem w którym po wybraniu np 7 strony w kategorii wszystkie przy przechodzeniu do innej kategori dalej pokzywało 7 stronę mimo że nowo wybrana kategoria miała tylko 1 stronę
+    // przez co nie są wyświetlane produkty
+    setDisplayedProducts(productsByCategory) // poczatkowo wysiwtlanymi produktami są bazowe produkty pobrane ze store.
+    //JEst tak dlatego, że displayed products są to produkty po użyciu np filtrów.
+    setItemPerOnePage(defaultItemsPerPage)
     setIsMounted(true)
+    setAppliedFilters({}) // przy zmianie kategorii resetujemy filtry
   },[current_ref])
   return isMounted ?
     <div className='paginated_categorized_items relative flex flex-row-reverse items-center justify-center border-[#969696] min-h-[450px] md:w-[768px] lg:w-[1024px] xl:w-[1280px] px-4 lg:px-0 py-8'>
+        
         <div className='paginated_items relative  flex flex-col justify-center items-center'>
-            <PaginationItems current_items={currentItems as Product[]} title={product_title} />
-            <ReactPaginate
-                breakLabel="..."
-                nextLabel={<NavigateNextIcon/>}
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={5}
-                pageCount={pageCount}
-                previousLabel={<NavigateBeforeIcon/>}
-                renderOnZeroPageCount={null}
-                containerClassName='flex justify-center items-center w-fit my-10'
-                pageClassName='border-[1px] border-[#969696] w-[40px] h-[40px] cursor-pointer hover:bg-[#F1F1F1]'
-                pageLinkClassName="w-full h-full flex justify-center items-center"
-                activeClassName='bg-[#F4C1C5] text-[#ae535a] hover:text-white hover:bg-[#F4C1C5] cursor-default'
-                initialPage={1}
-            />
+          <div className='items_header flex w-full justify-between'>
+            <h1 className='text-[28px] font-light'>{product_title}</h1> 
+            <NumberOfItems setPageItems={setItemPerOnePage}/>          
+          </div>
+          <ReactPaginate
+            forcePage={selectedPage}
+            breakLabel="..."
+            nextLabel={<NavigateNextIcon/>}
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            previousLabel={<NavigateBeforeIcon/>}
+            renderOnZeroPageCount={null}
+            containerClassName='flex justify-center items-center w-fit my-10'
+            pageClassName='border-[1px] border-[#969696] w-[30px] h-[30px] cursor-pointer hover:bg-[#F1F1F1]'
+            pageLinkClassName="w-full h-full flex justify-center items-center"
+            activeClassName='bg-[#F4C1C5] text-[#ae535a] hover:text-white hover:bg-[#F4C1C5] cursor-default'
+          />
+          <PaginationItems current_items={currentItems as Product[]}/>
+          <ReactPaginate
+            forcePage={selectedPage}
+            breakLabel="..."
+            nextLabel={<NavigateNextIcon/>}
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            previousLabel={<NavigateBeforeIcon/>}
+            renderOnZeroPageCount={null}
+            containerClassName='flex justify-center items-center w-fit my-10'
+            pageClassName='border-[1px] border-[#969696] w-[30px] h-[30px] cursor-pointer hover:bg-[#F1F1F1]'
+            pageLinkClassName="w-full h-full flex justify-center items-center"
+            activeClassName='bg-[#F4C1C5] text-[#ae535a] hover:text-white hover:bg-[#F4C1C5] cursor-default'
+          />
         </div>
-        <div className='categories_choices  w-[250px] flex flex-col justify-start h-full px-3'>
-        <div className='applied_filters flex flex-wrap gap-3 text-[12px] text-white'>
-          {
-            Object.entries(appliedFilters).map(([filter, filter_object]) => {
-              return Object.entries(filter_object).map(([single_filter_name, filter_value]) => filter_value? <div key={single_filter_name} className='bg-[#AE535A] w-fit p-1 rounded-md flex justify-center items-center gap-2'>{`${single_filter_name}: ${filter_value}`} zł <span onClick={(e) => removeSelectedFilter(e, single_filter_name, "PRICE")} id={filter}>x</span></div> : null)
-            })
-          }
-        </div>
-
-         <h1 className='font-light text-[16px] border-b-[1px] border-[#ccc] h-fit w-full my-2'>Produkty</h1>
-            <div className='choice flex items-center gap-2 h-fit' onClick={() => Router.push(`/category/all`)}>
-              <span className='cursor-pointer text-[15px] text-[#222222be] hover:text-[#d4a82f] transition-all py-1'>Wszystko</span>
-              <span className='category_products_quantity text-[10px] text-[#777777]'>({allProductsQuantity})</span>
-            </div>
-         {
-          categories.map(([category, quantity]) => (
-            <div key={category._id} className='choice flex items-center gap-2 h-fit' onClick={() => Router.push(`/category/${category!._id}`)}>
-              <span className='cursor-pointer text-[15px] text-[#222222be] hover:text-[#d4a82f] transition-all py-1'>{category!.title}</span>
-              <span className='category_products_quantity text-[10px] text-[#777777]'>({quantity as number})</span>
-            </div>
-          ))
-         }
-         <h1 className='font-light text-[16px] border-b-[1px] border-[#ccc] h-fit w-full my-2'>CENA</h1>
-         <PriceFilter setFilters={setAppliedFilters} setAllProducts={setDisplayedProducts} items_to_filter={productsByCategory as Product[]} recent_filters={appliedFilters}/>
-         <h1 className='font-light text-[16px] border-b-[1px] border-[#ccc] h-fit w-full my-2'>SORTUJ</h1>
-         <SortProductsFilter setFilters={setAppliedFilters} setAllProducts={setDisplayedProducts} items_to_filter={productsByCategory as Product[]} recent_filters={appliedFilters} />
-        </div>
+        <ProductsCategoriesChoice categories={categories} allProductsQuantity={allProductsQuantity}>
+          <AppliedFilters appliedFilters={appliedFilters} removeSelectedFilter={removeSelectedFilter}/>
+          <PriceFilter setFilters={setAppliedFilters} setAllProducts={setDisplayedProducts} items_to_filter={productsByCategory as Product[]} recent_filters={appliedFilters}/>
+          <SortProductsFilter setFilters={setAppliedFilters} setAllProducts={setDisplayedProducts} items_to_filter={productsByCategory as Product[]} recent_filters={appliedFilters} />
+        </ProductsCategoriesChoice>
     </div>
     :
     null

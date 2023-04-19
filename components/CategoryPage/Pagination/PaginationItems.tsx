@@ -6,14 +6,12 @@ import { RootState } from '../../../redux/store'
 
 interface Props {
     current_items:Product[];
-    title:string;
 }
 
-const PaginationItems = ({current_items, title}:Props) => {
+const PaginationItems = ({current_items}:Props) => {
     const { user_email } = useSelector((state:RootState) => getLoggedUser(state))
   return (
-    <div className='items_container flex flex-col w-fit min-h-[450px]'>
-      <h1 className='text-[28px] font-light'>{title.toUpperCase()}</h1>
+    <div className='items_container flex flex-col w-fit min-h-[450px] min-w-[600px]'>
       {
         current_items.length ? 
         (
