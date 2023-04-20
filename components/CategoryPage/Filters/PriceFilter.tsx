@@ -2,7 +2,6 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { TextField } from '@mui/material'
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import { priceFilter } from '../../../utils/CategoryPageFilters/PriceFiltersUtils/priceFilter';
 import { ApplyFiltersOnProducts } from '../../../utils/CategoryPageFilters/ApplyFiltersOnProducts';
 
 interface Props {

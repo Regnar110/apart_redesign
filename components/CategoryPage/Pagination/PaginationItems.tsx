@@ -11,11 +11,11 @@ interface Props {
 const PaginationItems = ({current_items}:Props) => {
     const { user_email } = useSelector((state:RootState) => getLoggedUser(state))
   return (
-    <div className='items_container flex flex-col w-fit min-h-[450px] min-w-[600px]'>
+    <div className='items_container flex flex-col min-h-[450px] w-[100%] md:min-w-[600px]'>
       {
         current_items.length ? 
         (
-          <div className='category_items grid grid-cols-3 justify-items-center items-center gap-10 min-h[450px]'>
+          <div className='category_items grid md:grid-cols-2 xl:grid-cols-3 justify-items-center items-center gap-2 xl:gap-10 min-h[450px] w-full mg:w-auto'>
             {
               current_items && current_items.map(el => <CategoryProduct 
                   key={el._id}

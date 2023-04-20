@@ -13,6 +13,7 @@ import { ApplyFiltersOnProducts } from '../../../utils/CategoryPageFilters/Apply
 import NumberOfItems from '../Filters/NumberOfItems';
 import AppliedFilters from '../ProductsCategoriesChoice/AppliedFilters/AppliedFilters';
 import ProductsCategoriesChoice from '../ProductsCategoriesChoice/ProductsCategoriesChoice';
+import MediaQuery from 'react-responsive'
 
 interface Props {
     current_ref:string[] | string
@@ -66,9 +67,15 @@ const PaginatedItems = ({current_ref, defaultItemsPerPage}:Props) => {
     setAppliedFilters({}) // przy zmianie kategorii resetujemy filtry
   },[current_ref])
   return isMounted ?
-    <div className='paginated_categorized_items relative flex flex-row-reverse items-center justify-center border-[#969696] min-h-[450px] md:w-[768px] lg:w-[1024px] xl:w-[1280px] px-4 lg:px-0 py-8'>
-        
-        <div className='paginated_items relative  flex flex-col justify-center items-center'>
+    <div className='paginated_categorized_items relative flex flex-col lg:flex-row-reverse items-start justify-center border-[#969696] min-h-[450px] w-full md:w-[768px] lg:w-[1024px] xl:w-[1280px] px-4 lg:px-0 py-8'>
+        <MediaQuery maxWidth={1023}>
+          <AppliedFilters appliedFilters={appliedFilters} removeSelectedFilter={removeSelectedFilter}/>
+          <ProductsCategoriesChoice categories={categories} allProductsQuantity={allProductsQuantity} mobileWithDropdown={true}>
+            <PriceFilter setFilters={setAppliedFilters} setAllProducts={setDisplayedProducts} items_to_filter={productsByCategory as Product[]} recent_filters={appliedFilters}/>
+            <SortProductsFilter setFilters={setAppliedFilters} setAllProducts={setDisplayedProducts} items_to_filter={productsByCategory as Product[]} recent_filters={appliedFilters} />
+          </ProductsCategoriesChoice>
+        </MediaQuery>
+        <div className='paginated_items relative  flex flex-col justify-center items-center w-full'>
           <div className='items_header flex w-full justify-between'>
             <h1 className='text-[28px] font-light'>{product_title}</h1> 
             <NumberOfItems setPageItems={setItemPerOnePage}/>          
@@ -103,11 +110,13 @@ const PaginatedItems = ({current_ref, defaultItemsPerPage}:Props) => {
             activeClassName='bg-[#F4C1C5] text-[#ae535a] hover:text-white hover:bg-[#F4C1C5] cursor-default'
           />
         </div>
-        <ProductsCategoriesChoice categories={categories} allProductsQuantity={allProductsQuantity}>
-          <AppliedFilters appliedFilters={appliedFilters} removeSelectedFilter={removeSelectedFilter}/>
-          <PriceFilter setFilters={setAppliedFilters} setAllProducts={setDisplayedProducts} items_to_filter={productsByCategory as Product[]} recent_filters={appliedFilters}/>
-          <SortProductsFilter setFilters={setAppliedFilters} setAllProducts={setDisplayedProducts} items_to_filter={productsByCategory as Product[]} recent_filters={appliedFilters} />
-        </ProductsCategoriesChoice>
+        <MediaQuery minWidth={1024}>
+          <ProductsCategoriesChoice categories={categories} allProductsQuantity={allProductsQuantity} mobileWithDropdown={false}>
+            <AppliedFilters appliedFilters={appliedFilters} removeSelectedFilter={removeSelectedFilter}/>
+            <PriceFilter setFilters={setAppliedFilters} setAllProducts={setDisplayedProducts} items_to_filter={productsByCategory as Product[]} recent_filters={appliedFilters}/>
+            <SortProductsFilter setFilters={setAppliedFilters} setAllProducts={setDisplayedProducts} items_to_filter={productsByCategory as Product[]} recent_filters={appliedFilters} />
+          </ProductsCategoriesChoice>
+        </MediaQuery>
     </div>
     :
     null

@@ -74,8 +74,8 @@ const Navigation = ({stickToTop}:Props) => {
     } 
 
   return mounted? ( // mounted jest po to żeby react-responsive działał bez wywalania błędu Warning: Prop `className` did not match. co oznacza że classname na serverze i po stronie klienta się różnią co psuje layout
-    <nav className={`${isNavFixed && !stickToTop? 'fixed': 'sticky' } pt-2 md:pt-8 flex flex-col w-full justify-center items-center z-40 bg-white`}>
-        <div className={`flex ${isMobileOrTablet? "flex-wrap-reverse justify-between px-3": "flex-nowrap justify-around"} items-center w-full h-30`}>
+    <nav className={`${isNavFixed && !stickToTop? 'fixed': 'sticky' } pt-2 md:pt-3 flex flex-col w-full justify-center items-center z-40 bg-white`}>
+        <div className={`flex ${isMobileOrTablet? "flex-wrap-reverse justify-between px-3": "flex-nowrap justify-around"} items-center w-full`}>
             <div className={`flex ${isMobileOrTablet? "w-full" : "md:w-auto"} h-7 font-roboto border-2 border-gray-200 mx-5`}>
                 <AiOutlineSearch className='w-4 h-6 cursor-pointer'/>
                 <input placeholder="Szukaj" className='w-full border-0 outline-none bg-[#F1F1F1] md:bg-white'></input>
@@ -84,18 +84,18 @@ const Navigation = ({stickToTop}:Props) => {
                 <MobileMenuPanel activityHandler={showOrHideMobileMenu} menuStatus={mobileMenuPanelStatus}/>
                 <Image onClick={() => Router.push("/")} priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className="w-28 md:w-36"/>
             </div>
-            <Image onClick={() => Router.push("/")} priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className={`cursor-pointer w-24 ${isMobileOrTablet? "hidden":"visible"} md:w-60`}/>
+            <Image onClick={() => Router.push("/")} priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className={`cursor-pointer w-24 ${isMobileOrTablet? "hidden":"visible"} md:w-40`}/>
             <div className='flex gap-x-5'>
                 {
-                    user.name ? <div onClick={() => dispatch(userSignOut())} className='flex flex-col items-center cursor-pointer'><LogoutIcon/></div>  : <BsPerson onClick={() => Router.push({pathname:"/login"})} className='cursor-pointer w-6 h-6'/>
+                    user.name ? <div onClick={() => dispatch(userSignOut())} className='flex flex-col items-center cursor-pointer'><LogoutIcon/></div>  : <BsPerson onClick={() => Router.push({pathname:"/login"})} className='cursor-pointer w-5 h-5'/>
                 }  
                 <div className='nav_handbag relative' onClick={() => Router.push("/wishlist")}>
-                    <BsHeart className='cursor-pointer w-6 h-6'/>
+                    <BsHeart className='cursor-pointer w-5 h-5'/>
                     <div onClick={() => Router.push("/wishlist")} className='nav_handbag_quantity cursor-pointer absolute top-4 left-2 bg-[#c7747b] text-[13px] font-bold text-white w-[25px] text-center rounded-2xl'>{wishListItemsAmount > 0 ? wishListItemsAmount: ""}</div>    
                 </div>
                 
                 <div className='nav_handbag relative' onClick={() => Router.push("/basket")}>
-                    <BsHandbag className='cursor-pointer w-6 h-6'/>
+                    <BsHandbag className='cursor-pointer w-5 h-5'/>
                     <div onClick={() => Router.push("/basket")} className='nav_handbag_quantity cursor-pointer absolute top-4 left-2 bg-[#c7747b] text-[13px] font-bold text-white w-[25px] text-center rounded-r-lg rounded-l-lg'>{basketItemsAmount > 0 ? basketItemsAmount:""}</div>
                 </div>
                 
