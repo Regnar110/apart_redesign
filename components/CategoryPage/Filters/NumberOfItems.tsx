@@ -16,14 +16,15 @@ const NumberOfItems = ({setPageItems}:Props) => {
 
     }
     return (
-        <FormControl className='w-[110px] h-[20px]'>
+        <FormControl className='w-[100px]'>
         <InputLabel id="demo-simple-select-label text-[10px]">Pokaż</InputLabel>
         <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         label="Pokaż"
         defaultValue={""}
-        onChange={({target}) => handleChange(target)}
+        onChange={({target}) => handleChange(target)} 
+        placeholder=''
         >
             <MenuItem value={5}>5</MenuItem>
             <MenuItem value={10}>10</MenuItem>

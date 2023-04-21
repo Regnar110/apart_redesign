@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import Image from 'next/image';
 import apart_logo from '../public/logo.gif'
-import {AiOutlineSearch} from 'react-icons/ai'
 import {BsPerson, BsHeart, BsHandbag} from 'react-icons/bs'
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -22,6 +21,7 @@ import store from '../redux/store';
 import { userSignOut } from '../redux/slices/userSlice';
 import { basketQuantity } from '../redux/slices/localBasketSlice';
 import { wishListQuantity } from '../redux/slices/userSlice';
+import NavigationSearch from './NavigationSearch/NavigationSearch';
 
 interface Props {
     stickToTop?:boolean
@@ -32,6 +32,7 @@ const Navigation = ({stickToTop}:Props) => {
     const categories = useSelector((state:RootState):Category[] =>{
         return state.categories as Category[]
     })
+
     const {user} = useSelector((state:RootState) => state)
     const basketItemsAmount = useSelector((state:RootState) => basketQuantity(state))
     const wishListItemsAmount = useSelector((state:RootState) => wishListQuantity(state))
@@ -76,10 +77,7 @@ const Navigation = ({stickToTop}:Props) => {
   return mounted? ( // mounted jest po to żeby react-responsive działał bez wywalania błędu Warning: Prop `className` did not match. co oznacza że classname na serverze i po stronie klienta się różnią co psuje layout
     <nav className={`${isNavFixed && !stickToTop? 'fixed': 'sticky' } pt-2 md:pt-3 flex flex-col w-full justify-center items-center z-40 bg-white`}>
         <div className={`flex ${isMobileOrTablet? "flex-wrap-reverse justify-between px-3": "flex-nowrap justify-around"} items-center w-full`}>
-            <div className={`flex ${isMobileOrTablet? "w-full" : "md:w-auto"} h-7 font-roboto border-2 border-gray-200 mx-5`}>
-                <AiOutlineSearch className='w-4 h-6 cursor-pointer'/>
-                <input placeholder="Szukaj" className='w-full border-0 outline-none bg-[#F1F1F1] md:bg-white'></input>
-            </div>
+            <NavigationSearch isMobileOrTablet={isMobileOrTablet}/>
             <div className={`flex items-center justify-center gap-x-6 ${isMobileOrTablet? "py-4 gap-x-2": "hidden"}`}>
                 <MobileMenuPanel activityHandler={showOrHideMobileMenu} menuStatus={mobileMenuPanelStatus}/>
                 <Image onClick={() => Router.push("/")} priority src={apart_logo} alt='apart-logo' style={{objectFit:"contain"}} className="w-28 md:w-36"/>
@@ -101,7 +99,7 @@ const Navigation = ({stickToTop}:Props) => {
                 
             </div>            
         </div>
-        <div className='w-full flex justify-center items-center gap-x-10 border-b-2 border-gray-300 font-light'>
+        <div className='w-full flex justify-center items-center gap-x-5 border-b-2 border-gray-300 font-light'>
             {
                 isMobileOrTablet ? 
                 <Swiper spaceBetween={0} slidesPerView={4} centerInsufficientSlides={true}
@@ -111,7 +109,16 @@ const Navigation = ({stickToTop}:Props) => {
                     modules={[Scrollbar]}
                     className="text-center flex justify-center items-center w-full"
                 >
-
+                        <SwiperSlide className='my-2'>
+                            <div onClick={() => Router.push(`/category/all`)} className="relative flex flex-col items-center justify-center">
+                                <div  className='relative w-11 h-11 md:w-14 md:h-14'>
+                                    <Image sizes='(min-width: 1024px) 44px' className=' relative' src={urlFor(categories[2].image[0]).url()} fill style={{objectFit:"contain"}} alt={`all-image`}/>
+                                </div>
+                                <div className='relative'>
+                                    <span className='h=10 text-xs md:text-md hover:text-[#ebc470] cursor-pointer' id={"all"}>{"BIŻUTERIA"}</span>                                    
+                                </div>
+                            </div>
+                        </SwiperSlide>
                         {
                         categories.map((category, i) => {
                             return (
@@ -131,6 +138,16 @@ const Navigation = ({stickToTop}:Props) => {
                         }
                 </Swiper>
                 :
+                <>
+                <div onClick={() => Router.push({pathname:`/category/all`})} className="relative flex flex-col items-center justify-center py-3">
+                    <div  className='relative w-14'>
+                        {/* <Image sizes='(max-width: 1024px) 56px' className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/> */}
+                    </div>
+                    <div className='relative'>
+                        <span className='h-10 text-[19px] hover:text-[#ebc470] cursor-pointer' id={"all"}>BIŻUTERIA</span>                                    
+                    </div>
+                </div>
+                {
                 categories.map((category, i) => {
                     return (
                         <div key={i} onClick={() => Router.push({pathname:`/category/${category._id}`})} className="relative flex flex-col items-center justify-center py-3">
@@ -140,10 +157,11 @@ const Navigation = ({stickToTop}:Props) => {
                             <div className='relative'>
                                 <span className='h-10 text-[19px] hover:text-[#ebc470] cursor-pointer' id={category.title} key={i} onMouseEnter={() => showDropdown(category.title)}>{category.title.toUpperCase()}</span>                                    
                             </div>
-                            
                         </div>
                     )
                 })
+                }
+                </>
             }
         </div>
         {

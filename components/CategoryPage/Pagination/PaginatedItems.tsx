@@ -67,7 +67,7 @@ const PaginatedItems = ({current_ref, defaultItemsPerPage}:Props) => {
     setAppliedFilters({}) // przy zmianie kategorii resetujemy filtry
   },[current_ref])
   return isMounted ?
-    <div className='paginated_categorized_items relative flex flex-col lg:flex-row-reverse items-start justify-center border-[#969696] min-h-[450px] w-full md:w-[768px] lg:w-[1024px] xl:w-[1280px] px-4 lg:px-0 py-8'>
+    <div className='paginated_categorized_items relative flex flex-col lg:flex-row-reverse items-start justify-center border-[#969696] min-h-[450px] w-full md:w-[768px] lg:w-[1024px] xl:w-[1280px] px-5 lg:px-0 py-8'>
         <MediaQuery maxWidth={1023}>
           <AppliedFilters appliedFilters={appliedFilters} removeSelectedFilter={removeSelectedFilter}/>
           <ProductsCategoriesChoice categories={categories} allProductsQuantity={allProductsQuantity} mobileWithDropdown={true}>
@@ -76,8 +76,8 @@ const PaginatedItems = ({current_ref, defaultItemsPerPage}:Props) => {
           </ProductsCategoriesChoice>
         </MediaQuery>
         <div className='paginated_items relative  flex flex-col justify-center items-center w-full'>
-          <div className='items_header flex w-full justify-between'>
-            <h1 className='text-[28px] font-light'>{product_title}</h1> 
+          <div className='items_header flex w-full justify-between items-center'>
+            <h1 className=' text-[18px] md:text-[28px] font-light'>{product_title}</h1> 
             <NumberOfItems setPageItems={setItemPerOnePage}/>          
           </div>
           <ReactPaginate
