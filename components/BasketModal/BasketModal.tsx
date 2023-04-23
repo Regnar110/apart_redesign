@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { getFinalPrice, showLocalBasket } from '../../redux/slices/localBasketSlice';
 import { RootState } from '../../redux/store';
 import { urlFor } from '../../sanity';
+import Router from 'next/router';
 interface Props {
     notifyBasket: (status:boolean) => void;
 }
@@ -49,7 +50,7 @@ const BasketModal = ({notifyBasket}:Props) => {
             </div>
             <div className='modal_basket_buttons font-light p-3 flex justify-between items-center text-[12px] md:text-[15px]'>
                 <button className='px-3 py-1 border-[1px] border-[#adadad]' onClick={() => notifyBasket(false)}>Kontynuuj zakupy</button>
-                <button className='px-3 py-1 shadow-lg w-[120px] md:w-[150px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' >Do kasy</button>
+                <button onClick={() => Router.push("/basket")} className='px-3 py-1 shadow-lg w-[120px] md:w-[150px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' >Do kasy</button>
             </div>
         </div>
     

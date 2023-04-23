@@ -13,6 +13,7 @@ import { basketActionsHandler } from '../utils/basketActionsHandler';
 import Footer from '../components/Footer/Footer';
 import FastShopingProducts from '../components/FastShoppingProducts/FastShopingProducts';
 import BasketModal from '../components/BasketModal/BasketModal';
+import Router from 'next/router';
 
 const Basket = () => { 
   const [basketModal, setBasketModal] = useState<boolean>(false)
@@ -95,7 +96,7 @@ const Basket = () => {
           </div>
           <div className='modal_basket_buttons font-light p-3 flex justify-between items-center text-[12px] md:text-[15px]'>
             <button className='px-3 py-1 border-[1px] border-[#adadad]'>Kontynuuj zakupy</button>
-            <button className='px-3 py-1 shadow-lg w-[120px] md:w-[150px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' >Do kasy</button>
+            <button onClick={() => Router.push("/checkout")} className='px-3 py-1 shadow-lg w-[120px] md:w-[170px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' >ZŁÓŻ ZAMÓWIENIE</button>
           </div>
       </section>
       {

@@ -27,7 +27,7 @@ const CategoryProduct = ({user_email, product_id, product_category_ref, product_
     ))
   }
   return (
-    <div className='category_page_product w-full md:max-w-[250px]  relative cursor-pointer flex flex-col justify-start font-roboto border-b-[1px] hover:border-[#db0000] transition-all'>
+    <div className='category_page_product w-[80%] md:max-w-[250px]  relative cursor-pointer flex flex-col justify-start font-roboto border-b-[1px] hover:border-[#db0000] transition-all'>
       <Image onClick={() => Router.push(`/product/${product_category_ref}/${product_id}`)} priority={true} src={urlFor(image[0]).url()} width={200} height={200} style={{objectFit:"contain", width:"auto", height:"auto"}} alt="wishList_product_image"/>
       <span onClick={() => Router.push(`/product/${product_category_ref}/${product_id}`)} className='w-full text-[14px] text-[#222222] font-light hover:text-[#d4a82f] transition-all'>{product_name}</span>
       <span className='text-[22px] font-light'>{price} zł</span>

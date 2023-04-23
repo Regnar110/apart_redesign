@@ -103,6 +103,7 @@ const Navigation = ({stickToTop}:Props) => {
             {
                 isMobileOrTablet ? 
                 <Swiper spaceBetween={0} slidesPerView={4} centerInsufficientSlides={true}
+                
                 scrollbar={{
                     hide: true,
                     }}
@@ -115,7 +116,7 @@ const Navigation = ({stickToTop}:Props) => {
                                     <Image sizes='(min-width: 1024px) 44px' className=' relative' src={urlFor(categories[2].image[0]).url()} fill style={{objectFit:"contain"}} alt={`all-image`}/>
                                 </div>
                                 <div className='relative'>
-                                    <span className='h=10 text-xs md:text-md hover:text-[#ebc470] cursor-pointer' id={"all"}>{"BIŻUTERIA"}</span>                                    
+                                    <span className='h=10 text-[11px] md:text-md hover:text-[#ebc470] cursor-pointer' id={"all"}>{"BIŻUTERIA"}</span>                                    
                                 </div>
                             </div>
                         </SwiperSlide>
@@ -128,7 +129,7 @@ const Navigation = ({stickToTop}:Props) => {
                                         <Image sizes='(min-width: 1024px) 44px' className=' relative' src={urlFor(category.image[0]).url()} fill style={{objectFit:"contain"}} alt={`${category.title}-image`}/>
                                     </div>
                                     <div className='relative'>
-                                        <span className='h=10 text-xs md:text-md hover:text-[#ebc470] cursor-pointer' id={category.title} key={i}>{category.title.toUpperCase()}</span>                                    
+                                        <span className='h=10 text-[11px] md:text-md hover:text-[#ebc470] cursor-pointer' id={category.title} key={i}>{category.title.toUpperCase()}</span>                                    
                                     </div>
                                     
                                 </div>
