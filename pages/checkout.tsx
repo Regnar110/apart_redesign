@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
 import { getFinalPrice, showLocalBasket } from '../redux/slices/localBasketSlice'
@@ -12,13 +12,16 @@ import InputLabel from '@mui/material/InputLabel'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import OutlinedInput from '@mui/material/OutlinedInput';
+import { useForm } from 'react-hook-form'
+import TextField from '@mui/material/TextField'
+import Checkbox from '@mui/material/Checkbox'
+import CheckoutForm from '../components/Checkout/CheckoutForm'
 
 
 const checkout = () => {
     const basketProducts = useSelector((state:RootState) => showLocalBasket(state))
     const finalPrice = useSelector((state:RootState) => getFinalPrice(state))
     console.log(basketProducts)
-    
   return (
     <div className='checkout_page flex flex-col justify-center items-center'>
         <Head>
@@ -77,53 +80,7 @@ const checkout = () => {
                 </>
               )
             }
-            <div className='modal_basket_buttons font-light p-3 flex justify-between items-center text-[12px] md:text-[15px]'>
-                <button onClick={() => Router.push("/basket")} className='px-3 py-1 border-[1px] border-[#adadad]'>Wstecz</button>
-                <button onClick={() => Router.push("/checkout/confirm")} className='px-3 py-1 shadow-lg w-[120px] md:w-[170px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' >Podsumowanie</button>
-            </div>
-            <div className='user_and_delivery_data grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center lg:justify-items-start'>
-              <div className='delivery p-2 flex flex-col gap-y-3'>
-                <h1 className='text-[18px] font-light'>Dostawa</h1>
-                <div className='delivery_type_select'>
-                <InputLabel id="demo-simple-select-label"><span className='font-extrabold'>Sposób dostawy*</span></InputLabel>
-                <Select
-                  fullWidth
-                  input={<OutlinedInput />}
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  defaultValue={0}
-                  label="Age"
-                  size='small'
-                  // onChange={handleChange}
-                >
-                  <MenuItem value={0}>Dostawa kurierem do domu</MenuItem>
-                  <MenuItem value={1}>Dostawa do salonu Apart</MenuItem>
-                </Select>
-                </div>
-                <div className='delivery_country'>
-                <InputLabel id="demo-simple-select-label"><span className='font-extrabold'>Kraj*</span></InputLabel>
-                <Select
-                  fullWidth
-                  input={<OutlinedInput/>}
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  defaultValue={0}
-                  label="Kraj"
-                  size='small'
-                  // onChange={handleChange}
-                >
-                  <MenuItem value={0}>Polska</MenuItem>
-                  <MenuItem value={1}>Inne</MenuItem>
-                </Select>
-                </div>
-              </div>
-              <div className='delivery_adress'>
-                delivery adress
-              </div>
-              <div className='additional_data'>
-                dane dodatkowe
-              </div>
-            </div>
+            <CheckoutForm />
       </section>
       <Footer />
     </div>
