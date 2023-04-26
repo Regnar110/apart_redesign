@@ -14,11 +14,9 @@ export const userSlice = createSlice({
         userSignOut:() => initialState,
         addToWishList: (state, action:PayloadAction<string>) => {
             const productIndexIfExist = state.wishList_productsRef?.findIndex(el => el === action.payload) as number
-            console.log(productIndexIfExist)
             if(productIndexIfExist >= 0) {
                 state = state
             } else {
-                console.log("nie istnieje")
                 const newState = state.wishList_productsRef?.push(action.payload)
                 state = Object.assign(state, newState)   
             }

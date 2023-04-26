@@ -35,7 +35,7 @@ const Basket = () => {
                 <>
                 <BasketProductsGrid>
                   {
-                    basketProducts.map((el) => <BasketProduct product={el} productIsEditable={true}/>)
+                    basketProducts.map((el) => <BasketProduct key={el.product_id} product={el} productIsEditable={true}/>)
                   }
                 </BasketProductsGrid>
                 <BasketSummary finalPrice={finalPrice} />

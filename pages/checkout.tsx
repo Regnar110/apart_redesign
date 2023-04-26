@@ -14,7 +14,6 @@ import BasketSummary from '../components/BasketProducts/BasketSummary'
 const checkout = () => {
     const basketProducts = useSelector((state:RootState) => showLocalBasket(state))
     const finalPrice = useSelector((state:RootState) => getFinalPrice(state))
-    console.log(basketProducts)
   return (
     <div className='checkout_page flex flex-col justify-center items-center'>
         <Head>
@@ -31,14 +30,14 @@ const checkout = () => {
                 <>
                 <BasketProductsGrid>
                   {
-                    basketProducts.map((el) => <BasketProduct product={el} productIsEditable={false}/>)
+                    basketProducts.map((el) => <BasketProduct key={el.product_id} product={el} productIsEditable={false}/>)
                   }
                 </BasketProductsGrid>
                 <BasketSummary finalPrice={finalPrice} delivery_price={true} />
+                <CheckoutForm />
                 </>
               )
             }
-            <CheckoutForm />
       </section>
       <Footer />
     </div>

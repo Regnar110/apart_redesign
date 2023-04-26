@@ -25,7 +25,7 @@ const PaginatedItems = ({current_ref, defaultItemsPerPage}:Props) => {
   const [itemOffset, setItemOffset] = useState(0);
   const [appliedFilters, setAppliedFilters] = useState<AppliedFilters>({}) // służy do definiowania przez komponent użytych filtrów, żeby wyświetlić je w UI
   const [displayedProducts, setDisplayedProducts] = useState<Product[]>();
-  const [selectedPage, setSelectedPage] = useState<number>(1) // służy do wskazania instancjom ReactPaginate jaką strone mają aktualnie renderować. Użyteczne przy dwóch iunstancjach
+  const [selectedPage, setSelectedPage] = useState<number>(0) // służy do wskazania instancjom ReactPaginate jaką strone mają aktualnie renderować. Użyteczne przy dwóch iunstancjach
   const [itemsPerOnePage, setItemPerOnePage] = useState<number>()
 
 

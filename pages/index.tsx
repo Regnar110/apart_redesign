@@ -108,7 +108,6 @@ const Home = () => {
   // const isTabletOrLess = useMediaQuery({ query: '(max-width: 768px)' }) // to uzycie react-responsive powodowało przy zwróceniu true z tego query Re-render kompoonentu!!!!!
   const [isMounted, setIsMounted] = useState(false) // pozwala na uniknięcie Hydration Error. 
   useEffect(() => {
-    console.log("HOME MOUNTED")
     setIsMounted(true)
   },[])
 

@@ -19,7 +19,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   Router.events.on("routeChangeStart", (url => setLoading(true)))
   Router.events.on("routeChangeComplete", (url) => setLoading(false) )
   useEffect(() => {
-    console.log("apptsx")
     dispatch(fetchProducts({...pageProps.initialReduxState.products}))
     dispatch(fetchCategories(pageProps.initialReduxState.categories.categories))
   },[])

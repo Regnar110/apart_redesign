@@ -10,7 +10,6 @@ interface Props {
 
 const ProductsCategoriesChoice = ({children, categories,allProductsQuantity,mobileWithDropdown}:Props) => {
   const [filtersOpen, setFiltersOpen] = useState<boolean>(false)
-  console.log(filtersOpen)
 
   useEffect(() => {
     setFiltersOpen(false)
