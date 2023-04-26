@@ -9,9 +9,24 @@ import TextField from '@mui/material/TextField'
 import Checkbox from '@mui/material/Checkbox'
 
 const CheckoutForm = () => {
-    const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm();
-    const [postalCode, setPostalCode] = useState<string>();
-
+    const { register, handleSubmit, reset} = useForm();
+    const [postalCode, setPostalCode] = useState<string>("");
+    const onSubmit = (data:SuccesSubmitCheckoutForm) => {
+        console.log(data)
+        Router.push({
+            pathname:"/checkout/confirm",
+            query: {
+                name:data.delivery_adress_name,
+                surname:data.delivery_adress_surname,
+                postalCode:data.delivery_adress_city_postal,
+                city:data.delivery_adress_city_name,
+                street:data.delivery_adress_street,
+                street_add:data.delivery_adress_street_additional,
+                phoneNumber:data.delivery_adress_cellphone,
+                email:data.delivery_adress_email,
+            }
+        })
+    }
     const handlePostalCodeChange = (event) => {
       const { value } = event.target;
       const cleanedValue = value.replace(/\D/g, ''); // usuwa wszystkie nie-liczbowe znaki globalnie
@@ -26,7 +41,7 @@ const CheckoutForm = () => {
       setPostalCode(formattedValue);
     };
   return (
-    <form className='flex flex-col'>
+    <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
         <div className='user_and_delivery_data grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center lg:justify-items-start'>
             <div className='delivery p-2 flex flex-col gap-y-3 w-full'>
             <h1 className='text-[18px] font-light'>Dostawa</h1>
@@ -67,35 +82,35 @@ const CheckoutForm = () => {
             <h1 className='text-[18px] font-light'>Adres dostawy</h1>
             <TextField 
             {...register("delivery_adress_name", 
-                {required: "To pole jest wymagane", 
+            {
                 maxLength:{value:80, message:"To imie jest zbyt długie"}
-            })} 
+            })}
+            required
             className='w-full' 
             id="input-with-sx" 
-            label="Imie*" 
+            label="Imie" 
             variant="standard" 
             type="text" 
             />      
             <TextField 
             {...register("delivery_adress_surname", 
-                {required: "To pole jest wymagane", 
+            {
                 maxLength:{value:80, message:"To nazwisko jest zbyt długie"}
             })} 
+            required
             className='w-full' 
             id="input-with-sx" 
-            label="Nazwisko*" 
+            label="Nazwisko" 
             variant="standard" 
             type="text" 
             />
             <TextField 
             {...register("delivery_adress_street", 
-                {
-                required: "To pole jest wymagane", 
-                } 
             )} 
+            required
             className='w-full' 
             id="input-with-sx" 
-            label="Adres (ulica i numer domu/lokalu)*" 
+            label="Adres (ulica i numer domu/lokalu)" 
             variant="standard" 
             type="text" 
             />
@@ -109,13 +124,10 @@ const CheckoutForm = () => {
             />
             <div className='delivery_city flex gap-2'>
                 <TextField
-                {...register("delivery_adress_city_postal", 
-                {
-                required: "To pole jest wymagane", 
-                }
-                )} 
+                {...register("delivery_adress_city_postal",)}
+                required 
                 className='w-1/3'
-                label="Kod pocztowy*"
+                label="Kod pocztowy"
                 id='input-with-sx'
                 variant='standard'
                 type="text" // zmieniamy typ na "text" zamiast "number"
@@ -124,14 +136,11 @@ const CheckoutForm = () => {
                 onChange={handlePostalCodeChange}
                 />
                 <TextField 
-                {...register("delivery_adress_city_name", 
-                {
-                    required: "To pole jest wymagane", 
-                }
-                )} 
+                {...register("delivery_adress_city_name",)}
+                required
                 className='w-2/3' 
                 id="input-with-sx" 
-                label="Miejscowość*" 
+                label="Miejscowość" 
                 variant="standard" 
                 type="text" 
                 />
@@ -139,26 +148,26 @@ const CheckoutForm = () => {
             <TextField 
                 {...register("delivery_adress_cellphone", 
                 {
-                    required: "To pole jest wymagane",
                     minLength:{value:9, message:"Numer jest zbyt krótki"}
                 }
-                )} 
+                )}
+                required
                 className='w-full' 
                 id="input-with-sx" 
-                label="Telefon komórkowy*" 
+                label="Telefon komórkowy" 
                 variant="standard" 
-                type="number" 
+                type="string" 
                 />
                 <TextField 
                 {...register("delivery_adress_email", 
                 {
-                    required: "To pole jest wymagane",
                     pattern: {value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i, message:"Zły format adresu email"}
                 }
-                )} 
+                )}
+                required
                 className='w-full' 
                 id="input-with-sx" 
-                label="Adres e-mail*" 
+                label="Adres e-mail" 
                 variant="standard" 
                 type="text" 
                 />
@@ -198,9 +207,9 @@ const CheckoutForm = () => {
         <Checkbox required size='small' defaultChecked={false}/>
         <span className='text-[13px] font-light'>Zapoznałem się z regulaminem sklepu internetowego prowadzonego przez E-R2 Sp. z o.o. S.K.A. oraz informacjami o produktach i akceptuję jego warunki. *</span>              
         </div>
-        <div className='modal_basket_buttons font-light p-3 flex justify-between items-center text-[12px] md:text-[15px]'>
+        <div className='checkout_buttons font-light p-3 flex justify-between items-center text-[12px] md:text-[15px]'>
         <button onClick={() => Router.push("/basket")} className='px-3 py-1 border-[1px] border-[#adadad]'>Wstecz</button>
-        <button onClick={() => Router.push("/checkout/confirm")} className='px-3 py-1 shadow-lg w-[120px] md:w-[170px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' >Podsumowanie</button>
+        <button type='submit' className='px-3 py-1 shadow-lg w-[120px] md:w-[170px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' >Podsumowanie</button>
         </div>
     </form>
   )

@@ -170,3 +170,17 @@ interface AppliedFilters {
         cena:string;
     }
 }
+
+//CHECKOUT
+
+interface SuccesSubmitCheckoutForm {
+    delivery_adress_name:string;
+    delivery_adress_surname:string;
+    delivery_adress_street:string;
+    delivery_adress_street_additional:string;
+    delivery_adress_city_postal:string;
+    delivery_adress_city_name:string;
+    delivery_adress_email:string;
+    delivery_adress_cellphone:string;
+
+}
