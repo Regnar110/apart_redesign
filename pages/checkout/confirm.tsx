@@ -11,11 +11,32 @@ import stripeLogo from '../../public/stripe.png'
 import BasketProductsGrid from '../../components/BasketProducts/BasketProductsGrid'
 import BasketProduct from '../../components/BasketProducts/BasketProduct'
 import BasketSummary from '../../components/BasketProducts/BasketSummary'
+import getStripe from '../../utils/get-stripe'
+import { Stripe } from 'stripe';
+import { autoFetch } from '../../utils/autoFetch'
 
 const confirm = () => {
   const{query} = useRouter()
   const basketProducts = useSelector((state:RootState) => showLocalBasket(state))
   const finalPrice = useSelector((state:RootState) => getFinalPrice(state))
+  const createCheckoutSession = async () => {
+    const checkoutSession: Stripe.Checkout.Session = await autoFetch<Stripe.Checkout.Session, LocalBasket>("checkout_session", basketProducts)
+    //if 500 error
+    if((checkoutSession as any).statusCode === 500) {
+      console.error((checkoutSession as any).message);
+      return;
+    }
+    // Przekierowanie do checkout
+    const stripe = await getStripe()
+    const {error} = await stripe!.redirectToCheckout({
+      sessionId: checkoutSession.id
+    });
+    //loguje błąd jeżeli jest jakikolwiek błąd z checkoutem
+    console.warn(error.message)
+  }
+
+
+
   return (
     <div className='checkout_page flex flex-col justify-center items-center'>
         <Head>
@@ -57,7 +78,7 @@ const confirm = () => {
                 </div>
                 <div className='summary_buttons font-light p-3 flex justify-between items-center text-[12px] md:text-[15px]'>
                   <button onClick={() => Router.push("/checkout")} className='px-3 py-1 border-[1px] border-[#adadad]'>Wstecz</button>
-                  <button type='submit' className='px-3 py-1 shadow-lg w-[120px] md:w-[170px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' >Kupuję i płacę</button>
+                  <button onClick={createCheckoutSession} type='submit' className='px-3 py-1 shadow-lg w-[120px] md:w-[170px] bg-[#F4C1C5] text-[#ae535a] hover:bg-[#c7747b] hover:text-white' >Kupuję i płacę</button>
                 </div>
                 </>
               )
