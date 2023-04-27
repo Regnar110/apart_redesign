@@ -14,8 +14,8 @@ const ProductImagesGrid = ({singleProduct}:Props) => {
     <div className='product_images_grid relative w-full md:w-auto md:grid md:grid-cols-2 justify-items-center'>
         <MediaQuery minWidth={1280}>
             <Image blurDataURL={singleProduct.image[0].asset.url} priority className='col-span-2' width={800} height={630} style={{objectFit:"contain", width:"auto"}} src={urlFor(singleProduct?.image[0]).url()} alt={'product_image'} />   
-            <Image priority className='col-span-1' width={400} height={350} style={{objectFit:"contain", width:"auto"}} src={urlFor(singleProduct?.image[0]).url()} alt={'product_image'} />
-            <Image priority className='col-span-1' width={400} height={350} style={{objectFit:"contain", width:"auto"}} src={urlFor(singleProduct?.image[0]).url()} alt={'product_image'} /> 
+            <Image priority className='col-span-1' width={300} height={200} style={{objectFit:"contain", width:"auto"}} src={urlFor(singleProduct?.image[0]).url()} alt={'product_image'} />
+            <Image priority className='col-span-1' width={300} height={200} style={{objectFit:"contain", width:"auto"}} src={urlFor(singleProduct?.image[0]).url()} alt={'product_image'} /> 
         </MediaQuery>
         <MediaQuery minWidth={768} maxWidth={1279}>
             <Image priority className='col-span-2' width={415} height={335} style={{objectFit:"contain", width:"auto"}} src={urlFor(singleProduct?.image[0]).url()} alt={'product_image'} />   

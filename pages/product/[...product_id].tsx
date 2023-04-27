@@ -46,7 +46,7 @@ const Product = () => {
             <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navigation/>
-            <div className='product_container  px-5'>
+            <div className='product_container  px-5 pt-14'>
                 <ProductPagePresentationSection>
                     <ProductImagesGrid singleProduct={singleProduct as Product}/>
                     <ProductOperations singleProduct={singleProduct as Product} notifyAction={notifyAction} notifyBasket={notifyBasket}/>           

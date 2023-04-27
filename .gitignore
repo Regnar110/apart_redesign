@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /apartredesign
+.next.config.js
 
 # testing
 /coverage
