@@ -5,7 +5,7 @@
 /.pnp
 .pnp.js
 /apartredesign
-/next.config.js
+/env.local
 
 # testing
 /coverage
