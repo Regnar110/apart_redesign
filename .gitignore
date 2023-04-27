@@ -5,7 +5,7 @@
 /.pnp
 .pnp.js
 /apartredesign
-/env.local
+/.env
 
 # testing
 /coverage
