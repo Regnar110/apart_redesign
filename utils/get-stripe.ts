@@ -7,6 +7,7 @@ let stripePromise: Promise<Stripe | null>
 //Jeżeli stripePromise nie isnieje(stripe nie jest zainicjalizowany) to ta funkcja to zrobi
 // jeżeli natomiast jest true to już drugi ra znie będzie inicjalizował.
 const getStripe = () => {
+  console.log(process.env.STRIPE_KEY!)
   if (!stripePromise) {
     stripePromise = loadStripe(process.env.STRIPE_KEY!)
   }
