@@ -8,7 +8,7 @@ let stripePromise: Promise<Stripe | null>
 // jeżeli natomiast jest true to już drugi ra znie będzie inicjalizował.
 const getStripe = () => {
   if (!stripePromise) {
-    stripePromise = loadStripe(process.env.STRIPE_KEY!)
+    stripePromise = loadStripe(`${process.env.STRIPE_KEY!}`)
   }
   return stripePromise
 }
