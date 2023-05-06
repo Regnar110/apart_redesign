@@ -42,15 +42,15 @@ const Benefits = () => {
     <>
     <MediaQuery minWidth={768}>
         <div className='benefits_container w-full flex flex-col justify-center items-center gap-y-5 '>
-            <div className='benefits_row_one flex gap-10 xl:gap-20 md:text-[12px] lg:text-[14px] text-center mx-10 lg:mx-0'>
-                <div className='benefit flex flex-col justify-start items-center'>
+            <div className='benefits_row_one grid grid-cols-5 gap-10  md:text-[12px] lg:text-[14px] text-center mx-10 lg:mx-0'>
+                <div className='benefit flex flex-col justify-start items-center w-[150px]'>
                     <div className='benefit_svg_containet w-[60px] xl:w-[80px]'>
                         <Image src={zwrot} style={{objectFit:"contain"}} alt="korzysc"/>                
                     </div>
                     <p className='font-bold'>100 DNI</p>
                     <p>NA DARMOWY ZWROT</p>
                 </div>
-                <div className='benefit flex flex-col justify-start items-center'>
+                <div className='benefit flex flex-col justify-start items-center w-[150px]'>
                     <div className='benefit_svg_containet w-[60px] xl:w-[80px]'>
                         <Image src={dostawa} style={{objectFit:"contain"}} alt="korzysc"/>                
                     </div>
@@ -58,21 +58,21 @@ const Benefits = () => {
                     <p>DO 30TYS. PUNKTÓW</p>
                     <p>ODBIORU LUB DOMU</p>
                 </div>
-                <div className='benefit flex flex-col justify-start items-center'>
+                <div className='benefit flex flex-col justify-start items-center w-[150px]'>
                     <div className='benefit_svg_containet w-[60px] xl:w-[80px]'>
                         <Image src={opakowanie} style={{objectFit:"contain"}} alt="korzysc"/>                
                     </div>
                     <p>PIĘKNE OPAKOWANIE</p>
                     <p className='font-bold'>GRATIS</p>
                 </div>
-                <div className='benefit flex flex-col justify-start items-center'>
+                <div className='benefit flex flex-col justify-start items-center w-[150px]'>
                     <div className='benefit_svg_containet w-[60px] xl:w-[80px]'>
                         <Image src={produkty} style={{objectFit:"contain"}} alt="korzysc"/>                
                     </div>
                     <p>PONAD <span className='font-bold'>24 000</span></p>
                     <p>PIĘKNYCH PRODUKTÓW</p>
                 </div>
-                <div className='benefit flex flex-col justify-start items-center'>
+                <div className='benefit flex flex-col justify-start items-center w-[150px]'>
                     <div className='benefit_svg_containet w-[60px] xl:w-[80px]'>
                         <Image src={raty} style={{objectFit:"contain"}} alt="korzysc"/>                
                     </div>
@@ -80,37 +80,36 @@ const Benefits = () => {
                     <p>OD 300 ZŁ - <span className='font-bold'>RRSO 0%</span></p>
                 </div>
             </div>
-
-            <div className='benefits_row_two flex gap-10 xl:gap-20 md:text-[12px] lg:text-[14px] text-center mx-10 lg:mx-0'>
-                <div className='benefit flex flex-col justify-start items-center'>
+            <div className='benefits_row_two grid grid-cols-5 gap-10 md:text-[12px] lg:text-[14px] text-center mx-10 lg:mx-0'>
+                <div className='benefit flex flex-col justify-start items-center w-[150px]'>
                     <div className='benefit_svg_containet w-[60px] xl:w-[80px]'>
                         <Image src={szybkie_zwroty} style={{objectFit:"contain"}} alt="korzysc"/>                
                     </div>
                     <p>SZYBKIE ZWROTY</p>
                     <p>DO <span className='font-bold'>PACZKOMATÓW</span></p>
                 </div>
-                <div className='benefit flex flex-col justify-start items-center'>
+                <div className='benefit flex flex-col justify-start items-center w-[150px]'>
                     <div className='benefit_svg_containet w-[60px] xl:w-[80px]'>
                         <Image src={wysylka_prezent} style={{objectFit:"contain"}} alt="korzysc"/>                
                     </div>
                     <p>WYSYŁKA JAKO <span className='font-bold'>PREZENT</span></p>
                     <p>Z DEDYKACJĄ</p>
                 </div>
-                <div className='benefit flex flex-col justify-start items-center'>
+                <div className='benefit flex flex-col justify-start items-center w-[150px]'>
                     <div className='benefit_svg_containet w-[60px] xl:w-[80px]'>
                         <Image src={wysylka_24} style={{objectFit:"contain"}} alt="korzysc"/>                
                     </div>
                     <p>WYSYŁKA WIĘKSZOŚCI</p>
                     <p>PRODUKTÓW W <span className='font-bold'>24H</span></p>
                 </div>
-                <div className='benefit flex flex-col justify-start items-center'>
+                <div className='benefit flex flex-col justify-start items-center w-[150px]'>
                     <div className='benefit_svg_containet w-[60px] xl:w-[80px]'>
                         <Image src={zamow_przez_tel} style={{objectFit:"contain"}} alt="korzysc"/>                
                     </div>
                     <p>ZAMÓW PRZEZ <span className='font-bold'>TELEFON</span></p>
                     <p>LUB <span className='font-bold'>ZAREZERWUJ</span> W SALONIE</p>
                 </div>
-                <div className='benefit flex flex-col justify-start items-center font-roboto'>
+                <div className='benefit flex flex-col justify-start items-center w-[150px]'>
                     <div className='benefit_svg_containet w-[60px] xl:w-[80px]'>
                         <Image src={zaplac} style={{objectFit:"contain"}} alt="korzysc"/>                
                     </div>
